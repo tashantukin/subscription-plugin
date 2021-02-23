@@ -1,0 +1,493 @@
+/*Subscription page*/
+
+.panel-box-subs {
+	background-color: #fff;
+	box-shadow: 1px 1px 0px #999999;
+	font-family: 'Open Sans';
+	margin-bottom: 30px;
+}
+
+.panel-box-subs-bottom {
+	background-color: #fff;
+	box-shadow: 1px 1px 0px #999999;
+	font-family: 'Open Sans';
+	width: 100%;
+	float: left;
+	margin-bottom: 50px;
+	margin-top: 25px;
+}
+
+.page-content-top p.subs-plan-text {
+	font-size: 14px;
+}
+
+.page-content-top p.subs-trial-text {
+	color: #50C8FF;
+	font-size: 13px;
+	font-weight: 600;
+}
+
+.subs-container {
+	width: 100%;
+	margin-top: 25px;
+	margin-bottom: 20px;
+	float: left;
+}
+
+.subs-layer:first-child {
+	margin-left: 0px;
+}
+
+.subs-layer {
+	float: left;
+	width: 24%;
+	border-right: 1px solid #c8c8c8;
+	margin: 0px;
+	border-bottom: 3px solid #F1F1F1;
+	font-size: 12px;
+}
+
+.subs-layer-center p span:nth-child(1) {
+	font-size: 15px;
+	margin-right: 10px;
+	vertical-align: super;
+}
+
+.subs-layer-center p span:nth-child(2) {
+	font-size: 30px;
+}
+
+.selected_plan_btn {
+	background: #F2F2F2;
+	color: #999;
+	border: 1px solid #C8C8C8;
+	text-align: center;
+	max-width: 150px;
+	display: block;
+	margin: 0 auto 20px;
+	height: 40px;
+	line-height: 40px;
+	font-size: 15px;
+	cursor: pointer;
+	width: 100%;
+}
+
+.announce-notice-box {
+	display: flex;
+	justify-content: space-between;
+	background-color: #fff;
+	align-items: center;
+	padding: 20px;
+	margin-bottom: 25px;
+}
+
+.notice-area {
+	display: flex;
+	align-items: center;
+}
+
+.notice-area img {
+	/*height: 40px;*/
+	/*width: auto;*/
+	margin-right: 10px;
+}
+
+.notice-content h5 {
+	font-size: 14px;
+	font-weight: 700;
+	color: #4d4d4d;
+	margin-bottom: 5px;
+}
+
+.notice-content p {
+	font-size: 14px;
+	color: #494949;
+	margin-bottom: 0px;
+}
+
+.btn-started {
+	background-color: #50c8ff;
+	color: #fff;
+	border-radius: 0px;
+	border: 1px solid #50c8ff;
+	outline: none !important;
+	box-shadow: none !important;
+	padding: 6px 50px;
+}
+
+.btn-dismiss {
+	background-color: #999999;
+	color: #fff;
+	border-radius: 0px;
+	border: 1px solid #999;
+	outline: none !important;
+	box-shadow: none !important;
+}
+
+.btn-started:focus,
+.btn-started:focus,
+.btn-started:hover {
+	background-color: #fff;
+	color: #50c8ff;
+	border-radius: 0px;
+}
+
+.btn-dismiss:focus,
+.btn-dismiss:focus,
+.btn-dismiss:hover {
+	background-color: #fff;
+	color: #999999;
+	border-radius: 0px;
+}
+
+.announce-action {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.btn-border-right {
+	position: relative;
+	margin-right: 40px;
+}
+
+.btn-border-right:after {
+	content: '';
+	margin: auto;
+	border-right: 2px solid #d2d2d2;
+	position: absolute;
+	right: -20px;
+	height: 100%;
+	top: 0px;
+}
+
+@media (min-width: 581px) {
+	.page-subscription .subs-layer {
+		margin-left: 25px;
+		width: 31%;
+	}
+	.page-subscription .subs-three-layer {
+		margin-left: 25px;
+		width: 31%;
+	}
+}
+
+.page-subscription .subs-layer:first-child {
+	margin-left: 0;
+}
+
+.page-subscription .subs-layer-top {
+	background: #494949;
+}
+
+.page-subscription .subs-layer-center p span:nth-child(1) {
+	font-size: 30px;
+	margin-right: 5px;
+}
+
+.page-subscription .subs-layer-center p span:nth-child(2) {
+	font-size: 14px;
+}
+
+.page-subscription .subs-layer-center p:nth-child(2) {
+	color: #000;
+}
+
+.page-subscription .subs-layer-center {
+	background: #fff;
+	color: #50C8FF;
+}
+
+.subs-layer-center p {
+	width: 100%;
+	text-align: center;
+	font-size: 14px;
+}
+
+.subs-layer-center {
+	background: #494949;
+	float: left;
+	width: 100%;
+	text-align: center;
+	color: #fff;
+	padding: 25px 0;
+	font-size: 20px;
+}
+
+.subs-layer-top {
+	background: #50C8FF;
+	float: left;
+	width: 100%;
+	text-align: center;
+	color: #fff;
+	padding: 15px 0;
+	font-size: 14px;
+}
+
+.subs-length-text {
+	color: #494949;
+	font-weight: 700;
+	text-align: center;
+	width: 100%;
+	float: left;
+}
+
+.subs-layer-bottom {
+	width: 100%;
+	float: left;
+	background: #fff;
+	padding: 20px 20px 50px;
+	border-bottom: 3px solid #999;
+}
+
+.subs-select {
+	width: 100%;
+	float: left;
+	border: 1px solid #8D8D8D;
+	background-color: #fff;
+	height: 45px;
+	display: inline-block;
+	border-radius: 0px;
+	outline: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	background-image: url(../images/red-down-arrow.svg);
+	background-repeat: no-repeat;
+	background-position: 96% center;
+	padding: 0 35px 0 15px;
+	margin: 15px 0 25px;
+}
+
+.btn-subs-purchase:hover {
+	background: #4d4d4d;
+}
+
+.btn-subs-purchase {
+	margin-top: 20px;
+	background: #50C8FF;
+	color: #fff;
+	text-align: center;
+	max-width: 150px;
+	display: block;
+	margin: 0 auto 20px;
+	height: 40px;
+	line-height: 40px;
+	font-size: 15px;
+	cursor: pointer;
+	width: 100%;
+}
+
+.btn-subs-container {
+	float: left;
+	width: 100%;
+	border-bottom: 1px solid #999;
+	margin-bottom: 20px;
+}
+
+.subscription_gray_message {
+	background: #a3b8bd;
+	color: #fff;
+	padding: 10px;
+}
+
+.subscription_gray_message strong {
+	color: #000;
+}
+
+.subscription_gray_message a {
+	text-decoration: underline;
+	color: #fff;
+}
+
+.subscription_red_message {
+	background: #EF7677;
+	color: #fff;
+	padding: 10px;
+}
+
+.switch_billing_plan {
+	width: 100%;
+	clear: both;
+	margin-top: 20px;
+	text-align: left;
+	padding: 15px 0px;
+}
+
+.switch_billing_plan select {
+	border: 1px solid #c8c8c8;
+	padding: 8px 40px 8px 15px;
+	font-weight: 600;
+	width: 250px;
+	max-width: 100%;
+	outline: none;
+	appearance: none;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	background: #fff url(../images/blue-down-arrow.svg) 95% 8px no-repeat;
+	color: #4d4d4d;
+	cursor: pointer;
+}
+
+.switch_billing_plan span {
+	font-weight: 600;
+	color: #000;
+	margin-right: 10px;
+}
+
+.subs-layer-center p.subscribe_plan_small_txt {
+	font-size: 12px;
+	color: #999;
+	max-width: 150px;
+	margin: auto;
+	text-align: center;
+	word-break: break-word;
+	white-space: pre-line;
+	position: relative;
+	padding-top: 10px;
+}
+
+.subs-layer-center sup {
+	top: -6px;
+	padding-right: 5px;
+	font-size: 20px;
+}
+
+.sub-free-ssl {
+	font-size: 14px;
+	font-weight: 600;
+	color: #ff0000;
+	margin-top: 7px;
+}
+
+.sub-free-ssl-white {
+	font-size: 14px;
+	font-weight: 600;
+	color: #ffffff;
+	margin-top: 7px;
+}
+
+.subscribe-top-left {
+	width: 68%;
+	padding-right: 10%;
+}
+
+.subscribe-top-right {
+	width: 210px;
+	text-align: right;
+}
+
+p.currently_subscribe_text {
+	font-size: 12px;
+	font-weight: normal;
+}
+
+p.current_package_name {
+	font-size: 24px;
+	font-weight: 600;
+	color: #296AB2;
+}
+
+.subs-list-container {
+	float: left;
+	width: 100%;
+}
+
+ul.subs-list-container li {
+	text-align: center;
+	padding-bottom: 18px;
+}
+
+ul.subs-list-container li strong {
+	color: #494949;
+}
+
+.subs-note {
+	width: 100%;
+	color: #999;
+	font-size: 13px;
+	padding: 15px 0;
+	float: left;
+	border-bottom: 1px solid #999;
+	margin-bottom: 25px;
+}
+
+.panel-box-subs-bottom p {
+	font-weight: 400;
+	font-size: 15px;
+}
+
+.subs-blue-text {
+	color: #50C8FF;
+	font-weight: 600;
+}
+
+.page-content-top .icon-reminder.icon-3x {
+	width: 45px;
+	height: 45px;
+}
+
+ul.subs-list-container li.strikethrough {
+	color: #c8c8c8;
+	text-decoration: line-through;
+}
+
+.subs-layer-center p.limited {
+	font-size: 18px;
+}
+
+.subs-layer-center.blue {
+	background: #50C8FF;
+	cursor: pointer;
+}
+
+.subs-layer-bottom .unavailable {
+	color: #c8c8c8;
+	font-size: 14px;
+	text-align: center;
+	padding: 10px 0 30px;
+}
+
+.subs-layer-bottom .selected {
+	color: #50c8ff;
+	font-size: 14px;
+	text-align: center;
+	padding: 10px 0 30px;
+}
+
+.subscription-fee-apply-txt {
+	margin-top: 18px;
+	margin-bottom: 18px;
+	font-size: 12px;
+	color: #999;
+}
+
+.subscription-plan-upgrade-txt {
+	font-size: 12px;
+	color: #999;
+	line-height: 20px;
+}
+
+.subscription-premium-plan-sec {
+	margin: 50px auto;
+	width: 100%;
+	text-align: center;
+}
+
+.premium-plan-title {
+	font-size: 18px;
+	color: #4d4d4d;
+	font-weight: 600;
+	margin-bottom: 10px;
+}
+
+.sub-premium-box {
+	width: 16%;
+	margin: 30px 15px;
+	display: inline-block;
+}
+
+.sub-premium-txt {
+	font-size: 14px;
+	color: #4d4d4d;
+	margin-top: 10px;
+}

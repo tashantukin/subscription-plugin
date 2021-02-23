@@ -1,0 +1,1191 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Subscription</title>
+    <!-- core js -->
+    <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <!-- bootstrap js -->
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <!-- nicescroll js -->
+    <script type="text/javascript" src="js/jquery.nicescroll.min.js"></script>
+    <!-- bootbox js -->
+    <script type="text/javascript" src="js/bootbox.min.js"></script>
+    <!-- tablesorter js -->
+    <script type="text/javascript" src="js/jquery.tablesorter.js"></script>
+    <!-- html5upload js -->
+    <script type="text/javascript" src="js/html5imageupload.min.js"></script>
+    <!-- Moment js -->
+    <script type="text/javascript" src="js/moment.min.js"></script>
+    <!-- DatetimePicker js -->
+    <script type="text/javascript" src="js/bootstrap-datetimepicker.min.js"></script>
+    <!-- custom js -->
+    <script type="text/javascript" src="js/custom.js"></script>
+    <!-- bootstrap style -->
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="css/jquery-ui.min.css" rel="stylesheet" type="text/css">
+    <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css">
+    <!-- custom style-->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+
+    <!-- responsive style-->
+    <link href="css/responsive.css" rel="stylesheet" type="text/css">
+</head>
+
+<body class="page-subscription">
+    <div class="mobi-header visible-xs">
+        <div class="container">
+            <div class="pull-left">
+                <div class="brand-logo"><a href="#"><img alt="logo" src="images/brand-logo.png"></a></div>
+            </div>
+            <div class="pull-right">
+                <button type="button" class="navbar-toggle"> <span class="sr-only">Toggle navigation</span> <span
+                        class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <div class="main template-sidebar">
+        <div class="col-sm-3 sidebar" id="mySidebar">
+            <a href="javascript:void(0)" class="side-btn"><i class="fas fa-angle-right"></i></a>
+            <div class="main-logo">
+                <a href="start.html">
+                    <img src="images/logo.svg" alt="arcadier" title="arcadier" class="full-logo">
+                    <img src="images/short-logo.svg" alt="arcadier" title="arcadier" class="short-logo">
+                </a>
+            </div>
+            <div class="setion-wrapper">
+                <div class="section-sidebar">
+
+                    <ul class="section-links">
+                        <li class="blue-text"><a href="/"><i class="icon icon-viewmarket"></i><span>View
+                                    Marketplace</span></a></li>
+                        <li><a href="announcement.html"><i
+                                    class="icon icon-announcements"></i><span>Announcements</span></a></li>
+                        <li><a href="user-list.html"><i class="icon icon-users"></i><span>Users</span></a></li>
+                        <li><a href="items.html"><i class="icon icon-item"></i><span>Items</span></a></li>
+                        <li>
+                            <a href="javascript:;" data-toggle="collapse" data-target="#transaction" class="collapsed">
+                                <i class="icon icon-startselling"></i>
+                                <span>Transactions</span>
+                            </a>
+                            <div class="collapse" id="transaction" aria-expanded="true">
+                                <ul class="flex-column nav pl-25">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="transactions.html">Transaction List</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="purchase-order-list.html">PO List</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="failed-transaction.html">Failed Transactions </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="javascript:;" data-toggle="collapse" data-target="#configration" class="collapsed">
+                                <i class="icon icon-Configration"></i>
+                                <span>Configuration</span>
+                            </a>
+                            <div class="collapse" id="configration" aria-expanded="true">
+                                <ul class="flex-column nav pl-25">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="category.html">Categories </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="custom-listing.html">Custom Fields </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="external-links.html">External Links </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="category_comm.html">Commission </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="custom_domain.html">Custom Domain </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="payments.html">Setup Payments </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="feature_toggle.html">Feature toggle</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="javascript:;" data-toggle="collapse" data-target="#Customize" class="collapsed">
+                                <i class="icon icon-customize"></i> <span>Customize</span></span>
+                            </a>
+                            <div class="collapse" id="Customize" aria-expanded="true">
+                                <ul class="flex-column nav pl-25">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="general.html">General </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="theme.html">Theme </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="layout.html">Homepage Layout </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="about-us.html">About Us </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="customize_policy.html">Marketplace Policies </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="custom_code.html">Custom Codes </a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="javascript:;" data-toggle="collapse" data-target="#permission" class="collapsed">
+                                <i class="icon icon-permission"></i>
+                                <span>Permissions</span>
+                            </a>
+                            <div class="collapse" id="permission" aria-expanded="true">
+                                <ul class="flex-column nav pl-25">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="private-setting.html">Private Marketplace </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="waiting-list.html">Waiting List </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="admin-permission.html">Admin Permissions </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="activity-log.html">Admin Activity Log </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="multi-merchant-access.html">Merchant Sub-Accounts </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="javascript:;" data-toggle="collapse" data-target="#emailnotification"
+                                class="collapsed">
+                                <i class="icon icon-emailnotification"></i>
+                                <span>Email Notifications</span>
+                            </a>
+                            <div class="collapse" id="emailnotification" aria-expanded="true">
+                                <ul class="flex-column nav pl-25">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="email-template.html">Email Template</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="mail-log.html">Mail Log</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="javascript:;" data-toggle="collapse" data-target="#analytics" class="collapsed">
+                                <i class="icon icon-analytics"></i>
+                                <span>Analytics/SEO</span>
+                            </a>
+                            <div class="collapse" id="analytics" aria-expanded="true">
+                                <ul class="flex-column nav pl-25">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="admin_dashboard.html">Marketplace Analytics</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="analytics.html">Google Analytics</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="seo.html">SEO</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="robots.html">Robots</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="sitemap.html">Sitemap</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="javascript:;" data-toggle="collapse" data-target="#language" class="collapsed">
+                                <i class="icon icon-language"></i>
+                                <span>Language</span>
+                            </a>
+                            <div class="collapse" id="language" aria-expanded="true">
+                                <ul class="flex-column nav pl-25">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="language.html">Language Settings</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="web-content.html">Edit Text</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="google_translate.html">Google Translate </a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="active">
+                            <a href="javascript:;" data-toggle="collapse" data-target="#settings" class="collapsed">
+                                <i class="icon icon-settings"></i>
+                                <span>Settings</span>
+                            </a>
+                            <div class="collapse in" id="settings" aria-expanded="true">
+                                <ul class="flex-column nav pl-25">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="account-info.html">Account Info</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="contact-info.html">Contact Info</a>
+                                    </li>
+                                    <li class="nav-item active">
+                                        <a class="nav-link" href="subscription.html">Subscriptions</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="subscription-invoice.html">Subscription History </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="javascript:;" data-toggle="collapse" data-target="#plugin" class="collapsed">
+                                <i class="icon icon-plugin"></i>
+                                <span>Plug-ins</span>
+                            </a>
+                            <div class="collapse" id="plugin" aria-expanded="true">
+                                <ul class="flex-column nav pl-25">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="dev_package.html">Marketplace</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="https://support.arcadier.com/"><i class="icon icon-help"></i><span>Help
+                                    Centre</span></a>
+                        </li>
+                        <li><a data-toggle="modal" data-target="#StartSelling" href="javascript:void(0);"><i
+                                    class="icon icon-marketplacedata"></i><span>Start Selling</span></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="sidebar-footer">
+                <ul>
+                    <li><a href="#">Terms & Conditions</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <form action="" method="post"><input name="__RequestVerificationToken" type="hidden" value="">
+                        <li class="menu-item item-logout">
+                            <a href="#" onclick="$(this).closest('form').submit()">Logout</a>
+                        </li>
+                    </form>
+
+                </ul>
+            </div>
+        </div>
+        <div class="col-sm-9 main-content" id="main">
+            <div class="page-header" id="no-sub-title">
+                <div class="pull-left">
+                    <div class="wrapper">
+                        <div class="page-icon"><i class="icon icon-doller"></i></div>
+                        <div class="page-title">
+                            <h1>Subscription</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="subscription_gray_message"><i class="icon icon-reminder"></i>Your Free-Trial ends in
+                <strong>30</strong> days! <a href="#">Subscribe now</a> to enjoy unlimited access to your marketplace!
+            </div>
+            <div class="subscription_red_message hide"><i class="icon icon-reminder"></i>Your Free-Trial has ended!
+                Subscribe now to enjoy unlimited access to your marketplace!</div>
+            <div class="page-content" id="subscription-content">
+                <div class="gutter-wrapper">
+                    <div class="panel-box-subs">
+                        <div class="page-content-top">
+                            <div><i class="icon icon-doller icon-policies-header icon-3x"></i></div>
+                            <div class="subscribe-top-left">
+                                <p class="currently_subscribe_text">You are currently subscribed to</p>
+
+                                <p class="current_package_name" data-current-package-name="@currentPackageName">Basic
+                                    Package</p>
+                            </div>
+                            <div class="subscribe-top-right"><a href="subscription-invoice.html" class="white-btn">View
+                                    Payment Invoices</a></div>
+                        </div>
+                        <div class="page-content-btm">
+                            <p>Manage your membership plan for your very own marketplace.</p>
+                            <p>Upon subscribing or cancelling your subscription, you will be prompted to settle the
+                                payment on this page. </p>
+                            <p>All payments will be settled across a Secured Gateway.</p>
+                        </div>
+                    </div>
+
+
+                    <div class="panel-box panel-box-scale">
+                        <div class="page-content-top">
+                            <div><i class="icon scale-logo"></i></div>
+                            <div class="scale-text-container">
+                                <p class="interest-text">Interested in our SCALE Package?</p>
+                                <p>Book a free consulation with us to <a href="https://arcadier.com/scale.html">learn
+                                        more</a> about our SCALE subscription and how you can customise** your
+                                    marketplace.</p>
+                            </div>
+                            <div class="scale-buttons-container">
+                                <a href="https://arcadier.com/scale.html">Learn more</a>
+                                <!-- Calendly link widget begin -->
+                                <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+                                <script src="https://assets.calendly.com/assets/external/widget.js"
+                                    type="text/javascript"></script>
+                                <a href="" class="blue-btn"
+                                    onclick="Calendly.initPopupWidget({url: 'https://calendly.com/arcadier/scale-package-consultation'});return false;">Book
+                                    a SCALE Consult</a>
+                                <!-- Calendly link widget end -->
+                                <!-- <a href="javascript:void(0)" class="blue-btn" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/arcadier/scale-package-consultation'});return false;">Book a SCALE consult</a> -->
+                                <!-- <a href="#" class="blue-btn">Book a SCALE consult</a> -->
+                            </div>
+                        </div>
+
+                    </div>
+                    <div>
+                    </div>
+                    <div class="switch_billing_plan">
+                        <span>Switch to:</span>
+                        <select onchange="changeSubscribePlan(this)" id="subscribePlanlist">
+                            <option value="monthly-plan">Monthly</option>
+                            <option value="6month-plan" selected>6 Months Billing (+)</option>
+                            <option value="yearly-plan">Yearly</option>
+                        </select>
+                    </div>
+                    <div class="subs-container">
+                        <ul>
+                            <li id="monthly-plan" style="display:none">
+
+                                <div class="subs-layer basic">
+                                    <div class="subs-layer-top">BASIC</div>
+                                    <div class="subs-layer-center">
+                                        <p><span>79</span><span>USD</span></p>
+                                        <p>per month</p>
+                                    </div>
+                                    <div class="subs-layer-bottom">
+                                        <div class="btn-subs-container">
+                                            <a href="subscription_pay.html"> <span
+                                                    class="selected_plan_btn">Selected</span></a>
+                                        </div>
+                                        <ul class="subs-list-container">
+                                            <li>
+                                                <div class="tool-tips">Unlimited users and listings <span
+                                                        class="tooltiptext">No limits to buyers & sellers <br />
+                                                        signs up and listings uploaded.</span></div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">No transaction fees*<span class="tooltiptext">The
+                                                        clip you earned per <br />
+                                                        every transaction is all yours!</span></div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips"><strong>500</strong> transactions / month^ <span
+                                                        class="tooltiptext">You will be automatically<br />
+                                                        upgraded once you hit the limit</span></div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">No Arcadier Branding</div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">Custom Domain names <span
+                                                        class="tooltiptext">Give your marketplace its own <br />
+                                                        personalized domain name</span></div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">Custom Code Input(HTML,CSS)</div>
+                                            </li>
+                                            <li class="strikethrough">
+                                                <div>Custom Javascript editor
+                                                    <!-- <span class="tooltiptext">Enhance your marketplace <br />
+                                                        with 3rd party add-ons</span> -->
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">Customisable Homepage <span
+                                                        class="tooltiptext">Add multiple cover images,<br /> additional
+                                                        panels and value <br />propositions to make your<br />
+                                                        marketplace customised<br /> to your liking</span></div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">Plug-in Marketplace Access</div>
+                                            </li>
+                                            <li class="strikethrough">
+                                                <div class="tool-tips">Private Plug-ins</div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">Google Analyitcs <span class="tooltiptext">Track
+                                                        and see how well your<br />
+                                                        marketplace’s web traffic is <br />
+                                                        doing via Google Analytic Tools</span></div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">Email/Digital support <span
+                                                        class="tooltiptext">We treat all our customers <br />
+                                                        with utmost importance, <br />
+                                                        some more than others</span></div>
+                                            </li>
+                                            <li class="strikethrough">Access to our APIs</li>
+                                            <li>&nbsp;</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="subs-layer growth">
+                                    <div class="subs-layer-top">GROWTH</div>
+                                    <div class="subs-layer-center">
+                                        <p><span>199</span><span>USD</span></p>
+                                        <p>per month</p>
+                                    </div>
+                                    <div class="subs-layer-bottom">
+                                        <div class="btn-subs-container">
+                                            <a href="subscription_pay.html"> <span
+                                                    class="btn-subs-purchase">Upgrade</span></a>
+                                        </div>
+                                        <ul class="subs-list-container">
+                                            <li>
+                                                <div class="tool-tips">Unlimited users and listings <span
+                                                        class="tooltiptext">No limits to buyers & sellers <br />
+                                                        signs up and listings uploaded.</span></div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">No transaction fees*<span class="tooltiptext">The
+                                                        clip you earned per <br />
+                                                        every transaction is all yours!</span></div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips"><strong>2,500</strong> transactions / month^
+                                                    <span class="tooltiptext">You will be automatically<br />
+                                                        upgraded once you hit the limit</span></div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">No Arcadier Branding</div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">Custom Domain names <span
+                                                        class="tooltiptext">Give your marketplace its own <br />
+                                                        personalized domain name</span></div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">Custom Code Input(HTML,CSS)</div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">Custom Javascript editor <span
+                                                        class="tooltiptext">Enhance your marketplace <br />
+                                                        with 3rd party add-ons</span></div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">Customisable Homepage <span
+                                                        class="tooltiptext">Add multiple cover images,<br /> additional
+                                                        panels and value <br />propositions to make your<br />
+                                                        marketplace customised<br /> to your liking</span></div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">Plug-in Marketplace Access</div>
+                                            </li>
+                                            <li class="strikethrough">
+                                                <div class="tool-tips">Private Plug-ins</div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">Google Analyitcs <span class="tooltiptext">Track
+                                                        and see how well your<br />
+                                                        marketplace’s web traffic is <br />
+                                                        doing via Google Analytic Tools</span></div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">Email/Digital support <span
+                                                        class="tooltiptext">We treat all our customers <br />
+                                                        with utmost importance, <br />
+                                                        some more than others</span></div>
+                                            </li>
+                                            <li class="strikethrough">
+                                                <div>Access to our APIs
+                                                    <!-- <span class="tooltiptext">You will be given the Client ID <br />
+                                                        and Client Secret to build even<br />
+                                                        more features for your marketplace. Refer to <a href="https://www.arcadier.com/api.html" target="_blank">https://www.arcadier.com/api.html</a> for more details!</span> -->
+                                                </div>
+                                            </li>
+                                            <li>&nbsp;</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="subs-layer scale">
+                                    <div class="subs-layer-top">SCALE</div>
+                                    <div class="subs-layer-center">
+                                        <p><span>499</span><span>USD</span></p>
+                                        <p>per month</p>
+                                    </div>
+                                    <div class="subs-layer-bottom">
+                                        <div class="btn-subs-container"> <a href="subscription-upgrade.html"> <span
+                                                    class="btn-subs-purchase">Upgrade</span></a> </div>
+                                        <ul class="subs-list-container">
+                                            <li>
+                                                <div class="tool-tips">Unlimited users and listings <span
+                                                        class="tooltiptext">No limits to buyers & sellers <br />
+                                                        signs up and listings uploaded.</span></div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">No transaction fees*<span class="tooltiptext">The
+                                                        clip you earned per <br />
+                                                        every transaction is all yours!</span></div>
+                                            </li>
+                                            <li>
+                                                <div><strong>10,000</strong> transactions / month^</div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">No Arcadier Branding</div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">Custom Domain names <span
+                                                        class="tooltiptext">Give your marketplace its own <br />
+                                                        personalized domain name</span></div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">Custom Code Input(HTML,CSS)</div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">Custom Javascript editor <span
+                                                        class="tooltiptext">Enhance your marketplace <br />
+                                                        with 3rd party add-ons</span></div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">Customisable Homepage <span
+                                                        class="tooltiptext">Add multiple cover images,<br /> additional
+                                                        panels and value <br />propositions to make your<br />
+                                                        marketplace customised<br /> to your liking</span></div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">Plug-in Marketplace Access</div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips"><a
+                                                        href="https://bootstrap.arcadier.com/hivebox_new/dev_package.html#private-plug-ins">Private
+                                                        Plug-ins</a></div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">Google Analyitcs <span class="tooltiptext">Track
+                                                        and see how well your<br />
+                                                        marketplace’s web traffic is <br />
+                                                        doing via Google Analytic Tools</span></div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">Email/Digital support <span
+                                                        class="tooltiptext">We treat all our customers <br />
+                                                        with utmost importance, <br />
+                                                        some more than others</span></div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips"><a href="https://api.arcadier.com/welcome"
+                                                        target="_blank">Full API Access</a> <span
+                                                        class="tooltiptext">You will be given the Client ID <br />
+                                                        and Client Secret to build even<br />
+                                                        more features for your marketplace. Refer to <a
+                                                            href="https://api.arcadier.com/welcome"
+                                                            target="_blank">https://api.arcadier.com/welcome</a> for
+                                                        more details!</span></div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips"><a href="https://api.arcadier.com/sdk"
+                                                        target="_blank">Full SDK Access</a></div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                            <li id="6month-plan">
+                                <div class="subs-layer subs-three-layer basic">
+                                    <div class="subs-layer-top">BASIC</div>
+                                    <div class="subs-layer-center">
+                                        <p><span><sup>
+                                                    << /sup>68 </span> <span>USD</span></p>
+                                        <p>per month</p>
+                                        <p class="subscribe_plan_small_txt">billed every 6 months $403 in total</p>
+                                    </div>
+                                    <div class="subs-layer-bottom">
+                                        <div class="btn-subs-container">
+                                            <a href="subscription_pay.html"> <span
+                                                    class="selected_plan_btn">Selected</span></a>
+                                        </div>
+                                        <ul class="subs-list-container">
+                                            <li>
+                                                <div class="tool-tips">Unlimited users and listings <span
+                                                        class="tooltiptext">No limits to buyers & sellers <br />
+                                                        signs up and listings uploaded.</span></div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">No transaction fees*<span class="tooltiptext">The
+                                                        clip you earned per <br />
+                                                        every transaction is all yours!</span></div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips"><strong>500</strong> transactions / month^ <span
+                                                        class="tooltiptext">You will be automatically<br />
+                                                        upgraded once you hit the limit</span></div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">No Arcadier Branding</div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">Custom Domain names <span
+                                                        class="tooltiptext">Give your marketplace its own <br />
+                                                        personalized domain name</span></div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">Custom Code Input(HTML,CSS)</div>
+                                            </li>
+                                            <li class="strikethrough">
+                                                <div>Custom Javascript editor
+                                                    <!-- <span class="tooltiptext">Enhance your marketplace <br />
+                                                        with 3rd party add-ons</span> -->
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">Customisable Homepage <span
+                                                        class="tooltiptext">Add multiple cover images,<br /> additional
+                                                        panels and value <br />propositions to make your<br />
+                                                        marketplace customised<br /> to your liking</span></div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">Plug-in Marketplace Access</div>
+                                            </li>
+                                            <li class="strikethrough">
+                                                <div class="tool-tips">Private Plug-ins</div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">Google Analyitcs <span class="tooltiptext">Track
+                                                        and see how well your<br />
+                                                        marketplace’s web traffic is <br />
+                                                        doing via Google Analytic Tools</span></div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">Email/Digital support <span
+                                                        class="tooltiptext">We treat all our customers <br />
+                                                        with utmost importance, <br />
+                                                        some more than others</span></div>
+                                            </li>
+                                            <li class="strikethrough">Access to our APIs</li>
+                                            <li>&nbsp;</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="subs-layer subs-three-layer growth">
+                                    <div class="subs-layer-top">GROWTH</div>
+                                    <div class="subs-layer-center">
+                                        <p><span><sup>
+                                                    << /sup>170 </span> <span>USD</span></p>
+                                        <p>per month</p>
+                                        <p class="subscribe_plan_small_txt">billed every 6 months $1,015 in total</p>
+                                    </div>
+                                    <div class="subs-layer-bottom">
+                                        <div class="btn-subs-container">
+                                            <a href="subscription_pay.html"> <span
+                                                    class="btn-subs-purchase">Upgrade</span></a>
+                                        </div>
+                                        <ul class="subs-list-container">
+                                            <li>
+                                                <div class="tool-tips">Unlimited users and listings <span
+                                                        class="tooltiptext">No limits to buyers & sellers <br />
+                                                        signs up and listings uploaded.</span></div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">No transaction fees*<span class="tooltiptext">The
+                                                        clip you earned per <br />
+                                                        every transaction is all yours!</span></div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips"><strong>2,500</strong> transactions / month^
+                                                    <span class="tooltiptext">You will be automatically<br />
+                                                        upgraded once you hit the limit</span></div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">No Arcadier Branding</div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">Custom Domain names <span
+                                                        class="tooltiptext">Give your marketplace its own <br />
+                                                        personalized domain name</span></div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">Custom Code Input(HTML,CSS)</div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">Custom Javascript editor <span
+                                                        class="tooltiptext">Enhance your marketplace <br />
+                                                        with 3rd party add-ons</span></div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">Customisable Homepage <span
+                                                        class="tooltiptext">Add multiple cover images,<br /> additional
+                                                        panels and value <br />propositions to make your<br />
+                                                        marketplace customised<br /> to your liking</span></div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">Plug-in Marketplace Access</div>
+                                            </li>
+                                            <li class="strikethrough">
+                                                <div class="tool-tips">Private Plug-ins</div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">Google Analyitcs <span class="tooltiptext">Track
+                                                        and see how well your<br />
+                                                        marketplace’s web traffic is <br />
+                                                        doing via Google Analytic Tools</span></div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">Email/Digital support <span
+                                                        class="tooltiptext">We treat all our customers <br />
+                                                        with utmost importance, <br />
+                                                        some more than others</span></div>
+                                            </li>
+                                            <li class="strikethrough">
+                                                <div>Access to our APIs
+                                                    <!-- <span class="tooltiptext">You will be given the Client ID <br />
+                                                        and Client Secret to build even<br />
+                                                        more features for your marketplace. Refer to <a href="https://www.arcadier.com/api.html" target="_blank">https://www.arcadier.com/api.html</a> for more details!</span> -->
+                                                </div>
+                                            </li>
+                                            <li>&nbsp;</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="subs-layer subs-three-layer scale">
+                                    <div class="subs-layer-top">SCALE</div>
+                                    <div class="subs-layer-center">
+                                        <p><span><sup>
+                                                    << /sup>425 </span> <span>USD</span></p>
+                                        <p>per month</p>
+                                        <p class="subscribe_plan_small_txt">billed every 6 months $2,454 in total</p>
+                                    </div>
+                                    <div class="subs-layer-bottom">
+                                        <div class="btn-subs-container"> <a href="subscription-upgrade.html"> <span
+                                                    class="btn-subs-purchase">Upgrade</span></a> </div>
+                                        <ul class="subs-list-container">
+                                            <li>
+                                                <div class="tool-tips">Unlimited users and listings <span
+                                                        class="tooltiptext">No limits to buyers & sellers <br />
+                                                        signs up and listings uploaded.</span></div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">No transaction fees*<span class="tooltiptext">The
+                                                        clip you earned per <br />
+                                                        every transaction is all yours!</span></div>
+                                            </li>
+                                            <li>
+                                                <div><strong>10,000</strong> transactions / month^</div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">No Arcadier Branding</div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">Custom Domain names <span
+                                                        class="tooltiptext">Give your marketplace its own <br />
+                                                        personalized domain name</span></div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">Custom Code Input(HTML,CSS)</div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">Custom Javascript editor <span
+                                                        class="tooltiptext">Enhance your marketplace <br />
+                                                        with 3rd party add-ons</span></div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">Customisable Homepage <span
+                                                        class="tooltiptext">Add multiple cover images,<br /> additional
+                                                        panels and value <br />propositions to make your<br />
+                                                        marketplace customised<br /> to your liking</span></div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">Plug-in Marketplace Access</div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips"><a
+                                                        href="https://bootstrap.arcadier.com/hivebox_new/dev_package.html#private-plug-ins"
+                                                        target="_blank">Private Plug-ins</a></div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">Google Analyitcs <span class="tooltiptext">Track
+                                                        and see how well your<br />
+                                                        marketplace’s web traffic is <br />
+                                                        doing via Google Analytic Tools</span></div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">Email/Digital support <span
+                                                        class="tooltiptext">We treat all our customers <br />
+                                                        with utmost importance, <br />
+                                                        some more than others</span></div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips"><a href="https://api.arcadier.com/welcome"
+                                                        target="_blank">Full API Access</a> <span
+                                                        class="tooltiptext">You will be given the Client ID <br>
+                                                        and Client Secret to build even<br>
+                                                        more features for your marketplace. Refer to <a
+                                                            href="https://api.arcadier.com/welcome"
+                                                            target="_blank">https://api.arcadier.com/welcome</a> for
+                                                        more details!</span></div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips"><a href="https://api.arcadier.com/sdk"
+                                                        target="_blank">Full SDK Access</a></div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                            <li id="yearly-plan" style="display:none">
+                                <div class="subs-layer basic">
+                                    <div class="subs-layer-top">BASIC</div>
+                                    <div class="subs-layer-center">
+                                        <p><span><sup>
+                                                    << /sup>60 </span> <span>USD</span></p>
+                                        <p>per month</p>
+                                        <p class="subscribe_plan_small_txt">billed yearly (12 months) $711 in total</p>
+                                        <!-- <div class="sub-free-ssl">FREE SSL!</div> -->
+                                    </div>
+                                    <div class="subs-layer-bottom">
+                                        <div class="btn-subs-container">
+                                            <a href="subscription_pay.html"> <span
+                                                    class="selected_plan_btn">Selected</span></a>
+                                        </div>
+                                        <ul class="subs-list-container">
+                                            <li>
+                                                <div class="tool-tips">Unlimited users and listings <span
+                                                        class="tooltiptext">No limits to buyers & sellers <br />
+                                                        signs up and listings uploaded.</span></div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">No transaction fees*<span class="tooltiptext">The
+                                                        clip you earned per <br />
+                                                        every transaction is all yours!</span></div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips"><strong>500</strong> transactions / month^ <span
+                                                        class="tooltiptext">You will be automatically<br />
+                                                        upgraded once you hit the limit</span></div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">No Arcadier Branding</div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">Custom Domain names <span
+                                                        class="tooltiptext">Give your marketplace its own <br />
+                                                        personalized domain name</span></div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">Custom Code Input(HTML,CSS)</div>
+                                            </li>
+                                            <li class="strikethrough">
+                                                <div>Custom Javascript editor
+                                                    <!-- <span class="tooltiptext">Enhance your marketplace <br />
+                                                        with 3rd party add-ons</span> -->
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">Customisable Homepage <span
+                                                        class="tooltiptext">Add multiple cover images,<br /> additional
+                                                        panels and value <br />propositions to make your<br />
+                                                        marketplace customised<br /> to your liking</span></div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">Plug-in Marketplace Access</div>
+                                            </li>
+                                            <li class="strikethrough">
+                                                <div class="tool-tips">Private Plug-ins</div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">Google Analyitcs <span class="tooltiptext">Track
+                                                        and see how well your<br />
+                                                        marketplace’s web traffic is <br />
+                                                        doing via Google Analytic Tools</span></div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">Email/Digital support <span
+                                                        class="tooltiptext">We treat all our customers <br />
+                                                        with utmost importance, <br />
+                                                        some more than others</span></div>
+                                            </li>
+                                            <li class="strikethrough">Access to our APIs</li>
+                                            <li>&nbsp;</li>
+                                            <!-- <li class="red-txt">
+                                                <strong>Free 1 year SSL Certificate</strong> <br />(worth USD $59)
+                                            </li> -->
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="subs-layer growth">
+                                    <div class="subs-layer-top">GROWTH</div>
+                                    <div class="subs-layer-center">
+                                        <p><span><sup>
+                                                    << /sup>150 </span> <span>USD</span></p>
+                                        <p>per month</p>
+                                        <p class="subscribe_plan_small_txt">billed yearly (12 months) $1,791 in total
+                                        </p>
+                                        <!-- <div class="sub-free-ssl">FREE SSL!</div> -->
+                                    </div>
+                                    <div class="subs-layer-bottom">
+                                        <div class="btn-subs-container">
+                                            <a href="subscription_pay.html"> <span
+                                                    class="btn-subs-purchase">Upgrade</span></a>
+                                        </div>
+                                        <ul class="subs-list-container">
+                                            <li>
+                                                <div class="tool-tips">Unlimited users and listings <span
+                                                        class="tooltiptext">No limits to buyers & sellers <br />
+                                                        signs up and listings uploaded.</span></div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">No transaction fees*<span class="tooltiptext">The
+                                                        clip you earned per <br />
+                                                        every transaction is all yours!</span></div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips"><strong>2,500</strong> transactions / month^
+                                                    <span class="tooltiptext">You will be automatically<br />
+                                                        upgraded once you hit the limit</span></div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">No Arcadier Branding</div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">Custom Domain names <span
+                                                        class="tooltiptext">Give your marketplace its own <br />
+                                                        personalized domain name</span></div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">Custom Code Input(HTML,CSS)</div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">Custom Javascript editor <span
+                                                        class="tooltiptext">Enhance your marketplace <br />
+                                                        with 3rd party add-ons</span></div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">Customisable Homepage <span
+                                                        class="tooltiptext">Add multiple cover images,<br /> additional
+                                                        panels and value <br />propositions to make your<br />
+                                                        marketplace customised<br /> to your liking</span></div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">Plug-in Marketplace Access</div>
+                                            </li>
+                                            <li class="strikethrough">
+                                                <div class="tool-tips">Private Plug-ins</div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">Google Analyitcs <span class="tooltiptext">Track
+                                                        and see how well your<br />
+                                                        marketplace’s web traffic is <br />
+                                                        doing via Google Analytic Tools</span></div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">Email/Digital support <span
+                                                        class="tooltiptext">We treat all our customers <br />
+                                                        with utmost importance, <br />
+                                                        some more than others</span></div>
+                                            </li>
+                                            <li class="strikethrough">
+                                                <div>Access to our APIs
+                                                    <!-- <span class="tooltiptext">You will be given the Client ID <br />
+                                                        and Client Secret to build even<br />
+                                                        more features for your marketplace. Refer to <a href="https://www.arcadier.com/api.html" target="_blank">https://www.arcadier.com/api.html</a> for more details!</span> -->
+                                                </div>
+                                            </li>
+                                            <li>&nbsp;</li>
+                                            <!-- <li class="red-txt">
+                                                <strong>Free 1 year SSL Certificate</strong> <br />(worth USD $59)
+                                            </li> -->
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="subs-layer scale">
+                                    <div class="subs-layer-top">SCALE</div>
+                                    <div class="subs-layer-center">
+                                        <p><span><sup>
+                                                    << /sup>375 </span> <span>USD</span></p>
+                                        <p>per month</p>
+                                        <p class="subscribe_plan_small_txt">billed yearly (12 months) $4,491 in total
+                                        </p>
+                                        <!-- <div class="sub-free-ssl">FREE SSL!</div> -->
+                                    </div>
+                                    <div class="subs-layer-bottom">
+                                        <div class="btn-subs-container"> <a href="subscription-upgrade.html"> <span
+                                                    class="btn-subs-purchase">Upgrade</span></a> </div>
+                                        <ul class="subs-list-container">
+                                            <li>
+                                                <div class="tool-tips">Unlimited users and listings <span
+                                                        class="tooltiptext">No limits to buyers & sellers <br />
+                                                        signs up and listings uploaded.</span></div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">No transaction fees*<span class="tooltiptext">The
+                                                        clip you earned per <br />
+                                                        every transaction is all yours!</span></div>
+                                            </li>
+                                            <li>
+                                                <div><strong>10,000</strong> transactions / month^</div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">No Arcadier Branding</div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">Custom Domain names <span
+                                                        class="tooltiptext">Give your marketplace its own <br />
+                                                        personalized domain name</span></div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">Custom Code Input(HTML,CSS)</div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">Custom Javascript editor <span
+                                                        class="tooltiptext">Enhance your marketplace <br />
+                                                        with 3rd party add-ons</span></div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">Customisable Homepage <span
+                                                        class="tooltiptext">Add multiple cover images,<br /> additional
+                                                        panels and value <br />propositions to make your<br />
+                                                        marketplace customised<br /> to your liking</span></div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">Plug-in Marketplace Access</div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips"><a
+                                                        href="https://bootstrap.arcadier.com/hivebox_new/dev_package.html#private-plug-ins">Private
+                                                        Plug-ins</a></div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">Google Analyitcs <span class="tooltiptext">Track
+                                                        and see how well your<br />
+                                                        marketplace’s web traffic is <br />
+                                                        doing via Google Analytic Tools</span></div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips">Email/Digital support <span
+                                                        class="tooltiptext">We treat all our customers <br />
+                                                        with utmost importance, <br />
+                                                        some more than others</span></div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips"><a href="https://api.arcadier.com/welcome"
+                                                        target="_blank">Full API Access</a> <span
+                                                        class="tooltiptext">You will be given the Client ID <br />
+                                                        and Client Secret to build even<br />
+                                                        more features for your marketplace. Refer to <a
+                                                            href="https://api.arcadier.com/welcome"
+                                                            target="_blank">https://api.arcadier.com/welcome</a> for
+                                                        more details!</span></div>
+                                            </li>
+                                            <li>
+                                                <div class="tool-tips"><a href="https://api.arcadier.com/sdk"
+                                                        target="_blank">Full SDK Access</a></div>
+                                            </li>
+                                            <!-- <li class="red-txt">
+                                                <strong>Free 1 year SSL Certificate</strong> <br />(worth USD $59)
+                                            </li> -->
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="subscription-fee-apply-txt">* Payment Gateway fees apply. The fees depend on the payment
+                        gateway, your country and sales volume/location (usually around 3%-4%).</div>
+                    <div class="subscription-plan-upgrade-txt">+ Full upfront payment is required for 6 months or more
+                        billing periods</div>
+                    <div class="subscription-plan-generic-txt">** Customising on SCALE Package would require the hiring
+                        of an Expert Partner. A common budget is between $5k - $20k.</div>
+
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <!-- Resubscribe confirm Popup -->
+    <div id="resubscribe_confirm_popup" class="popup popup-resubscribe" style="display: none;">
+        <div class="popup-wrapper">
+            <div class="pull-right">
+                <a href="javascript:void(0);" class="close-popup" data-dismiss="modal"><i class="icon icon-close"></i>
+                </a>
+            </div>
+            <div class="clearfix"></div>
+            <div class="popup-demo-content text-center">
+                <p class=""><strong>Confirm Resubscription</strong></p>
+            </div>
+            <div class="popup-footer">
+                <a href="javascript:void(0);" class="mybtn btn-grey" data-dismiss="modal">Cancel</a>
+                <a href="javascript:void(0);" data-dismiss="modal" class="mybtn btn-blue">Resubscribe</a>
+            </div>
+        </div>
+    </div>
+    <!-- end Resubscribe confirm Popup -->
+    <div id="cover"></div>
+    <script type="text/javascript">
+        function changeSubscribePlan(ojb) {
+            var ojbid = $('#subscribePlanlist').find(":selected").val();
+            $('#monthly-plan').hide();
+            $('#6month-plan').hide();
+            $('#yearly-plan').hide();
+            $('#' + ojbid).show();
+        }
+        jQuery(document).ready(function () {
+
+            var maxHeightContainer = -1;
+            var maxHeightHeader = -1;
+
+            /*$('.subs-layer-bottom').each(function() {      
+        
+          maxHeightContainer = maxHeightContainer > $(this).height() ? maxHeightContainer : $(this).height();     
+    
+        });     
+        $('.subs-layer-center').each(function() {      
+        
+          maxHeightHeader = maxHeightHeader > $(this).height() ? maxHeightHeader : $(this).height();      
+    
+        });     
+    
+        $('.subs-layer-bottom').each(function() {     
+        $('.subs-layer-bottom').each(function() {     
+    
+          $(this).height(maxHeightContainer);      
+        
+        });
+        $('.subs-layer-center').each(function() {     
+    
+          $(this).height(maxHeightHeader);       
+        });
+        
+        $(".subs-layer-center p.limited").css({"line-height": maxHeightHeader+"px"});
+        console.log(maxHeightHeader);
+    */
+            jQuery(".mobi-header .navbar-toggle").click(function (e) {
+                e.preventDefault();
+                jQuery("body").toggleClass("sidebar-toggled");
+            });
+            jQuery(".navbar-back").click(function () {
+                jQuery(".mobi-header .navbar-toggle").trigger('click');
+            });
+
+
+
+
+        });
+    </script>
+    <script type="text/javascript" src="js/custom-nicescroll.js"></script>
+</body>
+
+</html>

@@ -1,361 +1,66 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="css/settings.css">
-<div class="col-sm-9 main-content">
-    <div class="page-content page-layout">
-        <div class="gutter-wrapper">
-            <div class="page-topnav" style="height: 5px;">
-                <div class="float">
-
+<link rel="stylesheet" href="css/style.css">
+<div class="page-content" id="payments-content">
+    <div class="gutter-wrapper">
+        <div class="panel-box">
+            <div class="page-content-top">
+                <div><i class="icon icon-stripelogo icon-3x"></i></div>
+                <div class="page-pay-stripe">
+                    <p><a class="info-link"
+                            href="https://support.arcadier.com/hc/en-us/articles/115001376913-Setting-up-your-payment-gateway-Stripe-"
+                            target="_blank"><i class="icon blue-info-icon"></i>&nbsp;&nbsp;How do I Connect to
+                            Stripe?</a></p>
+                    <p>Stripe payments are <span>SCA</span> compliant; however Stripe’s new authentication flow does not
+                        currently not support multi-merchant checkouts. For more information on SCA, or how to
+                        enable/disable
+                        the new flow, <a href="https://arcadier.zendesk.com/hc/en-us/articles/360035530333">click
+                            here</a></p>
                 </div>
-            </div>
-            <div class="panel-box">
-
-                <div class="login-list-item">
-                    <div class="row">
-                        <div class="col-md-10 col-sm-10">
-
-                            <div class="top-header-black">
-                                <h3>User A
-                                </h3>
-
-                            </div>
-
-                        </div>
-
-                        <a href="javascript:;" class="pull-right tog"><img src="./images/tog-menu.svg" alt=""></a>
-
-                        <div class="accord_item" id="FRD">
-                            <div class="col-md-12">
-                                <div class="top-header-white item_header">
-
-                                    <a>ITEM A</a>
-                                    <a href="javascript:;" class="tog1"><img src="./images/tog-menu.svg" alt=""></a>
-
-                                </div>
-                            </div>
-                            <div class="login-method">
-
-                                <div class="row">
-
-                                    <div class="col-md-6">
-
-                                        <jumbotron>
-                                            <div class="card" style="width: inherit;">
-                                                <div class="card-header">
-                                                    <h2>Default values</h2>
-                                                </div>
-                                                <div></div>
-                                                <ul class="list-group list-group-flush">
-                                                    <li class="list-group-item">Name: <span>Item name A</span></li>
-                                                    <li class="list-group-item">Description <span>Lorem ipsum dolor sit
-                                                            amet consectetur adipisicing elit. Repellendus repellat
-                                                            impedit beatae quo minus, quod dignissimos quos quasi
-                                                            laboriosam quis earum dicta veniam aperiam dolor ratione,
-                                                            inventore eligendi, excepturi est.</span></li>
-                                                    <li class="list-group-item">Price: <span>$40,000.00</span></li>
-                                                </ul>
-                                                <div class="card-body">
-                                                    <a href="#" class="card-link">3 requested changes</a>
-
-                                                </div>
-                                            </div>
-
-
-                                        </jumbotron>
-
-                                    </div>
-                                    <div class="col-md-6">
-                                        <jumbotron>
-                                            <div class="card" style="width: inherit;">
-                                                <div class="card-header">
-                                                    <h2>Requested values</h2>
-                                                </div>
-                                                <div></div>
-                                                <ul class="list-group list-group-flush">
-                                                    <li class="list-group-item">Name: <span>Item name AAA</span></li>
-                                                    <li class="list-group-item">Description <span>Lorem ipsum dolor sit
-                                                            amet consectetur adipisicing elit. Repellendus repellat
-                                                            impedit beatae quo minus, quod dignissimos quos quasi
-                                                            laboriosam quis earum dicta veniam aperiam dolor ratione,
-                                                            inventore eligendi, excepturi est edited.</span></li>
-                                                    <li class="list-group-item">Price: <span>$50,000.00</span></li>
-                                                </ul>
-                                                <div class="card-body">
-                                                    <a href="#" class="card-link">3 requested changes</a>
-
-                                                </div>
-                                            </div>
-
-
-                                        </jumbotron>
-
-                                        <div class="btn-area text-center smaller">
-                                            <span class="grey-btn btn_delete_act">Decline</span>
-                                            <a href="#" class="save-btn" id="save">Accept</a>
-                                        </div>
-
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <!-- ITEM 2 -->
-                        <div class="accord_item" id="FRD">
-                            <div class="col-md-12">
-                                <div class="top-header-white item_header">
-                                    <a>ITEM B</a>
-                                    <a href="javascript:;" class="tog1"><img src="./images/tog-menu.svg" alt=""></a>
-                                </div>
-                            </div>
-                            <div class="login-method">
-
-                                <div class="row">
-
-                                    <div class="col-md-6">
-
-                                        <jumbotron>
-                                            <div class="card" style="width:inherit;">
-                                                <div class="card-header">
-                                                    <h2> Default values</h2>
-
-                                                </div>
-                                                <div></div>
-                                                <ul class="list-group list-group-flush">
-                                                    <li class="list-group-item">Name: <span>Item name B</span></li>
-                                                    <li class="list-group-item">Description <span>Lorem ipsum dolor sit
-                                                            amet consectetur adipisicing elit. Repellendus repellat
-                                                            impedit beatae quo minus, quod dignissimos quos quasi
-                                                            laboriosam quis earum dicta veniam aperiam dolor ratione,
-                                                            inventore eligendi, excepturi est.</span></li>
-                                                    <li class="list-group-item">Price: <span>$40,000.00</span></li>
-                                                </ul>
-                                                <div class="card-body">
-                                                    <a href="#" class="card-link">3 requested changes</a>
-
-                                                </div>
-                                            </div>
-
-
-                                        </jumbotron>
-
-
-                                    </div>
-                                    <div class="col-md-6">
-                                        <jumbotron>
-                                            <div class="card" style="width: inherit;">
-                                                <div class="card-header">
-                                                    <h2>Requested values</h2>
-                                                </div>
-                                                <div></div>
-                                                <ul class="list-group list-group-flush">
-                                                    <li class="list-group-item">Name: <span>Item name BBB</span></li>
-                                                    <li class="list-group-item">Description <span>Lorem ipsum dolor sit
-                                                            amet consectetur adipisicing elit. Repellendus repellat
-                                                            impedit beatae quo minus, quod dignissimos quos quasi
-                                                            laboriosam quis earum dicta veniam aperiam dolor ratione,
-                                                            inventore eligendi, excepturi est edited.</span></li>
-                                                    <li class="list-group-item">Price: <span>$50,000.00</span></li>
-                                                </ul>
-                                                <div class="card-body">
-                                                    <a href="#" class="card-link">3 requested changes</a>
-
-                                                </div>
-                                            </div>
-
-
-                                        </jumbotron>
-
-                                        <div class="btn-area text-center smaller">
-                                            <span class="grey-btn btn_delete_act">Decline</span>
-                                            <a href="#" class="save-btn" id="save">Accept</a>
-                                        </div>
-
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-
-                <!-- USER 2 -->
-
-                <div class="login-list-item">
-                    <div class="row">
-                        <div class="col-md-10 col-sm-10">
-
-                            <div class="top-header-black">
-                                <h3>User B
-                                </h3>
-
-                            </div>
-
-                        </div>
-
-                        <a href="javascript:;" class="pull-right tog"><img src="./images/tog-menu.svg" alt=""></a>
-
-                        <div class="accord_item" id="FRD">
-                            <div class="col-md-12">
-                                <div class="top-header-white item_header">
-
-                                    <a>ITEM A</a>
-                                    <a href="javascript:;" class="tog1"><img src="./images/tog-menu.svg" alt=""></a>
-
-                                </div>
-                            </div>
-                            <div class="login-method">
-
-                                <div class="row">
-
-                                    <div class="col-md-6">
-
-                                        <jumbotron>
-                                            <div class="card" style="width: inherit;">
-                                                <div class="card-header">
-                                                    <h2>Default values</h2>
-                                                </div>
-                                                <div></div>
-                                                <ul class="list-group list-group-flush">
-                                                    <li class="list-group-item">Name: <span>Item name A</span></li>
-                                                    <li class="list-group-item">Description <span>Lorem ipsum dolor sit
-                                                            amet consectetur adipisicing elit. Repellendus repellat
-                                                            impedit beatae quo minus, quod dignissimos quos quasi
-                                                            laboriosam quis earum dicta veniam aperiam dolor ratione,
-                                                            inventore eligendi, excepturi est.</span></li>
-                                                    <li class="list-group-item">Price: <span>$40,000.00</span></li>
-                                                </ul>
-                                                <div class="card-body">
-                                                    <a href="#" class="card-link">3 requested changes</a>
-
-                                                </div>
-                                            </div>
-
-
-                                        </jumbotron>
-
-                                    </div>
-                                    <div class="col-md-6">
-                                        <jumbotron>
-                                            <div class="card" style="width: inherit;">
-                                                <div class="card-header">
-                                                    <h2>Requested values</h2>
-                                                </div>
-                                                <div></div>
-                                                <ul class="list-group list-group-flush">
-                                                    <li class="list-group-item">Name: <span>Item name AAA</span></li>
-                                                    <li class="list-group-item">Description <span>Lorem ipsum dolor sit
-                                                            amet consectetur adipisicing elit. Repellendus repellat
-                                                            impedit beatae quo minus, quod dignissimos quos quasi
-                                                            laboriosam quis earum dicta veniam aperiam dolor ratione,
-                                                            inventore eligendi, excepturi est edited.</span></li>
-                                                    <li class="list-group-item">Price: <span>$50,000.00</span></li>
-                                                </ul>
-                                                <div class="card-body">
-                                                    <a href="#" class="card-link">3 requested changes</a>
-
-                                                </div>
-                                            </div>
-
-
-                                        </jumbotron>
-
-                                        <div class="btn-area text-center smaller">
-                                            <span class="grey-btn btn_delete_act">Decline</span>
-                                            <a href="#" class="save-btn" id="save">Accept</a>
-                                        </div>
-
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <!-- ITEM 2 -->
-                        <div class="accord_item" id="FRD">
-                            <div class="col-md-12">
-                                <div class="top-header-white item_header">
-                                    <a>ITEM B</a>
-                                    <a href="javascript:;" class="tog1"><img src="./images/tog-menu.svg" alt=""></a>
-                                </div>
-                            </div>
-                            <div class="login-method">
-
-                                <div class="row">
-
-                                    <div class="col-md-6">
-
-                                        <jumbotron>
-                                            <div class="card" style="width:inherit;">
-                                                <div class="card-header">
-                                                    <h2> Default values</h2>
-
-                                                </div>
-                                                <div></div>
-                                                <ul class="list-group list-group-flush">
-                                                    <li class="list-group-item">Name: <span>Item name B</span></li>
-                                                    <li class="list-group-item">Description <span>Lorem ipsum dolor sit
-                                                            amet consectetur adipisicing elit. Repellendus repellat
-                                                            impedit beatae quo minus, quod dignissimos quos quasi
-                                                            laboriosam quis earum dicta veniam aperiam dolor ratione,
-                                                            inventore eligendi, excepturi est.</span></li>
-                                                    <li class="list-group-item">Price: <span>$40,000.00</span></li>
-                                                </ul>
-                                                <div class="card-body">
-                                                    <a href="#" class="card-link">3 requested changes</a>
-
-                                                </div>
-                                            </div>
-
-
-                                        </jumbotron>
-
-
-                                    </div>
-                                    <div class="col-md-6">
-                                        <jumbotron>
-                                            <div class="card" style="width: inherit;">
-                                                <div class="card-header">
-                                                    <h2>Requested values</h2>
-                                                </div>
-                                                <div></div>
-                                                <ul class="list-group list-group-flush">
-                                                    <li class="list-group-item">Name: <span>Item name BBB</span></li>
-                                                    <li class="list-group-item">Description <span>Lorem ipsum dolor sit
-                                                            amet consectetur adipisicing elit. Repellendus repellat
-                                                            impedit beatae quo minus, quod dignissimos quos quasi
-                                                            laboriosam quis earum dicta veniam aperiam dolor ratione,
-                                                            inventore eligendi, excepturi est edited.</span></li>
-                                                    <li class="list-group-item">Price: <span>$50,000.00</span></li>
-                                                </ul>
-                                                <div class="card-body">
-                                                    <a href="#" class="card-link">3 requested changes</a>
-
-                                                </div>
-                                            </div>
-
-
-                                        </jumbotron>
-
-                                        <div class="btn-area text-center smaller">
-                                            <span class="grey-btn btn_delete_act">Decline</span>
-                                            <a href="#" class="save-btn" id="save">Accept</a>
-                                        </div>
-
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+                <div align="right"><a href="https://dashboard.stripe.com/login" target="_blank" id="go-analytics"
+                        class="mybtn btn-blue">Login to Stripe</a></div>
             </div>
         </div>
+        <div class="panel-box goo-panel-box">
+            <div class="page-content-top">
+                <div><i class="icon icon-pay_link1 icon-3x"></i></div>
+                <div>
+                    <p><span class="goo-translate-name">1. Link your Stripe account to your Marketplace</span></p>
+                    <p class="payment-stripe-info">If you change your live secret keys, all your merchants will have to
+                        <strong class="red-bold-strong">re-onboard</strong> to your <strong
+                            class="red-bold-strong">new</strong> Stripe account before they can start selling again!
+                    </p>
+                </div>
+                <div>&nbsp;</div>
+            </div>
+            <div class="page-content-btm">
+                <form name="live_secret_key" id="live_secret_key" action="#">
+                    <div class="tracking-id show-right-broder">
+                        <p class="google-analytics-id-txt goo-lowercase"><span class="red-bold-strong">LIVE</span>
+                            PUBLISHABLE
+                            KEY</p>
+                        <input type="text" id="live-publishable-key" name="live-publishable-key" value=""
+                            class="form-control required">
+                    </div>
+                    <div class="tracking-id show-right-broder mt-20">
+                        <p class="google-analytics-id-txt goo-lowercase"><span class="red-bold-strong">LIVE</span>
+                            SECRET KEY
+                        </p>
+                        <input type="text" id="live-secret-key" name="live-secret-key" value=""
+                            class="form-control required">
+                    </div>
+                    <div class="mt-20">
+                        <div id="save-btn"><input type="button" onclick="MakeUneditable()" class="link-id-btn"
+                                value="Save" name="save"></div>
+                        <div id="edit-btn" style="display:none"><input type="button" onclick="SaveConfirm()"
+                                class="link-id-btn" value="Edit" name="save"></div>
+                    </div>
+                    <div class="mt-10">&nbsp;</div>
+                </form>
+            </div>
+        </div>
+
+
     </div>
 </div>
 
