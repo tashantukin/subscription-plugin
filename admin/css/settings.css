@@ -1,0 +1,97 @@
+.icon-3x.icon.icon-rrp{background: url(../images/rrp.svg) no-repeat 0 0;background-size: contain;}
+.grey-btn{ background-color: #999; height: 40px;width: 140px;max-width: 100%; color: #fff; border: none; display: inline-block;text-align: center;line-height: 40px;vertical-align: middle;cursor: pointer; margin-right: 10px; }
+.save-btn { background-color: #50c8ff; height: 40px; width: 150px; max-width: 100%; color: #fff; border: none; display: inline-block; text-align: center; line-height: 40px;}
+
+.btn-info-plug-in {
+    color: #50c8ff;
+    display: block;
+    height: 30px;
+    text-align: right;
+    width: 190px;
+    text-decoration: none;
+    font-weight: bold;
+    font-family: 'Open Sans';
+}
+
+.login-list-item.open .accord_item {
+	background: #f0f0ff;
+	/* display: inline-block; */
+	height: auto;
+	margin-top: 15px;
+	margin-left: 15px;
+
+
+}
+
+ .accord_item.open .login-method  {
+	display: inline-block;
+	height: auto;
+	margin-top: 15px;
+	margin-left: 15px;
+}
+
+ .login-list-item .accord_item {
+	display: none;
+	height: 0;
+}
+
+.accord_item .login-method {
+	display: none;
+	height: 0;
+}
+.login-list-item.open .accord {
+	display: inline-block;
+	height: auto;
+	margin-top: 15px;
+	margin-left: 15px;
+}
+
+.login-list-item .row {
+	position: relative;
+}
+
+.tog {
+	position: absolute;
+	width: 25px;
+	height: 25px;
+	right: 3px;
+	top: 10px;
+}
+
+.tog1 {
+	position: absolute;
+	width: 25px;
+	height: 20px;
+	margin-left: 3px;
+	/* left: 1px; */
+	/* top: 10px; */
+}
+
+.open .tog img {
+	transform: rotate(180deg);
+	-webkit-transform: rotate(180deg);
+	-moz-transform: rotate(180deg);
+}
+
+.accord_item .open .tog1 img {
+	transform: rotate(180deg);
+	-webkit-transform: rotate(180deg);
+	-moz-transform: rotate(180deg);
+}
+
+
+.accord_item .item_header {
+	display: inline-block;
+	margin-top: 5px;
+	
+}
+
+.card li {
+	color: dark grey;
+	text-decoration: bold;
+}
+
+.card li span {
+	color: black;
+	
+}
