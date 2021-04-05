@@ -8,6 +8,16 @@
 
 <?php
 
+require_once('stripe-php/init.php');
+
+$stripe = new \Stripe\StripeClient('sk_test_51INpZ6LpiOi48zknrweuYlbv7lThIzaBNcn4dgyXSXZHNeAolscJsVo9YdHYmbH4EPW1ty4ByRicFi5KvAPMjC5V00CatSNcjd');
+$customer = $stripe->customers->create([
+    'description' => 'example customer',
+    'email' => 'email@example.com',
+    'payment_method' => 'pm_card_visa',
+]);
+echo $customer;
+
 $protocol = strpos(strtolower($_SERVER['SERVER_PROTOCOL']),'https') === FALSE ? 'http' : 'https';
 $urlexp =   explode("/", parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)); 
 $host  = $urlexp[0];
@@ -49,6 +59,12 @@ $marketplaceInfo = callAPI("GET", null, $url, false);
 
 
 ?>
+
+
+
+
+
+
 <div class="subscription-content">
     <div class="container">	
         <div class="subs-cont-top">

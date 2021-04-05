@@ -21,7 +21,6 @@ $packageCustomFields = callAPI("GET", $admin_token['access_token'], $url, false)
 $ApiKey = '';
 $AccountURL = '';
 
-
 foreach ($packageCustomFields as $cf) {
 
     if ($cf['Name'] == 'stripe_api_key' && substr($cf['Code'], 0, strlen($customFieldPrefix)) == $customFieldPrefix) {
