@@ -54,5 +54,11 @@ $result = callAPI("POST", $admin_token['access_token'], $url, $data);
 // echo json_encode(['result' =>  $result]);
 
 
+// save package details in custom tables
+
+$package_details = array('PackageName' => $campaign_name, 'Price' => $price, 'Details' => $details, 'Interval' => $interval, 'DateCreated' => $dates);
+$url =  $baseUrl . '/api/v2/plugins/'. getPackageID() .'/custom-tables/Package/rows';
+$result =  callAPI("POST",$admin_token['access_token'], $url, $package_details);
+
 ?>
 

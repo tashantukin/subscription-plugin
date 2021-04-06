@@ -11,7 +11,8 @@ var accessToken = 'Bearer ' + getCookie('webapitoken');
 var rrpStatusExist = false;
 var rrpStatusFieldId = 0;
 var code = "";
-
+var timezone_offset_minutes = new Date().getTimezoneOffset();
+    timezone_offset_minutes = timezone_offset_minutes == 0 ? 0 : -timezone_offset_minutes;
 //switch
 
   
@@ -53,7 +54,7 @@ var code = "";
   
 
 function saveKeys() {
-  var data = {  'secretKey': $('#live-secret-key').val(), 'publishableKey': $('#live-publishable-key').val()};
+  var data = {  'secretKey': $('#live-secret-key').val(), 'publishableKey': $('#live-publishable-key').val(), 'package_name'  :  $('#package_name').val(), 'price' : $('#price_per_month').val(), 'details' : $('#subscription-details').val() };
    var apiUrl = packagePath + '/save_keys.php';
   $.ajax({
       url: apiUrl,          
@@ -70,6 +71,28 @@ function saveKeys() {
       }
   });
 }
+  
+  function savePackageDetails()
+  {
+    var data = { 'package_name' : $('#package_name').val(), 'price': $('#price_per_month').val(), 'details': $('#subscription-details').val(), 'timezone' : timezone_offset_minutes };
+    var apiUrl = packagePath + '/save_details.php';
+   $.ajax({
+       url: apiUrl,          
+       method: 'POST',
+       contentType: 'application/json',
+       data: JSON.stringify(data),
+       success: function($result) {
+           console.log($result);
+            toastr.success('Package details are saved successfully');
+        
+       },
+       error: function ($result) {
+          
+       }
+   });
+  }
+  
+  
  
   $(document).ready(function ()
   {
@@ -108,8 +131,7 @@ function saveKeys() {
       })
   });
     
-    
-    
+  
   $("#save-btn").on("click", function(){
 		var $apiKey = $("#live-secret-key").val();
 		
@@ -124,7 +146,26 @@ function saveKeys() {
     saveKeys();
 		//toastr.success('No. of Trial Days Successfully Saved', 'Success!');
 		}
-	});
+  });
+    
+  $("#connect-save-btn").on("click", function(){
+		// var $apiKey = $("#live-secret-key").val();
+		
+		// if ($apiKey == ""){
+		// 	$("#live-secret-key").addClass("error-con");
+		// }
+		// else{
+		// 	$("#live-secret-key").removeClass("error-con");
+		// }
+		// if (!$(".error-con").length){
+    //	updateTrialCount(trialDaysFieldId, trialDaysFieldCode, $trialCount);
+    savePackageDetails();
+		//toastr.success('No. of Trial Days Successfully Saved', 'Success!');
+		// }
+  })  
+    
+    
+    
 
 
 });

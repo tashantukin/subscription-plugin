@@ -1,34 +1,26 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="css/settings.css">
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/subscription.css">
 <div class="page-content" id="payments-content">
     <div class="gutter-wrapper">
         <div class="panel-box">
             <div class="page-content-top">
-                <div><i class="icon icon-stripelogo icon-3x"></i></div>
-                <div class="page-pay-stripe">
-                    <p><a class="info-link"
-                            href="https://support.arcadier.com/hc/en-us/articles/115001376913-Setting-up-your-payment-gateway-Stripe-"
-                            target="_blank"><i class="icon blue-info-icon"></i>&nbsp;&nbsp;How do I Connect to
-                            Stripe?</a></p>
-                    <p>Stripe payments are <span>SCA</span> compliant; however Stripe’s new authentication flow does not
-                        currently not support multi-merchant checkouts. For more information on SCA, or how to
-                        enable/disable
-                        the new flow, <a href="https://arcadier.zendesk.com/hc/en-us/articles/360035530333">click
-                            here</a></p>
+                <div class="subscription-title">
+                    <h4>Setup a membership fee for your merchant</h4>
+                    <h5>Membership &amp; Subscription</h5>
                 </div>
-                <div align="right"><a href="https://dashboard.stripe.com/login" target="_blank" id="go-analytics"
-                        class="mybtn btn-blue">Login to Stripe</a></div>
             </div>
         </div>
         <div class="panel-box goo-panel-box">
             <div class="page-content-top">
                 <div><i class="icon icon-pay_link1 icon-3x"></i></div>
                 <div>
-                    <p><span class="goo-translate-name">1. Link your Stripe account to your Marketplace</span></p>
+                    <p><span class="goo-translate-name">Link your Subscription account to your Marketplace</span></p>
                     <p class="payment-stripe-info">If you change your live secret keys, all your merchants will have to
                         <strong class="red-bold-strong">re-onboard</strong> to your <strong
-                            class="red-bold-strong">new</strong> Stripe account before they can start selling again!
+                            class="red-bold-strong">new</strong> Subscription account before they can start selling
+                        again!
                     </p>
                 </div>
                 <div>&nbsp;</div>
@@ -50,7 +42,8 @@
                             class="form-control required">
                     </div>
                     <div class="mt-20">
-                        <div id="save-btn"><input type="button" class="link-id-btn" value="Save" name="save"></div>
+                        <div id="save-btn" class="btn-area"><input type="button" class="btn-blue" value="Save"
+                                name="save"></div>
                         <div id="edit-btn" style="display:none"><input type="button" onclick="SaveConfirm()"
                                 class="link-id-btn" value="Edit" name="save"></div>
                     </div>
@@ -58,7 +51,38 @@
                 </form>
             </div>
         </div>
+        <div class="panel-box subscription-form">
+            <div class="page-content-top ">
+                <h4>Subscription Details</h4>
+            </div>
+            <form name="connect-subscription-marketplace" id="connect-subscription-marketplace" action="">
+                <div class="form-area">
+                    <div class="form-element">
+                        <label for="package_name">Package name</label>
+                        <input type="text" name="package_name" id="package_name" maxlength="30" class="txt required">
+                    </div>
+                    <div class="form-element">
+                        <label for="price_per_month">Price per month</label>
+                        <input type="number" name="price_per_month" id="price_per_month" class="txt required">
+                    </div>
+                    <div class="form-element">
+                        <label for="subscription-details">Subscription details (e.g. what your merchant gets from
+                            subscribing)</label>
+                        <textarea type="text" name="subscription-details" id="subscription-details"
+                            class="txt"></textarea>
+                    </div>
 
+                    <div class="sync-data">
+                        <div class="btn-area" id="connect-save-btn"> <a href="javascript:void(0);"
+                                onclick="MakeConnectSubscriptionUnedit()" class="btn-blue">Save</a></div>
+                        <!-- <div class="btn-area" id="connect-edit-btn" style="display: none;"> <a
+                                href="javascript:void(0);" class="btn-blue"
+                                onclick="SaveConnectSubscriptionConfirm()">Edit</a></div> -->
+                    </div>
+
+                </div>
+            </form>
+        </div>
 
     </div>
 </div>
