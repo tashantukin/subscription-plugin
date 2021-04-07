@@ -15,7 +15,59 @@ var timezone_offset_minutes = new Date().getTimezoneOffset();
     timezone_offset_minutes = timezone_offset_minutes == 0 ? 0 : -timezone_offset_minutes;
 //switch
 
-  
+function MakeConnectSubscriptionUnedit() {
+
+  var e = false;
+  jQuery("#connect-subscription-marketplace .required").each(function () {
+      var val = jQuery(this).val();
+      var attr = jQuery(this).attr('id');
+      if (jQuery.trim(val) == '')
+      {
+          e = true;
+          jQuery(this).addClass('error-con');
+      }
+
+  });
+  if ($('#package_name').val().length > 30)
+  {
+      e = true;
+      jQuery('#package_name').addClass('error-con');
+  }
+  if (!e)
+  {
+     savePackageDetails();
+      jQuery("#package_name").prop("readonly", true);
+      jQuery("#price_per_month").prop("readonly", true);
+      jQuery("#subscription-details").prop("readonly", true);
+
+      jQuery("#connect-save-btn").hide();
+      jQuery("#connect-edit-btn").show();
+  }
+
+}
+
+function MakeUneditable() {
+  var e = false;
+  jQuery("#live_secret_key .required").each(function () {
+      var val = jQuery(this).val();
+      var attr = jQuery(this).attr('id');
+      if (jQuery.trim(val) == '')
+      {
+          e = true;
+          jQuery(this).addClass('error-con');
+      }
+  });
+
+  if (!e)
+  {
+      saveKeys();
+      jQuery("#live-secret-key").prop("readonly", true);
+      jQuery("#live-publishable-key").prop("readonly", true);
+      jQuery("#save-btn").hide();
+      jQuery("#edit-btn").show();
+  }
+}
+
   function getMarketplaceCustomFields(callback){
     var apiUrl = '/api/v2/marketplaces'
     $.ajax({
@@ -92,10 +144,32 @@ function saveKeys() {
    });
   }
   
-  
- 
+
   $(document).ready(function ()
   {
+
+     // MakeUneditable()
+     jQuery("#live-secret-key").prop("readonly", true);
+     jQuery("#live-publishable-key").prop("readonly", true);
+     jQuery("#save-btn").hide();
+     jQuery("#edit-btn").show();
+
+     if (document.getElementById("price_per_month") != null)
+     {
+         document.getElementById("price_per_month").onkeypress = function (event) {
+             var charCode = document.getElementById("price_per_month").value.toString();
+             if (charCode.includes("."))
+             {
+                 var numb = charCode.split(".")[1];
+                 if (numb != null && numb.length > 1)
+                 {
+                     console.log("Only 2 decimal places allowed");
+                     return false;
+                 }
+             }
+         };
+     }
+
 
     getMarketplaceCustomFields(function(result) {
       $.each(result, function(index, cf) {
@@ -132,23 +206,29 @@ function saveKeys() {
   });
     
   
-  $("#save-btn").on("click", function(){
-		var $apiKey = $("#live-secret-key").val();
+    $("#save-btn").on("click", function ()
+    {
+    
+      MakeUneditable()
+	// 	var $apiKey = $("#live-secret-key").val();
 		
-		if ($apiKey == ""){
-			$("#live-secret-key").addClass("error-con");
-		}
-		else{
-			$("#live-secret-key").removeClass("error-con");
-		}
-		if (!$(".error-con").length){
-    //	updateTrialCount(trialDaysFieldId, trialDaysFieldCode, $trialCount);
-    saveKeys();
-		//toastr.success('No. of Trial Days Successfully Saved', 'Success!');
-		}
+	// 	if ($apiKey == ""){
+	// 		$("#live-secret-key").addClass("error-con");
+	// 	}
+	// 	else{
+	// 		$("#live-secret-key").removeClass("error-con");
+	// 	}
+	// 	if (!$(".error-con").length){
+  //   //	updateTrialCount(trialDaysFieldId, trialDaysFieldCode, $trialCount);
+  //  // saveKeys();
+	// 	//toastr.success('No. of Trial Days Successfully Saved', 'Success!');
+	// 	}
   });
     
-  $("#connect-save-btn").on("click", function(){
+    $("#connect-save-btn").on("click", function ()
+    {
+    
+      MakeConnectSubscriptionUnedit()
 		// var $apiKey = $("#live-secret-key").val();
 		
 		// if ($apiKey == ""){
@@ -159,7 +239,7 @@ function saveKeys() {
 		// }
 		// if (!$(".error-con").length){
     //	updateTrialCount(trialDaysFieldId, trialDaysFieldCode, $trialCount);
-    savePackageDetails();
+    
 		//toastr.success('No. of Trial Days Successfully Saved', 'Success!');
 		// }
   })  

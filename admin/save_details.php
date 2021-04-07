@@ -28,6 +28,7 @@ require_once('stripe-php/init.php');
       'nickname' => $package_name,
       'recurring' => ['interval' => 'month'],
       'product' => $productId,
+      'metadata' => array('desription' => $details)
     ]);
 
 $planId = $stripePlan->id;
@@ -55,6 +56,31 @@ $marketplaceInfo = callAPI("GET", null, $url, false);
 // Query to get package custom fields
 $url = $baseUrl . '/api/developer-packages/custom-fields?packageId=' . getPackageID();
 $packageCustomFields = callAPI("GET", $admin_token['access_token'], $url, false);
+
+$plan_id = '';
+
+foreach ($packageCustomFields as $cf) {
+
+    if ($cf['Name'] == 'plan_id' && substr($cf['Code'], 0, strlen($customFieldPrefix)) == $customFieldPrefix) {
+         $plan_id = $cf['Code'];
+    }
+}
+$data = [
+    'CustomFields' => [
+        [
+            'Code' => $plan_id,
+            'Values' => [$planId],
+        ]
+
+    ],
+];
+
+echo json_encode(['data' =>  $data]);
+
+$url = $baseUrl . '/api/v2/marketplaces/';
+$result = callAPI("POST", $admin_token['access_token'], $url, $data);
+
+
 
 // save package details in custom tables
 
