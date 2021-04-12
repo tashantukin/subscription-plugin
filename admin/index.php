@@ -18,7 +18,7 @@ $stripe = \Stripe\Product::all();
 $products =  $stripe->data;
 //print_r($products);
 $key = array_search('Arcadier Subscription', array_column($products, 'name'));
-echo gettype($key);
+// echo gettype($key);
 error_log('key' . $key);
 if (gettype($key) == integer) {
     $plan_id='';
@@ -108,17 +108,17 @@ else {
                 <div class="form-area">
                     <div class="form-element">
                         <label for="package_name">Package name</label>
-                        <input type="text" name="package_name" id="package_name" maxlength="30" class="txt required" value= <?php echo $package_name ?> >
+                        <input type="text" name="package_name" id="package_name" maxlength="30" class="txt required" value= "<?php echo $package_name ?>" placeholder="Premium, Enterprise .." >
                     </div>
                     <div class="form-element">
                         <label for="price_per_month">Price per month</label>
-                        <input type="number" name="price_per_month" id="price_per_month" class="txt required" value= <?php echo $price ?> >
+                        <input type="number" name="price_per_month" id="price_per_month" class="txt required" value= "<?php echo $price ?>" placeholder="0.00" >
                     </div>
                     <div class="form-element">
                         <label for="subscription-details">Subscription details (e.g. what your merchant gets from
                             subscribing)</label>
                         <textarea type="text" name="subscription-details" id="subscription-details"
-                            class="txt"  ><?php echo $details1 ?></textarea>
+                            class="txt" placeholder='Optional:' ><?php echo $details1 ?></textarea>
                     </div>
 
                     <div class="sync-data">

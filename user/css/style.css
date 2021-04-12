@@ -1,4 +1,4 @@
-
+/* 
 .subs-cont-top > span {
     font-family: 'Fjalla One', sans-serif;
     color: #5cc2c6;
@@ -80,4 +80,56 @@
 }
 .subscription-content > .container {
     width: 100%;
+} */
+
+
+.page-content-top .subscription-title h4{font-size: 16px;}
+.subscription-form .form-area .form-element .txt{padding: 0 10px;}
+.subscription-form .form-area .form-element textarea.txt{height: 80px;padding: 10px 10px;}
+.subscription-form .page-content-top{border: none;padding-bottom: 0px;}
+.subscription-form .form-area .form-element label{font-weight: 400;}
+.subscription-form .page-content-top h4{font-size: 14px;}
+.icon.icon-subscription-plugin-in {background-image: url('../images/icons/subscription_plugin_in.svg');}
+
+textarea[disabled], textarea[readonly]{background-color: #eee !important;opacity: 1;}
+
+
+.subsc-package-title a{color: var(--user-color);font-weight: 600;}
+.subsc-darkgrey-colot-txt{color: #4D4D4D;}
+.atag-color{margin-top: 10px;text-align: right;color: var(--user-color);}
+.seller-tab-area .tab-content #subscriptions .item-form-group label {color: #999;}
+.seller-tab-area .tab-content #subscriptions .item-form-group .gutter-30 {margin-bottom: 30px;}
+
+.method-form{display: flex;}
+.method-form input {border: none !important;margin: 0px !important;}
+.method-form input.card-number{width: 70%;}
+.method-form input.mm-yy{width: 15%;}
+.method-form input.cvc{width: 15%;}
+
+.icon.card-number{background-image: url('../images/icons/credit-card.svg');background-size: contain;margin: auto;}
+.subscription-title-box{margin-bottom: 40px}
+.method-main{display: flex;align-items: center;justify-content: space-between;width: 100%;}
+.subscription-package-box { border: 1px solid #C7C7C7; padding: 10px 15px;}
+.subscription-list-head { color: #4D4D4D; font-size: 14px; font-weight: 700; border: 1px solid #C7C7C7; padding: 5px 0px;}
+.subscription-list-body { color: #999; font-weight: 400; font-size: 14px; border: 1px solid #C7C7C7; border-top: none; padding: 5px 0px; margin-bottom: 30px;}
+.subscription-step2{ max-width: 800px; margin: auto;}
+.package-price { margin-top: 7px; margin-bottom: 7px; text-align: right;}
+.subscription-package-title { color: #4A4A4A; font-size: 14px; font-weight: 700;}
+#paynowPackage { margin-bottom: 40px; background: var(--user-color);}
+.seller-items.page-settings a.my-btn { margin: 15px auto;}
+.seller-setting-p {margin-bottom: 15px;}
+.cmn-clr-theme {color: var(--user-color) !important;}
+.page-seller.seller-items .seller-settings-menu-container { margin-bottom: 0px;}
+
+.popup-area .content-area {
+    margin-bottom: 15px;
+}
+
+.popup-area.item-remove-popup .btn-saffron {
+    max-width: 100px;
+    min-width: 100px;
+}
+
+.cmn-clr-theme a.disabled {
+    color: #999;
 }

@@ -152,7 +152,14 @@ function saveKeys() {
      jQuery("#live-secret-key").prop("readonly", true);
      jQuery("#live-publishable-key").prop("readonly", true);
      jQuery("#save-btn").hide();
-     jQuery("#edit-btn").show();
+    jQuery("#edit-btn").show();
+    
+    jQuery("#package_name").prop("readonly", true);
+      jQuery("#price_per_month").prop("readonly", true);
+      jQuery("#subscription-details").prop("readonly", true);
+
+      jQuery("#connect-save-btn").hide();
+      jQuery("#connect-edit-btn").show();
 
      if (document.getElementById("price_per_month") != null)
      {
