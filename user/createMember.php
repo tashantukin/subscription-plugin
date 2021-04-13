@@ -9,6 +9,8 @@ $admin_token = getAdminToken();
 $userToken = $_COOKIE["webapitoken"];
 $customFieldPrefix = getCustomFieldPrefix();
 
+$card_id = $content['card_id'];
+
 // Query to get marketplace id
 $url = $baseUrl . '/api/v2/marketplaces/';
 $marketplaceInfo = callAPI("GET", null, $url, false);
@@ -24,16 +26,16 @@ foreach ($marketplaceInfo['CustomFields'] as $cf) {
     }
 }
 if (!empty($plan_id)) {
-    // echo 'plan id ' . $plan_id;
-     $stripe = \Stripe\Price::retrieve($plan_id);
- //    echo $stripe;
-     $package_name = $stripe->nickname;
-     $price = $stripe->unit_amount;
-     $metadata= $stripe->metadata;
-     $details = json_encode($metadata);
-     $details1 = implode(',', json_decode($details, true));
-     
-     echo json_encode(['name' =>  $package_name, 'price' => $price, 'description' => $details1, 'id'=> $plan_id ]);
+    //create customer
+    $customer = \Stripe\Customer::create([
+        'name'=> 'Onoda Sakamichi',
+        'description' => 'sample description',
+        'email' => 'nmfnavarro@gmail.com'
+        //'payment_method' => $payment
+    ]);
+
+    $customer_id =  $customer->id;
+    echo json_encode(['result' =>  $customer_id]);
  }
 ?>
 

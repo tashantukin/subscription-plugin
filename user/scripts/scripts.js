@@ -9,7 +9,10 @@
   const HOST = window.location.host;
   var hostname = window.location.hostname;
   var urls = window.location.href.toLowerCase();
-  var userId = $("#userGuid").val();
+    var userId = $("#userGuid").val();
+    var customer_id;
+    var plan_id;
+    // var stripe;
 
   function getMarketplaceCustomFields(callback) {
     var apiUrl = "/api/v2/marketplaces";
@@ -36,33 +39,106 @@
   }
 
   function getPlanData(){
-		var apiUrl = packagePath + '/getPrices.php';
+      var apiUrl = packagePath + '/getPrices.php';
+     
 		$.ajax({
 			url: apiUrl,
 			method: 'POST',
-			contentType: 'application/json',
-			//data: JSON.stringify(data),
+            contentType: 'application/json',
+           
 			success: function(result) {
-			//	console.log('response');
-        result = JSON.parse(result);
-        console.log(result);
-        console.log(result.name);
-        $('#subs-name').text(result.name);
-        $('#subs-desc').text(result.description)
-        $('#package-name').text(result.name);
-        
+                result = JSON.parse(result);
+                $('#subs-name').text(result.name);
+                $('#subs-desc').text(result.description)
+                $('#package-name').text(result.name);
+                $plan_id = result.id;
 			},
 			error: function(jqXHR, status, err) {
 			//	toastr.error('Error!');
 			}
 		});
 	
-}
+    }
+    
+    function subscribe(card, stripe){
+        var apiUrl = packagePath + '/createMember.php';
+       // var data = { 'card_id': card_id }
+		$.ajax({
+            url: apiUrl,
+            
+			method: 'POST',
+            contentType: 'application/json',
+          //  data: JSON.stringify(data),
+			success: function(result) {
+                result = JSON.parse(result);
+                var customerId = result.result
+
+                createPaymentMethod(customerId, card, stripe)
+      
+			},
+			error: function(jqXHR, status, err) {
+			//	toastr.error('Error!');
+			}
+		});
+	
+    }
+
+
+    function createPaymentMethod(customerId, card, stripe)
+    {
+        
+       // const customerId = customer_id;
+        // Set up payment method for recurring usage
+       let billingName = 'Onoda Sakamichi';
+      
+        let priceId =  $plan_id  //= document.getElementById('priceId').innerHTML.toUpperCase();
+      
+        stripe
+          .createPaymentMethod({
+            type: 'card',
+            card: card,
+            billing_details: {
+              name: billingName,
+            },
+          })
+          .then((result) => {
+            if (result.error) {
+              displayError(result);
+            } else {
+                console.log(result.paymentMethod.id);
+              createSubscription(
+                customerId,result.paymentMethod.id);
+            }
+          });
+    }
+    
+
+    function createSubscription(customerId, paymentId)
+    {
+        var apiUrl = packagePath + '/createSubscription.php';
+       var data = { 'customer_id': customerId,  'payment_id' : paymentId }
+		$.ajax({
+            url: apiUrl,
+            
+			method: 'POST',
+            contentType: 'application/json',
+             data: JSON.stringify(data),
+			success: function(result) {
+                result = JSON.parse(result);
+                console.log(result);
+
+			},
+			error: function(jqXHR, status, err) {
+			//	toastr.error('Error!');
+			}
+		});
+    }
+
+
 
   $(document).ready(function ()
   {
-  //  $('head').append(`<script src="https://js.stripe.com/v3/"></script>`);
-   
+  
     if (pathname.indexOf('/user/marketplace/user-settings') > -1 || pathname.indexOf('/user/marketplace/seller-settings') > -1 || pathname.indexOf('/user/marketplace/be-seller') > -1) {
       
       var subscriptionTabHeader = `<li class=""> <a data-toggle="tab" aria-expanded="false"><span>SUBSCRIPTIONS</span></a></li>`
@@ -291,8 +367,6 @@
           var stripe = Stripe('pk_test_51INpZ6LpiOi48zknh0lXElbb6kJGlYOfrhrnf4TkpVAXFmkWynQJzIo38kVyjFP7oi1x6lbe3oioCmSjxVCQaHTV00hXbGEhX0');
           var elements = stripe.elements();
           var card = elements.create('card', { hidePostalCode: true, style: style });
-        
-          //let elements = stripe.elements();
         var style = {
           base: {
             'lineHeight': '1.35',
@@ -303,7 +377,37 @@
         };
         if ($('#card-element').length) {
           card.mount('#card-element');
-        }
+          }
+
+          // Create a token or display an error the form is submitted.
+          var submitButton = document.getElementById('paynowPackage');
+          if (submitButton) {
+              submitButton.addEventListener('click',
+                  function(event) {
+                      event.preventDefault();
+                      $("#paynowPackage").attr("disabled", "disabled");
+                      stripe.createToken(card).then(function(result) {
+                          if (result.error) {
+                              // Inform the user if there was an error
+                              var errorElement = document.getElementById('card-errors');
+                              errorElement.textContent = result.error.message;
+
+                          // $("#payNowButton").removeAttr("disabled");
+                          } else {
+                              console.log(result.token.card);
+                              console.log(result.token.id)
+                              
+                              subscribe(card, stripe)
+                              
+
+                              // Send the result.token.id to a php file and use the token to create the subscription
+                          // SubscriptionManager.PayNowSubmit(result.token.id, e);
+                          }
+                      });
+
+                  });
+}
+        
       }
       script.src = "https://js.stripe.com/v3/";
 
@@ -312,6 +416,16 @@
             // Create an instance of the card Element
       $('#card-element').css("width", "30em");
 
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
       };
       // var scriptLink = `${location.protocol}//${hostname}/user/plugins/${packageId}/scripts/scripts.js`;
      
