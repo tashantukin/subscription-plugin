@@ -10,7 +10,15 @@ $userToken = $_COOKIE["webapitoken"];
 $customFieldPrefix = getCustomFieldPrefix();
 
 $card_id = $content['card_id'];
-
+$customer_name = $content['full_name'];
+$customer_email = $content['email'];
+//adddress
+$city = $content['city'];
+$country = $content['country'];
+$line1 = $country['line1'];
+$postal_code = $country['postal_code'];
+$state = $content['state'];
+$contact_number = $content['contact_number'];
 // Query to get marketplace id
 $url = $baseUrl . '/api/v2/marketplaces/';
 $marketplaceInfo = callAPI("GET", null, $url, false);
@@ -28,9 +36,18 @@ foreach ($marketplaceInfo['CustomFields'] as $cf) {
 if (!empty($plan_id)) {
     //create customer
     $customer = \Stripe\Customer::create([
-        'name'=> 'Onoda Sakamichi',
-        'description' => 'sample description',
-        'email' => 'nmfnavarro@gmail.com'
+        'name'=> $customer_name,
+        'email' => $customer_email,
+        'phone' => $contact_number,
+        'address' => [
+            
+                'city' => $city,
+                'country' => $country,
+                'line1' => $line1,
+                'postal_code' => $postal_code,
+                'state' => $state
+
+            ]
         //'payment_method' => $payment
     ]);
 

@@ -35,9 +35,13 @@ foreach ($marketplaceInfo['CustomFields'] as $cf) {
         $payment_method->attach([
           'customer' => $customer_id,
         ]);
+       // echo json_encode(['result' =>  $attach]);
+
       } catch (Exception $e) {
-        return $response->withJson($e->jsonBody);
+        //return $response->withJson($e->jsonBody);
+        echo json_encode(['result' => $e]);
       }
+
   // Set the default payment method on the customer
   $stripe->customers->update($customer_id, [
     'invoice_settings' => [
@@ -68,8 +72,6 @@ foreach ($marketplaceInfo['CustomFields'] as $cf) {
 
 //    $source = $attach->id;
 //    echo json_encode(['result' => $attach]);
-
-
 
     //create subscription
     //  $subscription = \Stripe\Subscription::create([
