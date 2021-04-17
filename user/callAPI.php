@@ -63,5 +63,31 @@ function getCustomFieldPrefix() {
 }
 
 
+function getSecretKey(){
+    $baseUrl = getMarketplaceBaseUrl();
+    $customFieldPrefix = getCustomFieldPrefix();
+    $userToken = $_COOKIE["webapitoken"];
+    $url = $baseUrl . '/api/v2/users/'; 
+    $result = callAPI("GET", $userToken, $url, false);
+    $userId = $result['ID'];
+    $admin_token = getAdminToken();
+
+    $url = $baseUrl . '/api/v2/marketplaces/';
+    $marketplaceInfo = callAPI("GET", null, $url, false);
+    
+    $stripe_secret_key = '';
+
+    foreach($marketplaceInfo['CustomFields'] as $cf) {
+            if ($cf['Name'] == 'stripe_api_key' && substr($cf['Code'], 0, strlen($customFieldPrefix)) == $customFieldPrefix) {
+                $stripe_secret_key = $cf['Values'][0];
+                
+            }
+           
+        }
+        
+        return $stripe_secret_key;
+}
+
+
 ?>
 

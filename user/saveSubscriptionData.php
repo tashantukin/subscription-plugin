@@ -9,7 +9,7 @@ $id = $content['id'];
 $baseUrl = getMarketplaceBaseUrl();
 $admin_token = getAdminToken();
 $customFieldPrefix = getCustomFieldPrefix();
-
+$stripe_secret_key = getSecretKey();
 $userToken = $_COOKIE["webapitoken"];
 $url = $baseUrl . '/api/v2/users/'; 
 $result = callAPI("GET", $userToken, $url, false);

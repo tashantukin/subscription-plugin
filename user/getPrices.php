@@ -8,7 +8,8 @@ $baseUrl = getMarketplaceBaseUrl();
 $admin_token = getAdminToken();
 $userToken = $_COOKIE["webapitoken"];
 $customFieldPrefix = getCustomFieldPrefix();
-
+$stripe_secret_key = getSecretKey();
+error_log($stripe_secret_key);
 $userToken = $_COOKIE["webapitoken"];
 $url = $baseUrl . '/api/v2/users/'; 
 $result = callAPI("GET", $userToken, $url, false);
@@ -44,7 +45,7 @@ $url = $baseUrl . '/api/v2/marketplaces/';
 $marketplaceInfo = callAPI("GET", null, $url, false);
 
 require_once('stripe-php/init.php');
-\Stripe\Stripe::setApiKey('sk_test_51INpZ6LpiOi48zknrweuYlbv7lThIzaBNcn4dgyXSXZHNeAolscJsVo9YdHYmbH4EPW1ty4ByRicFi5KvAPMjC5V00CatSNcjd');
+\Stripe\Stripe::setApiKey($stripe_secret_key);
 
 $plan_id='';
 $plan_data= [];
