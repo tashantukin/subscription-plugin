@@ -11,9 +11,9 @@ $customFieldPrefix = getCustomFieldPrefix();
 // Query to get marketplace id
 $url = $baseUrl . '/api/v2/marketplaces/';
 $marketplaceInfo = callAPI("GET", null, $url, false);
-
+$stripe_secret_key =  getSecretKey();
 //stripe secret key to be fetched on custom fields
-\Stripe\Stripe::setApiKey('sk_test_51INpZ6LpiOi48zknrweuYlbv7lThIzaBNcn4dgyXSXZHNeAolscJsVo9YdHYmbH4EPW1ty4ByRicFi5KvAPMjC5V00CatSNcjd');
+\Stripe\Stripe::setApiKey($stripe_secret_key);
 $stripe = \Stripe\Product::all();
 $products =  $stripe->data;
 //print_r($products);

@@ -10,8 +10,8 @@ $details = $content['details'];
 $interval = 'Monthly';
 $timezone_offset = $content['timezone'];
 require_once('stripe-php/init.php');
-
-\Stripe\Stripe::setApiKey('sk_test_51INpZ6LpiOi48zknrweuYlbv7lThIzaBNcn4dgyXSXZHNeAolscJsVo9YdHYmbH4EPW1ty4ByRicFi5KvAPMjC5V00CatSNcjd');
+$stripe_secret_key =  getSecretKey();
+\Stripe\Stripe::setApiKey($stripe_secret_key);
 
 //create the Product name, default will be 'Arcadier subs...'
   $stripe = \Stripe\Product::create([
