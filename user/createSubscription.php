@@ -64,26 +64,6 @@ foreach ($marketplaceInfo['CustomFields'] as $cf) {
 
   echo json_encode(['result' => $subscription]);
 
-// //attach the payment method to the customer
-//         $attach = $stripe->paymentMethods->attach(
-//         $card_id,
-//         ['customer' => $customer_id]
-//         );
-
-//    $source = $attach->id;
-//    echo json_encode(['result' => $attach]);
-
-    //create subscription
-    //  $subscription = \Stripe\Subscription::create([
-       
-    //     'customer' => $customer_id,
-    //      'items' => [
-    //          ['price' => $plan_id ]
-    //      ]
-    // ]);     
-
-    // echo json_encode(['result' => $subscription]);
-
 
 ?>
 
