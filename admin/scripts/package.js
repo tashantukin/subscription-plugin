@@ -15,7 +15,7 @@ var timezone_offset_minutes = new Date().getTimezoneOffset();
     timezone_offset_minutes = timezone_offset_minutes == 0 ? 0 : -timezone_offset_minutes;
 //switch
 
-function MakeConnectSubscriptionUnedit() {
+function MakeConnectSubscriptionUnedit(plan_type, plan_id) {
 
   var e = false;
   jQuery("#connect-subscription-marketplace .required").each(function () {
@@ -35,7 +35,7 @@ function MakeConnectSubscriptionUnedit() {
   }
   if (!e)
   {
-     savePackageDetails();
+     savePackageDetails(plan_type,plan_id);
       jQuery("#package_name").prop("readonly", true);
       jQuery("#price_per_month").prop("readonly", true);
       jQuery("#subscription-details").prop("readonly", true);
@@ -124,9 +124,10 @@ function saveKeys() {
   });
 }
   
-  function savePackageDetails()
+  function savePackageDetails(plan_type, plan_id)
   {
-    var data = { 'package_name' : $('#package_name').val(), 'price': $('#price_per_month').val(), 'details': $('#subscription-details').val(), 'timezone' : timezone_offset_minutes };
+    var data = { 'package_name' : $('#package_name').val(), 'price': $('#price_per_month').val(), 'details': $('#subscription-details').val(), 'timezone' : timezone_offset_minutes, 'plan_type': plan_type, 'plan_id' : plan_id };
+    console.log(data);
     var apiUrl = packagePath + '/save_details.php';
    $.ajax({
        url: apiUrl,          
@@ -234,8 +235,8 @@ function saveKeys() {
     
     $("#connect-save-btn").on("click", function ()
     {
-    
-      MakeConnectSubscriptionUnedit()
+      
+      MakeConnectSubscriptionUnedit($(this).find('#save').attr('plan-type'), $(this).find('#save').attr('plan-id'))
 		// var $apiKey = $("#live-secret-key").val();
 		
 		// if ($apiKey == ""){

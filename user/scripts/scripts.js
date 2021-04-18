@@ -15,6 +15,7 @@
   var customer_id;
   var plan_id;
   var isSubscriptionValid = 0;
+  var stripePubKey;
     // var stripe;
   
   function getAddressData()
@@ -61,24 +62,20 @@
   //{
     //navigate to user settings
     //disable seller pages
-    if (pathname.indexOf('/user/marketplace/dashboard') > -1
-      || pathname.indexOf('/user/item/list') > -1
-      || pathname.indexOf('/user/item/upload') > -1
-      || pathname.indexOf('/user/manage/orders') > -1
-      || pathname.indexOf('/user/marketplace/sales') > -1
-      || pathname.indexOf('/user/marketplace/custom-delivery-methods') > -1
-      || pathname.indexOf('/user/order/orderhistory') > -1
-      || pathname.indexOf('/user/order/cart') > -1
-      || pathname.indexOf('/user/chat/get-inbox') > -1) {
-      getPlanData('Pages');
-      // console.log(isSubscriptionValid);
-        // if (isSubscriptionValid != 1) {
-         
-        // // $('#subscriptionstab').click();
-        // }
-     
-     }
+   
  // }
+  
+  
+ 
+function displayError(event) {
+ // changeLoadingStatePrices(false);
+  let displayError = document.getElementById('card-errors');
+  if (event.error) {
+    displayError.textContent = event.error.message;
+  } else {
+    displayError.textContent = '';
+  }
+}
   function getPlanData(page){
       var apiUrl = packagePath + '/getPrices.php';
      
@@ -93,13 +90,26 @@
 
         console.log(result);
      
-        var startDate = new Date(); 
+     
+        var startDate = new Date(result.start_date * 1000); 
         var currentDate = moment(startDate);
-        var startDateMoment = moment(startDate).format('DD/MM/YYYY');
-        var endDateMoment = currentDate.add(1, 'months').format('DD/MM/YYYY');
-        var endDateMoment2 = currentDate.add(2, 'months').format('DD/MM/YYYY');
+        var startDateMoment = moment(startDate, 'DD.MM.YYYY HH:mm') //.format('DD.MM.YYYY HH:mm');
+        var endDate =new Date(result.end_date * 1000); 
+          //moment(result.end_date, 'DD.MM.YYYY HH:mm')
+        console.log(startDateMoment);
+        var endDateMoment = moment(endDate, 'DD.MM.YYYY HH:mm')
+        console.log(endDate);
+        console.log(moment(startDateMoment,'DD.MM.YYYY HH:mm').isSameOrBefore(endDateMoment, 'day'));
+
+        var endDateMoment2 = moment(endDate).format('DD/MM/YYYY');
         plan_id = result.id;
-        if (result.status == 'active' || (result.status == 'canceled' && moment(startDateMoment).isSameOrBefore(endDateMoment, 'day'))) {
+        //billing starts on --
+        $('#billingstart').text(startDateMoment);
+        $('#subs-name').text(result.name);
+        $('#subs-desc').text(result.description)
+        $('#package-name').text(result.name);
+
+        if (result.status == 'active' || (!result.status == 'canceled' && moment(startDateMoment).isSameOrBefore(endDate, 'day'))) {
 
           isSubscriptionValid = 1;
           
@@ -110,21 +120,20 @@
             $('.subscription-step2').removeClass('hide');
             var status = result.status == 'canceled' ? 'Cancelled' : result.status;
             $('#status').text(status);
-            $('#nxtbilling').text(endDateMoment);
-
-            //billing starts on --
-            $('#billingstart').text(startDateMoment);
-            $('#subs-name').text(result.name);
-            $('#subs-desc').text(result.description)
-            $('#package-name').text(result.name);
-           
-
+            $('#nxtbilling').text(endDateMoment2);
+        
           }
           
         } else {
-          urls = `${protocol}//${baseURL}/user/marketplace/seller-settings`;
-          window.location.href = urls;
-          }
+
+          console.warn('in else');
+
+        // if (!pathname.indexOf('/user/marketplace/seller-settings') > -1) {
+        //   urls = `${protocol}//${baseURL}/user/marketplace/seller-settings`;
+        //   window.location.href = urls;
+        // }
+          
+        }
           
 			},
 			error: function(jqXHR, status, err) {
@@ -321,13 +330,31 @@
   $(document).ready(function ()
   {
 
+    if (pathname.indexOf('/user/marketplace/dashboard') > -1
+    || pathname.indexOf('/user/item/list') > -1
+    || pathname.indexOf('/user/item/upload') > -1
+    || pathname.indexOf('/user/manage/orders') > -1
+    || pathname.indexOf('/user/marketplace/sales') > -1
+    || pathname.indexOf('/user/marketplace/custom-delivery-methods') > -1
+    || pathname.indexOf('/user/order/orderhistory') > -1
+    || pathname.indexOf('/user/order/cart') > -1
+    || pathname.indexOf('/user/chat/get-inbox') > -1) {
+    getPlanData('Pages');
+    // console.log(isSubscriptionValid);
+      // if (isSubscriptionValid != 1) {
+       
+      // // $('#subscriptionstab').click();
+      // }
+   
+   }
+
     //home page upon logging in
     if ($('body').hasClass('page-home')) {
       getPlanData('Homepage');
     }
   
     if (pathname.indexOf('/user/marketplace/seller-settings') > -1 || pathname.indexOf('/user/marketplace/be-seller') > -1) {
-
+     
       //next button
       $('#address #next-tab').on('click', function(e){
        
@@ -341,9 +368,6 @@
         $('#payment_acceptance #next-tab').removeAttr('onclick');
       });
      
-
-      
-      
       $('#payment_acceptance #next-tab').on('click', function(e){
         // e.preventDefault();
         // e.stopImmediatePropagation();
@@ -352,13 +376,10 @@
        
       });
 
-
-
-
      // $('#payment_acceptance #next-tab').removeAttr('onclick');
       var itemsUrl = `${protocol}//${baseURL}/user/item/list`;
      // window.location.href = urls;
-      $('#subscriptions #next-tab').attr('href', itemsUrl);
+      //$('#subscriptions #next-tab').attr('href', itemsUrl);
       
       var subscriptionTabHeader = `<li> <a href="#subscriptions" aria-expanded="false" id="subscriptionstab"><span>SUBSCRIPTIONS</span></a></li>`
       $('#setting-tab').append(subscriptionTabHeader);
@@ -601,54 +622,73 @@
       </div>`
       $('#payment_acceptance').after(subscriptionContent);
       getPlanData('Settings');
+      
       var script = document.createElement('script');
-        script.onload = function () {
-            //do stuff with the script
-            var stripe = Stripe('pk_test_51INpZ6LpiOi48zknh0lXElbb6kJGlYOfrhrnf4TkpVAXFmkWynQJzIo38kVyjFP7oi1x6lbe3oioCmSjxVCQaHTV00hXbGEhX0');
-            var elements = stripe.elements();
-            var card = elements.create('card', { hidePostalCode: true, style: style });
-          var style = {
-            base: {
-              'lineHeight': '1.35',
-              'fontSize': '1.11rem',
-              'color': '#495057',
-              'fontFamily': 'apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif'
+      script.onload = function ()
+      {
+        getMarketplaceCustomFields(function(result) {
+          $.each(result, function(index, cf) {
+            
+              if (cf.Name == 'stripe_pub_key' && cf.Code.startsWith(customFieldPrefix)) {
+               stripePubKey = cf.Values[0];
+              }
+          })
+
+            if (stripePubKey) {
+              //do stuff with the script
+              var stripe = Stripe(stripePubKey);
+              var elements = stripe.elements();
+              var card = elements.create('card', { hidePostalCode: true, style: style });
+              var style = {
+                base: {
+                  'lineHeight': '1.35',
+                  'fontSize': '1.11rem',
+                  'color': '#495057',
+                  'fontFamily': 'apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif'
+                }
+              };
+              if ($('#card-element').length) {
+                card.mount('#card-element');
+                }
+    
+              // Create a token or display an error the form is submitted.
+              var submitButton = document.getElementById('paynowPackage');
+              if (submitButton) {
+                  submitButton.addEventListener('click',
+                      function(event) {
+                          event.preventDefault();
+                          $("#paynowPackage").attr("disabled", "disabled");
+                          stripe.createToken(card).then(function(result) {
+                              if (result.error) {
+                                  // Inform the user if there was an error
+                                  var errorElement = document.getElementById('card-errors');
+                                  errorElement.textContent = result.error.message;
+    
+                              // $("#payNowButton").removeAttr("disabled");
+                              } else {
+                                  console.log(result.token.card);
+                                  console.log(result.token.id)
+                                  
+                                  subscribe(card, stripe)
+                                  
+    
+                                  // Send the result.token.id to a php file and use the token to create the subscription
+                              // SubscriptionManager.PayNowSubmit(result.token.id, e);
+                              }
+                          });
+    
+                      });
+              }
+              
+              card.on('change', function (event) {
+                displayError(event);
+              });
             }
-          };
-          if ($('#card-element').length) {
-            card.mount('#card-element');
-            }
+        });
 
-            // Create a token or display an error the form is submitted.
-            var submitButton = document.getElementById('paynowPackage');
-            if (submitButton) {
-                submitButton.addEventListener('click',
-                    function(event) {
-                        event.preventDefault();
-                        $("#paynowPackage").attr("disabled", "disabled");
-                        stripe.createToken(card).then(function(result) {
-                            if (result.error) {
-                                // Inform the user if there was an error
-                                var errorElement = document.getElementById('card-errors');
-                                errorElement.textContent = result.error.message;
+       
 
-                            // $("#payNowButton").removeAttr("disabled");
-                            } else {
-                                console.log(result.token.card);
-                                console.log(result.token.id)
-                                
-                                subscribe(card, stripe)
-                                
-
-                                // Send the result.token.id to a php file and use the token to create the subscription
-                            // SubscriptionManager.PayNowSubmit(result.token.id, e);
-                            }
-                        });
-
-                    });
-            } 
-          
-        }
+      }
             script.src = "https://js.stripe.com/v3/";
 
             document.head.appendChild(script); //or something of the likes
@@ -662,8 +702,6 @@
       })
 
     //   jQuery("#paynowPackage").click(function(){
-
-    
     //  });
     
     jQuery("#subscriptionstab").click(function(){
@@ -694,9 +732,7 @@
       
     
     };
-    
-      // var scriptLink = `${location.protocol}//${hostname}/user/plugins/${packageId}/scripts/scripts.js`;
-     
+  
   });
 
   

@@ -8,19 +8,51 @@ $package_name = $content['package_name'];
 $price = $content['price'];
 $details = $content['details'];
 $interval = 'Monthly';
+$plan_type = $content['plan_type'];
+$ex_plan_id = $content['plan_id'];
+
+$baseUrl = getMarketplaceBaseUrl();
+$admin_token = getAdminToken();
+$customFieldPrefix = getCustomFieldPrefix();
+
+// Query to get marketplace id
+$url = $baseUrl . '/api/v2/marketplaces/';
+$marketplaceInfo = callAPI("GET", null, $url, false);
+
+
 $timezone_offset = $content['timezone'];
 require_once('stripe-php/init.php');
 $stripe_secret_key =  getSecretKey();
 \Stripe\Stripe::setApiKey($stripe_secret_key);
 
-//create the Product name, default will be 'Arcadier subs...'
+if ($plan_type == 'existing') {
+  $stripePlan = \Stripe\Price::update(
+    $ex_plan_id,
+     [ //'unit_amount' => $price,
+     // 'currency' => 'usd',
+      'nickname' => $package_name,
+     // 'recurring' => ['interval' => 'month'],
+     //'product' => $productId,
+      'metadata' => array('desription' => $details)
+    ]);
+
+    $package_details = array('PackageName' => $package_name, 'Price' => $price, 'Details' => $details);
+
+    $url =  $baseUrl . '/api/v2/plugins/'. getPackageID() .'/custom-tables/Package/rows';
+    $result =  callAPI("POST",$admin_token['access_token'], $url, $package_details);
+
+
+}else { //if new 
+
+  //create the Product name, default will be 'Arcadier subs...'
   $stripe = \Stripe\Product::create([
-     'name'=> 'Arcadier Subscription'
-  ]);
+    'name'=> 'Arcadier Subscription'
+ ]);
 
-  $productId = $stripe->id;
+ $productId = $stripe->id;
 
-  //create the Pricing for the created package
+ //create the Pricing for the created package
+
   $stripePlan = \Stripe\Price::create(
     [
       'unit_amount' => $price,
@@ -45,13 +77,6 @@ $now = new DateTime($timezone_name);
 $now->format('Y-m-d H:i:s');    // MySQL datetime format
 $dates = $now->getTimestamp(); 
 
-$baseUrl = getMarketplaceBaseUrl();
-$admin_token = getAdminToken();
-$customFieldPrefix = getCustomFieldPrefix();
-
-// Query to get marketplace id
-$url = $baseUrl . '/api/v2/marketplaces/';
-$marketplaceInfo = callAPI("GET", null, $url, false);
 
 // Query to get package custom fields
 $url = $baseUrl . '/api/developer-packages/custom-fields?packageId=' . getPackageID();
@@ -80,8 +105,6 @@ echo json_encode(['data' =>  $data]);
 $url = $baseUrl . '/api/v2/marketplaces/';
 $result = callAPI("POST", $admin_token['access_token'], $url, $data);
 
-
-
 // save package details in custom tables
 
 $package_details = array('PackageName' => $package_name, 'Price' => $price, 'Details' => $details, 'Interval' => $interval, 'PlanID' => $planId, 'ProductID' => $productId );
@@ -89,7 +112,7 @@ $package_details = array('PackageName' => $package_name, 'Price' => $price, 'Det
 $url =  $baseUrl . '/api/v2/plugins/'. getPackageID() .'/custom-tables/Package/rows';
 $result =  callAPI("POST",$admin_token['access_token'], $url, $package_details);
 
-
+}
   // Token is created using Stripe Checkout or Elements!
   // Get the payment token ID submitted by the form:
 

@@ -16,12 +16,14 @@ $stripe_secret_key =  getSecretKey();
 \Stripe\Stripe::setApiKey($stripe_secret_key);
 $stripe = \Stripe\Product::all();
 $products =  $stripe->data;
+$plan_type = 'new';
 //print_r($products);
 $key = array_search('Arcadier Subscription', array_column($products, 'name'));
 // echo gettype($key);
 error_log('key' . $key);
 if (gettype($key) == integer) {
     $plan_id='';
+    $plan_type = 'existing';
     foreach($marketplaceInfo['CustomFields'] as $cf) {
         if ($cf['Name'] == 'plan_id' && substr($cf['Code'], 0, strlen($customFieldPrefix)) == $customFieldPrefix) {
             $plan_id = $cf['Values'][0];
@@ -123,7 +125,7 @@ else {
 
                     <div class="sync-data">
                         <div class="btn-area" id="connect-save-btn"> <a href="javascript:void(0);"
-                                onclick="MakeConnectSubscriptionUnedit()" class="btn-blue">Save</a></div>
+                                class="btn-blue" id="save" plan-type="<?php echo $plan_type; ?>" plan-id="<?php echo $plan_id ?>">Save</a></div>
                         <div class="btn-area" id="connect-edit-btn" style="display: none;"> <a
                                 href="javascript:void(0);" class="btn-blue"
                                 onclick="SaveConnectSubscriptionConfirm()">Edit</a></div>
@@ -134,7 +136,6 @@ else {
         </div>
 
     </div>
-
 
 
     <div class="popup popup-save-confirm" id="link-subscription-account" style="display: none;">
