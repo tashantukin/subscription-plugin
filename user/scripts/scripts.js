@@ -65,17 +65,214 @@
    
  // }
   
+  function appendScript()
+  {
+    var validationScript = `<script>
+    
+
+  var callbackOnboardCustom = function (result) {
+    if (result === "Success") {
+      //  window.location = '/user/item/list';
+      console.log('success');
+      $('#subscriptionstab').click();
+    } else {
+        toastr.error('Failed to onboard as a merchant. You may have used this account already in another marketplace.', 'Oops! Something went wrong.');
+    }
+};
+   
+function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, isSpaceTime, isMerchant) {
+  var checkTab;
+  var check;
+  target = $(target);
+  var targetTab = $(target).attr('href');
+  var activeTabIndex = $("#setting-tab li.active").index();
+
+  while (targetTabIndex !== activeTabIndex) {
+      var activeLi = $("#setting-tab li")[activeTabIndex];
+      if (targetTabIndex > activeTabIndex) {
+          checkTab = $(activeLi).next('li').children('a').attr("href");
+          check = $(activeLi).next('li').children('a');
+          if (!ValidateTabCustom(activeLi, targetTab, target, checkTab, check, optionalSkipDelivery, isSpaceTime, isMerchant))
+              return false;
+          activeTabIndex++;
+      } else {
+          checkTab = $(activeLi).prev('li').children('a').attr("href");
+          check = $(activeLi).prev('li').children('a');
+          if (!ValidateTabCustom(activeLi, targetTab, target, checkTab, check, optionalSkipDelivery, isSpaceTime, isMerchant))
+              return false;
+          activeTabIndex--;
+      }
+  }
+  if (isNext && targetTabIndex === activeTabIndex) {
+      $(target).trigger('click');
+  }
+
+  $('#setting-tab a[href="' + target + '"]').tab('show');
+}
   
- 
-function displayError(event) {
- // changeLoadingStatePrices(false);
-  let displayError = document.getElementById('card-errors');
-  if (event.error) {
-    displayError.textContent = event.error.message;
+ function ValidateTabCustom(activeLi, targetTab, target, nextTab, next, optionalSkipDelivery, isSpaceTime, isMerchant) {
+  var validate = false;
+  var isUpdateUser = false;
+  var checkTab = $(activeLi).children('a').attr("href");
+  var check = $(activeLi).children('a');
+  var activeTab = $(activeLi).children('a').attr("href");
+  var active = $(activeLi).children('a');
+  var continueTab = target;
+  var data = {};
+  var url = null;
+  var initialDisplayName = $('#hdn-DisplayName').val();
+  var initialFirstName = $('#hdn-FirstName').val();
+  var initialLastName = $('#hdn-LastName').val();
+  var initialNotificationEmail = $('#hdn-NotificationEmail').val();
+  var initialContactNumber = $('#hdn-ContactNumber').val();
+  var initialDescription = $('#hdn-Description').val();
+  var initialTimeZoneId = $('#hdn-TimeZone').val();
+  var initialSellerLocation = $('#hdn-SellerLocation').val();
+
+  $(".next-tab-area").show();
+
+  switch (checkTab) {
+     
+      case '#payment_acceptance':
+
+          var errorMessage = 'You need to link the mandatory payment method before proceeding.';
+
+          if ($(".payment-input").length === 0) {
+              validate = true;
+              toastr.error(errorMessage, 'Oops! Something went wrong.');
+              return false;
+          }
+
+          $(".payment-input").each(function (d) {
+              var self = $(this);
+
+              var isMandatory = self.find("#isMandatory");
+              var isLinked = self.find(".isLinked");
+              var isVerified = self.find("#isVerified");
+
+              if (isMandatory.val() === "true" && (isLinked.html() === 'No account linked yet' || isVerified.val() === "false")) {
+                  validate = true;
+                  toastr.error(errorMessage, 'Oops! Something went wrong.');
+                  return false;
+              } else {
+                  if ($('#ENABLE_DELIVERY_PICKUP').val() === "true")
+                      url = '/Settings/GetShippingMethod';
+                  else
+                      url = continueTab.length === 0 ? '/Settings/OnboardMerchant' : url;
+              }
+          });
+
+          break;
+
+
+      case '#delivery_method':
+        
+
+          if (optionalSkipDelivery == null) { optionalSkipDelivery = false }
+
+          if (optionalSkipDelivery) {
+              
+              url = continueTab.length === 0 ? '/Settings/OnboardMerchant' : url;
+          } else {
+              if ($('.delivery-inner').find('.delivery-row').length > 0 || $('.location-inner').find('.delivery-row').length > 0) {
+                  url = continueTab.length === 0 ? '/Settings/OnboardMerchant' : url;
+              } else {
+                  validate = true;
+                  toastr.error('Please enter atleast one Delivery service or Pick up location.', 'Oops! Something went wrong.');
+              }
+          }
+
+          break;
+  }
+  if (!validate) {
+      if (url != null) {
+          if (url.toLowerCase() === '/settings/onboardmerchant') {
+              let token = $('input[name="__RequestVerificationToken"]').val();
+              data['__RequestVerificationToken'] = token;
+              $.ajax({
+                  url: url,
+                  type: 'POST',
+                  data: data,
+                  success: function (result) {
+                    callbackOnboardCustom(result);
+                  },
+                  error: function (xhr, status, ex) {
+                      
+                  }
+              });
+          } else if ($('#ENABLE_DELIVERY_PICKUP').val() === "true" && url.toLowerCase() === '/settings/getshippingmethod') {
+              $.ajax({
+                  url: url,
+                  type: 'GET',
+                  success: function (result) {
+                      callbackGetShippingMethod(result, isSpaceTime);
+                  },
+                  error: function (xhr, status, ex) {
+
+                  }
+              });
+
+              $.ajax({
+                  url: '/Settings/GetPickupAddress',
+                  type: 'GET',
+                  success: function (result) {
+                      callbackGetPickupAddress(result);
+                  },
+                  error: function (xhr, status, ex) {
+
+                  }
+              });
+          } else if (url.toLowerCase() === '/settings/updateuser') {
+              let token = $('input[name="__RequestVerificationToken"]').val();
+              data['__RequestVerificationToken'] = token;
+              $.ajax({
+                  url: url,
+                  type: 'POST',
+                  data: data,
+                  success: function (result) {
+                      if ($('#ENABLE_DELIVERY_PICKUP').val() === "true") {
+                          GetAddress();
+                      }
+                  },
+                  error: function (xhr, status, ex) {
+
+                  }
+              });
+
+          } else if ($('#ENABLE_DELIVERY_PICKUP').val() === "true" && url === '') {
+              GetAddress();
+          }
+      }
+      $(next).attr('data-toggle', 'tab');
+      $(active).removeAttr('data-toggle');
+      if (url === 'loadPaymentTab') {
+          if ($(next).length === 1) {
+              $('.nav-tabs a[href="#payment_acceptance"]').tab('show');
+              return false;
+          } else {
+              window.location = "/user/marketplace/index";
+          }
+      }
+      return true;
   } else {
-    displayError.textContent = '';
+      $('.nav-tabs a[href="' + checkTab + '"]').tab('show');
+      return false;
   }
 }
+  
+    </script>`;
+
+    $('body').append(validationScript);
+  }
+  function displayError(event) {
+  // changeLoadingStatePrices(false);
+    let displayError = document.getElementById('card-errors');
+    if (event.error) {
+      displayError.textContent = event.error.message;
+    } else {
+      displayError.textContent = '';
+    }
+  }
   function getPlanData(page){
       var apiUrl = packagePath + '/getPrices.php';
      
@@ -88,8 +285,7 @@ function displayError(event) {
       {
         result = JSON.parse(result);
 
-        console.log(result);
-     
+        //console.log(result);
      
         var startDate = new Date(result.start_date * 1000); 
         var currentDate = moment(startDate);
@@ -102,9 +298,10 @@ function displayError(event) {
         console.log(moment(startDateMoment,'DD.MM.YYYY HH:mm').isSameOrBefore(endDateMoment, 'day'));
 
         var endDateMoment2 = moment(endDate).format('DD/MM/YYYY');
+        var startDateMoment2 = moment(startDate).format('DD/MM/YYYY');
         plan_id = result.id;
         //billing starts on --
-        $('#billingstart').text(startDateMoment);
+        $('#billingstart').text(startDateMoment2);
         $('#subs-name').text(result.name);
         $('#subs-desc').text(result.description)
         $('#package-name').text(result.name);
@@ -126,12 +323,13 @@ function displayError(event) {
           
         } else {
 
-          console.warn('in else');
-
-        // if (!pathname.indexOf('/user/marketplace/seller-settings') > -1) {
-        //   urls = `${protocol}//${baseURL}/user/marketplace/seller-settings`;
-        //   window.location.href = urls;
-        // }
+          $('.header.user-login .dropdown .seller-nav.dropdown-menu').hide()
+          if (page != 'Settings') {
+            console.warn('in else');
+        
+          urls = `${protocol}//${baseURL}/user/marketplace/seller-settings`;
+          window.location.href = urls;
+         }
           
         }
           
@@ -355,31 +553,44 @@ function displayError(event) {
   
     if (pathname.indexOf('/user/marketplace/seller-settings') > -1 || pathname.indexOf('/user/marketplace/be-seller') > -1) {
      
+      appendScript();
+
       //next button
-      $('#address #next-tab').on('click', function(e){
+      // $('#address #next-tab').on('click', function(e){
        
-        $('#payment_acceptance #next-tab').text('NEXT');
-        var attrbts = $('#payment_acceptance #next-tab').prop("attributes");
-        // loop through element1 attributes and apply them on element2.
-        $.each(attrbts, function() {
-          $('#subscriptions #next-tab').attr(this.name, this.onclick);
+      $('#payment_acceptance #next-tab').text('NEXT');
+      var onclickAttr = $('#payment_acceptance .next-tab-area #next-tab').attr('onclick');
+      onclickAttr = onclickAttr.replace("Validate", "ValidateCustom");
+      $('#payment_acceptance .next-tab-area #next-tab').attr('onclick', onclickAttr);
+      
+      //redirect Save button to item details page
+      var itemsUrl = `${protocol}//${baseURL}/user/item/list`;
+      // 
+      $('#subscriptions #next-tab').attr('href', itemsUrl);
+
+      // $('#subscriptions #next-tab').on('click', function(e){
+      //    window.location.href = urls;
+      // })
+        
+      //   var attrbts = $('#payment_acceptance #next-tab').prop("attributes");
+      //   // loop through element1 attributes and apply them on element2.
+      //   $.each(attrbts, function() {
+      //     $('#subscriptions #next-tab').attr(this.name, this.onclick);
           
-        });
-        $('#payment_acceptance #next-tab').removeAttr('onclick');
-      });
+      //   });
+      //   $('#payment_acceptance #next-tab').removeAttr('onclick');
+      // });
      
-      $('#payment_acceptance #next-tab').on('click', function(e){
-        // e.preventDefault();
-        // e.stopImmediatePropagation();
-        // return false;
-        $('#subscriptionstab').click();
+      // $('#payment_acceptance #next-tab').on('click', function(e){
+      //   // e.preventDefault();
+      //   // e.stopImmediatePropagation();
+      //   // return false;
+      //   
        
-      });
+     // });
 
      // $('#payment_acceptance #next-tab').removeAttr('onclick');
-      var itemsUrl = `${protocol}//${baseURL}/user/item/list`;
-     // window.location.href = urls;
-      //$('#subscriptions #next-tab').attr('href', itemsUrl);
+    
       
       var subscriptionTabHeader = `<li> <a href="#subscriptions" aria-expanded="false" id="subscriptionstab"><span>SUBSCRIPTIONS</span></a></li>`
       $('#setting-tab').append(subscriptionTabHeader);
@@ -685,9 +896,6 @@ function displayError(event) {
               });
             }
         });
-
-       
-
       }
             script.src = "https://js.stripe.com/v3/";
 
@@ -717,7 +925,6 @@ function displayError(event) {
   
      });
       
-    
      jQuery("#cancel").click(function(){
 
       cancel_remove_subscription(2)

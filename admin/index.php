@@ -259,9 +259,9 @@ else {
     }
 
     jQuery(document).ready(function () {
-
-
-
+        $('#price_per_month').on('blur', function () {
+            $(this).val(parseFloat($(this).val()).toFixed(2));
+         })
     });
 
 </script>

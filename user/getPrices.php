@@ -55,16 +55,15 @@ foreach ($marketplaceInfo['CustomFields'] as $cf) {
     }
 }
 
-
-
-
-
-
-if (!empty($plan_id)) {
+if ($subs_id) {
     $subscription = \Stripe\Subscription::retrieve($subs_id);
 
     $end_date = $subscription->current_period_end;
     $start_date = $subscription->current_period_start;
+}
+
+if (!empty($plan_id)) {
+
     // echo 'plan id ' . $plan_id;
      $stripe = \Stripe\Price::retrieve($plan_id);
  //    echo $stripe;
