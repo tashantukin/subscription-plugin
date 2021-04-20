@@ -5,6 +5,8 @@ $contentBodyJson = file_get_contents('php://input');
 $content = json_decode($contentBodyJson, true);
 $status = $content['status'];
 $id = $content['id'];
+$start_date = $content['start_date'];
+$end_date = $content['end_date'];
 
 $baseUrl = getMarketplaceBaseUrl();
 $admin_token = getAdminToken();
@@ -25,7 +27,12 @@ foreach ($packageCustomFields as $cf) {
     if ($cf['Name'] == 'subscription_id' && substr($cf['Code'], 0, strlen($customFieldPrefix)) == $customFieldPrefix) {
         $subs_id = $cf['Code'];
     }
-    
+    if ($cf['Name'] == 'subscription_start_date' && substr($cf['Code'], 0, strlen($customFieldPrefix)) == $customFieldPrefix) {
+        $subs_start_date = $cf['Code'];
+    }
+    if ($cf['Name'] == 'subscription_end_date' && substr($cf['Code'], 0, strlen($customFieldPrefix)) == $customFieldPrefix) {
+        $subs_end_date = $cf['Code'];
+    }
 }
 
 $data = [
@@ -38,7 +45,17 @@ $data = [
         [
             'Code' =>  $subs_id,
             'Values' => [$id],
-        ]
+        ],
+
+        [
+            'Code' =>  $subs_start_date,
+            'Values' => [$start_date],
+        ],
+
+        [
+            'Code' =>  $subs_end_date,
+            'Values' => [$end_date],
+        ],
     ],
 ];
 

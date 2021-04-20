@@ -376,12 +376,15 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
 	
     }
 
-  function saveSubscriptionData(id, status)
+  function saveSubscriptionData(result)
   {
     var apiUrl = packagePath + '/saveSubscriptionData.php';
     var data = {
-      'id': id,
-      'status' : status
+      'id': result.id,
+      'status': result.status,
+      'start_date': result.current_period_start,
+      'end_date' : result.current_period_end
+
     }
       
       $.ajax({
@@ -441,7 +444,7 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
                 data: JSON.stringify(data),
         success: function(result) {
           result = JSON.parse(result);
-          saveSubscriptionData(result.result.id, result.result.status);
+          saveSubscriptionData(result.result);
           // console.log(result.result.plan.nickname);
           // console.log(result.result.plan['nickname']);
           $('#cancelsubs').attr("sub-id", result.result.id);

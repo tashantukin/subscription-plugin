@@ -104,7 +104,6 @@ function MakeUneditable() {
  
   }
   
-
 function saveKeys() {
   var data = {  'secretKey': $('#live-secret-key').val(), 'publishableKey': $('#live-publishable-key').val(), 'package_name'  :  $('#package_name').val(), 'price' : $('#price_per_month').val(), 'details' : $('#subscription-details').val() };
    var apiUrl = packagePath + '/save_keys.php';
