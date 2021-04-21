@@ -13,39 +13,43 @@ $url = $baseUrl . '/api/v2/marketplaces/';
 $marketplaceInfo = callAPI("GET", null, $url, false);
 $stripe_secret_key =  getSecretKey();
 //stripe secret key to be fetched on custom fields
-\Stripe\Stripe::setApiKey($stripe_secret_key);
-$stripe = \Stripe\Product::all();
-$products =  $stripe->data;
 $plan_type = 'new';
-//print_r($products);
-$key = array_search('Arcadier Subscription', array_column($products, 'name'));
-// echo gettype($key);
-error_log('key' . $key);
-if (gettype($key) == integer) {
-    $plan_id='';
-    $plan_type = 'existing';
-    foreach($marketplaceInfo['CustomFields'] as $cf) {
-        if ($cf['Name'] == 'plan_id' && substr($cf['Code'], 0, strlen($customFieldPrefix)) == $customFieldPrefix) {
-            $plan_id = $cf['Values'][0];
-           // echo ($plan_id);
-        }
-    }
-    if (!empty($plan_id)) {
-       // echo 'plan id ' . $plan_id;
-        $stripe = \Stripe\Price::retrieve($plan_id);
-    //    echo $stripe;
-        $package_name = $stripe->nickname;
-        $price = $stripe->unit_amount;
-        $metadata= $stripe->metadata;
-        $details = json_encode($metadata);
-        $details1 = implode(',', json_decode($details, true));
-
-    }
+if ($stripe_secret_key) {
+    \Stripe\Stripe::setApiKey($stripe_secret_key);
+    $stripe = \Stripe\Product::all();
+    $products =  $stripe->data;
    
+    //print_r($products);
+    $key = array_search('Arcadier Subscription3', array_column($products, 'name'));
+    // echo gettype($key);
+    error_log('key' . $key);
+    if (gettype($key) == integer) {
+        $plan_id='';
+        $plan_type = 'existing';
+        foreach($marketplaceInfo['CustomFields'] as $cf) {
+            if ($cf['Name'] == 'plan_id' && substr($cf['Code'], 0, strlen($customFieldPrefix)) == $customFieldPrefix) {
+                $plan_id = $cf['Values'][0];
+               // echo ($plan_id);
+            }
+        }
+        if (!empty($plan_id)) {
+           // echo 'plan id ' . $plan_id;
+            $stripe = \Stripe\Price::retrieve($plan_id);
+        //    echo $stripe;
+            $package_name = $stripe->nickname;
+            $price = $stripe->unit_amount;
+            $metadata= $stripe->metadata;
+            $details = json_encode($metadata);
+            $details1 = implode(',', json_decode($details, true));
+    
+        }
+       
+    }
+    else {
+       echo 'not found';
+    }
 }
-else {
-   echo 'not found';
-}
+
 
 ?>
 
@@ -53,6 +57,7 @@ else {
 <link rel="stylesheet" href="css/settings.css">
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/subscription.css">
+<script src="https://js.stripe.com/v3/"></script>
 <div class="page-content" id="payments-content">
     <div class="gutter-wrapper">
         <div class="panel-box">
@@ -84,17 +89,20 @@ else {
                             KEY</p>
                         <input type="text" id="live-publishable-key" name="live-publishable-key" value=""
                             class="form-control required" placeholder="pk_test_51INpZ6Lpsmplepublishablekey">
+                            <p class="error"> </p>
                     </div>
                     <div class="tracking-id show-right-broder mt-20">
                         <p class="google-analytics-id-txt goo-lowercase"><span class="red-bold-strong">LIVE</span>
                             SECRET KEY
                         </p>
+                       
                         <input type="text" id="live-secret-key" name="live-secret-key" value=""
                             class="form-control required" placeholder="sk_test_51INpZ6LpiOi48zknrwesamplesecretkey">
+                            <p class="errorSecret"> </p>
                     </div>
                     <div class="mt-20">
                         <div id="save-btn" class="btn-area"><input type="button" class="btn-blue"
-                                onclick="MakeUneditable()" value="Save" name="save"></div>
+                                 value="Save" name="save"></div>
                         <div class="btn-area" id="edit-btn" style="display: none;"><a href="javascript:void(0);"
                                 class="btn-blue" onclick="SaveConfirm()">Edit</a></div>
                     </div>
@@ -193,6 +201,9 @@ else {
         jQuery("#" + closeid).fadeOut();
     }
 
+
+
+
     function popupConfirm_ok() {
 
         jQuery("#cover").fadeOut();
@@ -207,13 +218,13 @@ else {
     function SaveConfirm() {
         var e = false;
         jQuery("#live_secret_key .required").each(function () {
-            var val = jQuery(this).val();
-            var attr = jQuery(this).attr('id');
-            if (jQuery.trim(val) == '')
-            {
-                e = true;
-                jQuery(this).addClass('error-con');
-            }
+            // var val = jQuery(this).val();
+            // var attr = jQuery(this).attr('id');
+            // if (jQuery.trim(val) == '')
+            // {
+            //     e = true;
+            //     jQuery(this).addClass('error-con');
+            // }
         });
         if (!e)
         {
@@ -221,8 +232,6 @@ else {
             jQuery("#link-subscription-account").fadeIn();
         }
     }
-
-
 
     function popupCoonectStrip_ok() {
         jQuery("#cover").fadeOut();
@@ -238,16 +247,16 @@ else {
     function SaveConnectSubscriptionConfirm() {
 
         var e = false;
-        jQuery("#live_secret_key .required").each(function () {
-            var val = jQuery(this).val();
-            var attr = jQuery(this).attr('id');
-            if (jQuery.trim(val) == '')
-            {
-                e = true;
-                jQuery(this).addClass('error-con');
-            }
+        // jQuery("#live_secret_key .required").each(function () {
+        //     var val = jQuery(this).val();
+        //     var attr = jQuery(this).attr('id');
+        //     if (jQuery.trim(val) == '')
+        //     {
+        //         e = true;
+        //         jQuery(this).addClass('error-con');
+        //     }
 
-        });
+        // });
 
         if (!e)
         {
@@ -258,10 +267,44 @@ else {
 
     }
 
+    function validatePK(pKey,el) {
+        $('.error').text('');
+        el.removeClass('error-con');
+       try {
+            var stripe = Stripe(pKey);
+            stripe.createToken('pii', {personal_id_number: 'test'})
+                .then(result =>
+                {
+                //console.log(result);
+                if (result.token) {
+                
+                }
+                // public key is valid :o)
+                else {
+                //e = true;
+                el.addClass('error-con');
+                $('.error').text('Invalid Publishable key.');
+                }
+                
+            })
+        }catch(err){
+           // console.log('err ' + err);
+            el.addClass('error-con');
+            $('.error').text('Error: Please provide Publishable key instead.');
+        }
+        
+        }
+
+
+
+
     jQuery(document).ready(function () {
         $('#price_per_month').on('blur', function () {
             $(this).val(parseFloat($(this).val()).toFixed(2));
          })
+
+        
+
     });
 
 </script>

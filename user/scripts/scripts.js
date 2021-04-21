@@ -58,15 +58,8 @@
     }, 700);
   }
 
-  //function disablePages()
-  //{
-    //navigate to user settings
-    //disable seller pages
-   
- // }
   
-  function appendScript()
-  {
+  function appendScript() {
     var validationScript = `<script>
     
 
@@ -262,7 +255,7 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
   
     </script>`;
 
-    $('body').append(validationScript);
+    $('body').append(validationScript); 
   }
   function displayError(event) {
   // changeLoadingStatePrices(false);
@@ -285,10 +278,10 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
       {
         result = JSON.parse(result);
 
-        //console.log(result);
+        console.log(result);
      
         var startDate = new Date(result.start_date * 1000); 
-        var currentDate = moment(startDate);
+        var currentDate = moment(new Date()).format('DD/MM/YYYY');
         var startDateMoment = moment(startDate, 'DD.MM.YYYY HH:mm') //.format('DD.MM.YYYY HH:mm');
         var endDate =new Date(result.end_date * 1000); 
           //moment(result.end_date, 'DD.MM.YYYY HH:mm')
@@ -301,28 +294,41 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
         var startDateMoment2 = moment(startDate).format('DD/MM/YYYY');
         plan_id = result.id;
         //billing starts on --
-        $('#billingstart').text(startDateMoment2);
+        $('#billingstart').text(currentDate);
         $('#subs-name').text(result.name);
         $('#subs-desc').text(result.description)
         $('#package-name').text(result.name);
+        $('.package-price span').first().text(`USD $${parseFloat(result.price).toFixed(2)}`);
 
-        if (result.status == 'active' || (!result.status == 'canceled' && moment(startDateMoment).isSameOrBefore(endDate, 'day'))) {
+
+        if (result.status == 'active' || (result.status == 'canceled' && moment(startDateMoment).isSameOrBefore(endDate, 'day'))) {
 
           isSubscriptionValid = 1;
-          
-          if (page == 'Settings') {
-            $('#cancelsubs').attr("sub-id", result.sub_id);
-            $('#subscription-name').text(result.name);
-            $('.subscription-step1').addClass('hide');
-            $('.subscription-step2').removeClass('hide');
-            var status = result.status == 'canceled' ? 'Cancelled' : result.status;
-            $('#status').text(status);
-            $('#nxtbilling').text(endDateMoment2);
-        
-          }
-          
-        } else {
 
+          //verify if the user is merchant
+
+          console.log($('.navigation .dropdown a').attr('href'));
+
+          if ( $('.navigation .dropdown a').attr('href') != 'user/marketplace/be-seller')
+          {
+            console.log('merchant page')
+            if (page == 'Settings') {
+              $('#cancelsubs').attr("sub-id", result.sub_id);
+              $('#subscription-name').text(result.name);
+              $('.subscription-step1').addClass('hide');
+              $('.subscription-step2').removeClass('hide');
+              var status = result.status == 'canceled' ? 'Cancelled' : result.status;
+              $('#status').text(status);
+              $('#nxtbilling').text(endDateMoment2);
+          
+            }
+            
+          } 
+
+
+        }
+        else {
+  
           $('.header.user-login .dropdown .seller-nav.dropdown-menu').hide()
           if (page != 'Settings') {
             console.warn('in else');
@@ -332,6 +338,7 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
          }
           
         }
+        
           
 			},
 			error: function(jqXHR, status, err) {
@@ -340,7 +347,6 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
 		});
 	
     }
-    
   function subscribe(card, stripe)
   {
     var addressInfo = JSON.parse(localStorage.getItem("address"));
@@ -551,6 +557,8 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
 
     //home page upon logging in
     if ($('body').hasClass('page-home')) {
+
+
       getPlanData('Homepage');
     }
   
@@ -558,22 +566,43 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
      
       appendScript();
 
+      if ($('#maketplace-type').val() == 'spacetime') {
+        
+        //skip delivery button 
+        // delivery-btn-skip
+        var onclickAttrskipdel = $('.delivery-btn-skip').attr('onclick');
+        onclickAttrskipdel = onclickAttrskipdel.replace("Validate", "ValidateCustom");
+        $('.delivery-btn-skip').attr('onclick', onclickAttrskipdel);
+
+        //delivery button Save
+        $('#delivery_method #next-tab').text('NEXT');
+        var onclickAttrdel = $('#delivery_method .next-tab-area #next-tab').attr('onclick');
+        onclickAttrdel = onclickAttrdel.replace("Validate", "ValidateCustom");
+        $('#delivery_method  .next-tab-area #next-tab').attr('onclick', onclickAttrdel);
+        
+      }
+      
+      else {
+        $('#payment_acceptance #next-tab').text('NEXT');
+        var onclickAttr = $('#payment_acceptance .next-tab-area #next-tab').attr('onclick');
+        onclickAttr = onclickAttr.replace("Validate", "ValidateCustom");
+        $('#payment_acceptance .next-tab-area #next-tab').attr('onclick', onclickAttr);
+        
+      
+      }
+        //redirect Save button to item details page
+        // var itemsUrl = `${protocol}//${baseURL}/user/item/list`;
+        // $('#subscriptions #next-tab').attr('href', itemsUrl);
+
       //next button
       // $('#address #next-tab').on('click', function(e){
        
-      $('#payment_acceptance #next-tab').text('NEXT');
-      var onclickAttr = $('#payment_acceptance .next-tab-area #next-tab').attr('onclick');
-      onclickAttr = onclickAttr.replace("Validate", "ValidateCustom");
-      $('#payment_acceptance .next-tab-area #next-tab').attr('onclick', onclickAttr);
-      
-      //redirect Save button to item details page
-      var itemsUrl = `${protocol}//${baseURL}/user/item/list`;
-      // 
-      $('#subscriptions #next-tab').attr('href', itemsUrl);
+     
 
-      // $('#subscriptions #next-tab').on('click', function(e){
-      //    window.location.href = urls;
-      // })
+      $(".subscription-step2 #next-tab").on('click', function ()
+      {
+          window.location = '/user/item/list';
+      })
         
       //   var attrbts = $('#payment_acceptance #next-tab').prop("attributes");
       //   // loop through element1 attributes and apply them on element2.
@@ -594,7 +623,6 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
 
      // $('#payment_acceptance #next-tab').removeAttr('onclick');
     
-      
       var subscriptionTabHeader = `<li> <a href="#subscriptions" aria-expanded="false" id="subscriptionstab"><span>SUBSCRIPTIONS</span></a></li>`
       $('#setting-tab').append(subscriptionTabHeader);
 
@@ -736,7 +764,7 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
 
                                     <div class="col-md-7">
 
-                                        <p class="grey-colot-txt"><strong>Discount amount</strong></p>
+                                        <p class="grey-colot-txt"><strong>Total amount</strong></p>
 
                                     </div>
 
@@ -807,7 +835,7 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
 
                 <div class="text-center">
 
-                    <a class="my-btn btn-red" href="" id="next-tab">
+                    <a class="my-btn btn-red"  id="next-tab">
 
                         SAVE
 

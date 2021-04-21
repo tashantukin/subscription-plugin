@@ -55,7 +55,7 @@ if ($plan_type == 'existing') {
 
   $stripePlan = \Stripe\Price::create(
     [
-      'unit_amount' => $price,
+      'unit_amount_decimal' => $price,
       'currency' => 'usd',
       'nickname' => $package_name,
       'recurring' => ['interval' => 'month'],
@@ -63,6 +63,7 @@ if ($plan_type == 'existing') {
       'metadata' => array('desription' => $details)
     ]);
 
+    error_log($stripePlan);
 $planId = $stripePlan->id;
 
 $tz = date_default_timezone_get();

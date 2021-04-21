@@ -15,6 +15,71 @@ var timezone_offset_minutes = new Date().getTimezoneOffset();
     timezone_offset_minutes = timezone_offset_minutes == 0 ? 0 : -timezone_offset_minutes;
 //switch
 
+  
+function validatePK(pKey,el) {
+  $('.error').text('');
+  el.removeClass('error-con');
+ try {
+      var stripe = Stripe(pKey);
+      stripe.createToken('pii', {personal_id_number: 'test'})
+          .then(result =>
+          {
+          //console.log(result);
+          if (result.token) {
+          
+          }
+          // public key is valid :o)
+          else {
+          //e = true;
+          el.addClass('error-con');
+          $('.error').text('Invalid Publishable key provided.');
+          }
+          
+      })
+  }catch(err){
+     // console.log('err ' + err);
+      el.addClass('error-con');
+      $('.error').text('Please provide Publishable key instead.');
+  }
+  
+  }
+function validateSK(sKey, el)
+  {
+    $('.errorSecret').text('');
+    el.removeClass('error-con');
+    var data = { 'secret_key' : sKey};
+    console.log(data);
+    var apiUrl = packagePath + '/validate_secretkey.php';
+   $.ajax({
+       url: apiUrl,          
+       method: 'POST',
+       contentType: 'application/json',
+       data: JSON.stringify(data),
+       success: function($result) {
+        // console.log($result);
+         var isvalid = JSON.parse($result);
+        // console.log(isvalid);
+        // console.log(isvalid.result.code);
+        
+         if (isvalid.result != 'Valid') {
+
+           if (isvalid.result.code == 'secret_key_required') {
+              el.addClass('error-con');
+              $('.errorSecret').text('Please provide Secret key instead.');
+            } else {
+              //console.log()
+              el.addClass('error-con');
+              $('.errorSecret').text('Invalid Secret key provided.');
+             }
+          
+          }
+        
+       },
+       error: function ($result) {
+          
+       }
+   });
+}
 function MakeConnectSubscriptionUnedit(plan_type, plan_id) {
 
   var e = false;
@@ -45,7 +110,6 @@ function MakeConnectSubscriptionUnedit(plan_type, plan_id) {
   }
 
 }
-
 function MakeUneditable() {
   var e = false;
   jQuery("#live_secret_key .required").each(function () {
@@ -58,7 +122,8 @@ function MakeUneditable() {
       }
   });
 
-  if (!e)
+ 
+  if (!$(".error-con").length)
   {
       saveKeys();
       jQuery("#live-secret-key").prop("readonly", true);
@@ -68,20 +133,20 @@ function MakeUneditable() {
   }
 }
 
-  function getMarketplaceCustomFields(callback){
-    var apiUrl = '/api/v2/marketplaces'
-    $.ajax({
-        url: apiUrl,
-        method: 'GET',
-        contentType: 'application/json',
-        success: function(result) {
-            if (result) {
-                callback(result.CustomFields);
-            }
-        }
-    });
-    
-  }
+function getMarketplaceCustomFields(callback){
+  var apiUrl = '/api/v2/marketplaces'
+  $.ajax({
+      url: apiUrl,
+      method: 'GET',
+      contentType: 'application/json',
+      success: function(result) {
+          if (result) {
+              callback(result.CustomFields);
+          }
+      }
+  });
+  
+}
 
   function saveURL() {
     var apiUrl = packagePath + '/save_custom_url.php';
@@ -147,6 +212,28 @@ function saveKeys() {
 
   $(document).ready(function ()
   {
+
+
+    //validiate PK
+    $('#live-publishable-key').on('keyup', function ()
+    {
+      if ($(this).val()) {
+        validatePK($(this).val(), $(this));
+      }
+    });
+
+
+    $('#live-secret-key').on('keyup', function ()
+    {
+      if ($(this).val()) {
+        validateSK($(this).val(), $(this));
+      }
+    });
+
+
+
+
+
 
      // MakeUneditable()
      jQuery("#live-secret-key").prop("readonly", true);
