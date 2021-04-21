@@ -11,6 +11,7 @@ $customFieldPrefix = getCustomFieldPrefix();
 
 $customer_id = $content['customer_id'];
 $payment_id = $content['payment_id'];
+$coupon_id = $content['coupon_id'];
 // Query to get marketplace id
 $url = $baseUrl . '/api/v2/marketplaces/';
 $marketplaceInfo = callAPI("GET", null, $url, false);
@@ -55,6 +56,7 @@ foreach ($marketplaceInfo['CustomFields'] as $cf) {
         'price' => $plan_id ,
       ],
     ],
+    'coupon' => $coupon_id,
     'expand' => ['latest_invoice.payment_intent'],
   ]);
 

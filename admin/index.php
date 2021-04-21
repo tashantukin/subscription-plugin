@@ -20,7 +20,7 @@ if ($stripe_secret_key) {
     $products =  $stripe->data;
    
     //print_r($products);
-    $key = array_search('Arcadier Subscription3', array_column($products, 'name'));
+    $key = array_search('Arcadier Subscription', array_column($products, 'name'));
     // echo gettype($key);
     error_log('key' . $key);
     if (gettype($key) == integer) {

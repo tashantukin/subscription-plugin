@@ -16,6 +16,7 @@
   var plan_id;
   var isSubscriptionValid = 0;
   var stripePubKey;
+  var plan_amount;
     // var stripe;
   
   function getAddressData()
@@ -293,6 +294,7 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
         var endDateMoment2 = moment(endDate).format('DD/MM/YYYY');
         var startDateMoment2 = moment(startDate).format('DD/MM/YYYY');
         plan_id = result.id;
+        plan_amount = parseFloat(result.price).toFixed(2);
         //billing starts on --
         $('#billingstart').text(currentDate);
         $('#subs-name').text(result.name);
@@ -441,7 +443,7 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
   function createSubscription(customerId, paymentId)
   {
       var apiUrl = packagePath + '/createSubscription.php';
-      var data = { 'customer_id': customerId,  'payment_id' : paymentId }
+      var data = { 'customer_id': customerId,  'payment_id' : paymentId ,'coupon_id' : $('#couponcode').val()}
       $.ajax({
           url: apiUrl,
           
@@ -492,6 +494,55 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
         }
     });
   }
+
+  function validateCoupon(id)
+  {
+    var apiUrl = packagePath + '/getCoupon.php';
+      var data = { 'id': id  }
+      $.ajax({
+          url: apiUrl,
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(data),
+        success: function(result) {
+        result = JSON.parse(result);
+          console.log(result);
+          var discountAmount = 0;
+          var isPercent = false;
+          discountAmount = result.result.amount_off != null ? parseFloat(result.result.amount_off/100).toFixed(2) : (result.result.percent_off, isPercent = true);
+          
+          console.log(`plan amount ${plan_amount}`);
+          console.log(`discount amount ${discountAmount}`);
+
+          console.log(isPercent);
+          if (isPercent) {
+            console.log('ispercent');
+            discountAmount = parseFloat((plan_amount * discountAmount) / 100).toFixed(2);
+          }
+
+          console.log(`plan amount ${plan_amount}`);
+          console.log(`discount amount ${discountAmount}`);
+
+          $('#discountAmount').text(`USD $${discountAmount}`);
+          var total = parseFloat(plan_amount - discountAmount).toFixed(2);
+          console.log(`total ${total}`);
+
+          $('.package-price span').first().text(`USD $${total}`);
+
+          // if (result.result.status == 'canceled') {
+          //   saveSubscriptionData(result.result.id, result.result.status);
+
+          // }
+        },
+        error: function(jqXHR, status, err) {
+        //	toastr.error('Error!');
+        }
+    });
+  }
+
+
+
+
 
   function delete_subscription(id){
       show_conformation_subscription(id);
@@ -599,10 +650,6 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
        
      
 
-      $(".subscription-step2 #next-tab").on('click', function ()
-      {
-          window.location = '/user/item/list';
-      })
         
       //   var attrbts = $('#payment_acceptance #next-tab').prop("attributes");
       //   // loop through element1 attributes and apply them on element2.
@@ -720,7 +767,7 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
 
                                         <label>Coupon code</label>
 
-                                        <input class="required" id="first-name" name="first-name" type="text" value="">
+                                        <input class="required" id="couponcode" name="first-name" type="text" value="">
 
                                     </div>
 
@@ -730,7 +777,7 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
 
                                         <div class="atag-color">
 
-                                            <a href="javascript:void(0);">Apply</a>
+                                            <a id="apply" href="javascript:void(0);">Apply</a>
 
                                         </div>
 
@@ -750,7 +797,7 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
 
                                     <div class="col-md-3 text-right">
 
-                                        <a href="javascript:void(0);">USD $0.00</a>
+                                        <a href="javascript:void(0);"id="discountAmount">USD $0.00</a>
 
                                     </div>
 
@@ -784,7 +831,7 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
 
                             <div class="text-center">
 
-                                <a class="my-btn btn-red" id="paynowPackage" href="javacrtipt:void(0);">PAY NOW</a>
+                                <a class="my-btn btn-red" id="paynowPackage" href="javascript:void(0);">PAY NOW</a>
 
                             </div>
 
@@ -835,7 +882,7 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
 
                 <div class="text-center">
 
-                    <a class="my-btn btn-red"  id="next-tab">
+                    <a class="my-btn btn-red" href="javascript:void(0)"  id="next-tab">
 
                         SAVE
 
@@ -854,11 +901,11 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
                 
                 <!-- <div class="next-tab-area">
 
-                    <a class="my-btn btn-red" href="javascript:void(0);" id="next-tab" onclick="validateTab('#subscriptions')">
+                    // <a class="my-btn btn-red" href="javascript:void(0);" id="next-tab" onclick="validateTab('#subscriptions')">
 
-                        SAVE
+                    //     SAVE
 
-                    </a>
+                    // </a>
 
                 </div>-->
       </div>`
@@ -968,6 +1015,24 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
  
      });
       
+      
+      
+     $(".subscription-step2 #next-tab").on('click', function ()
+     {
+         window.location = '/user/item/list';
+     })
+
+     $("#apply").click(function ()
+     {
+       console.log('apply clicked')
+     
+      if ($('#couponcode').val() != '') {
+
+         validateCoupon($('#couponcode').val())
+      }
+         
+     })
+
     
     };
   
