@@ -190,7 +190,7 @@ function saveKeys() {
   
   function savePackageDetails(plan_type, plan_id)
   {
-    var data = { 'package_name' : $('#package_name').val(), 'price': $('#price_per_month').val(), 'details': $('#subscription-details').val(), 'timezone' : timezone_offset_minutes, 'plan_type': plan_type, 'plan_id' : plan_id };
+    var data = { 'package_name' : $('#package_name').val(), 'price': Math.round($('#price_per_month').val() * 100), 'details': $('#subscription-details').val(), 'timezone' : timezone_offset_minutes, 'plan_type': plan_type, 'plan_id' : plan_id };
     console.log(data);
     var apiUrl = packagePath + '/save_details.php';
    $.ajax({
@@ -209,11 +209,7 @@ function saveKeys() {
    });
   }
   
-
-  $(document).ready(function ()
-  {
-
-
+  $(document).ready(function (){
     //validiate PK
     $('#live-publishable-key').on('keyup', function ()
     {
@@ -222,17 +218,12 @@ function saveKeys() {
       }
     });
 
-
     $('#live-secret-key').on('keyup', function ()
     {
       if ($(this).val()) {
         validateSK($(this).val(), $(this));
       }
     });
-
-
-
-
 
 
      // MakeUneditable()

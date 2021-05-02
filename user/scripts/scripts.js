@@ -540,10 +540,6 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
     });
   }
 
-
-
-
-
   function delete_subscription(id){
       show_conformation_subscription(id);
   }
