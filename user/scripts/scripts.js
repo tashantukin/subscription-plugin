@@ -515,7 +515,7 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
           console.log(result);
           var discountAmount = 0;
           var isPercent = false;
-          discountAmount = result.result.amount_off != null ? parseFloat(result.result.amount_off/100).toFixed(2) : (result.result.percent_off, isPercent = true);
+          discountAmount = result.result.amount_off != null ? parseFloat(result.result.amount_off/100).toFixed(2) : isPercent = true;
           
           console.log(`plan amount ${plan_amount}`);
           console.log(`discount amount ${discountAmount}`);
@@ -523,7 +523,7 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
           console.log(isPercent);
           if (isPercent) {
             console.log('ispercent');
-            discountAmount = parseFloat((plan_amount * discountAmount) / 100).toFixed(2);
+            discountAmount = parseFloat((plan_amount * result.result.percent_off) / 100).toFixed(2);
           }
 
           console.log(`plan amount ${plan_amount}`);
