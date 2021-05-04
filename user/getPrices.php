@@ -68,7 +68,7 @@ if (!empty($plan_id)) {
      $stripe = \Stripe\Price::retrieve($plan_id);
  //    echo $stripe;
      $package_name = $stripe->nickname;
-     $price = $stripe->unit_amount_decimal;
+     $price = $stripe->unit_amount / 100;
      $metadata= $stripe->metadata;
      $details = json_encode($metadata);
      $details1 = implode(',', json_decode($details, true));

@@ -55,7 +55,7 @@ if ($plan_type == 'existing') {
 
   $stripePlan = \Stripe\Price::create(
     [
-      'unit_amount_decimal' => $price,
+      'unit_amount' => $price,
       'currency' => 'usd',
       'nickname' => $package_name,
       'recurring' => ['interval' => 'month'],

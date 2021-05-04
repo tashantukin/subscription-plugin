@@ -128,7 +128,7 @@ if ($stripe_secret_key) {
                         <label for="subscription-details">Subscription details (e.g. what your merchant gets from
                             subscribing)</label>
                         <textarea type="text" name="subscription-details" id="subscription-details"
-                            class="txt" placeholder='Optional:' ><?php echo $details1 ?></textarea>
+                            class="txt" placeholder='' ><?php echo $details1 ?></textarea>
                     </div>
 
                     <div class="sync-data">

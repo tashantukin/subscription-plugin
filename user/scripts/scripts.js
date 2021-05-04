@@ -269,7 +269,7 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
   }
   function getPlanData(page){
       var apiUrl = packagePath + '/getPrices.php';
-     
+    console.log(page);
     $.ajax({
       url: apiUrl,
       method: 'POST',
@@ -286,10 +286,10 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
         var startDateMoment = moment(startDate, 'DD.MM.YYYY HH:mm') //.format('DD.MM.YYYY HH:mm');
         var endDate =new Date(result.end_date * 1000); 
           //moment(result.end_date, 'DD.MM.YYYY HH:mm')
-        console.log(startDateMoment);
+        //console.log(startDateMoment);
         var endDateMoment = moment(endDate, 'DD.MM.YYYY HH:mm')
-        console.log(endDate);
-        console.log(moment(startDateMoment,'DD.MM.YYYY HH:mm').isSameOrBefore(endDateMoment, 'day'));
+       // console.log(endDate);
+       // console.log(moment(startDateMoment,'DD.MM.YYYY HH:mm').isSameOrBefore(endDateMoment, 'day'));
 
         var endDateMoment2 = moment(endDate).format('DD/MM/YYYY');
         var startDateMoment2 = moment(startDate).format('DD/MM/YYYY');
@@ -303,44 +303,50 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
         $('.package-price span').first().text(`USD $${parseFloat(result.price).toFixed(2)}`);
 
 
-        if (result.status == 'active' || (result.status == 'canceled' && moment(startDateMoment).isSameOrBefore(endDate, 'day'))) {
 
-          isSubscriptionValid = 1;
+
+
+       
 
           //verify if the user is merchant
 
           console.log($('.navigation .dropdown a').attr('href'));
 
-          if ( $('.navigation .dropdown a').attr('href') != 'user/marketplace/be-seller')
+          if ( $('.navigation .dropdown a').attr('href') != '/user/marketplace/be-seller')
           {
+
+            if (result.status == 'active' || (result.status == 'canceled' && moment(startDateMoment).isSameOrBefore(endDate, 'day'))) {
+
+              isSubscriptionValid = 1;
+
+
             console.log('merchant page')
-            if (page == 'Settings') {
-              $('#cancelsubs').attr("sub-id", result.sub_id);
-              $('#subscription-name').text(result.name);
-              $('.subscription-step1').addClass('hide');
-              $('.subscription-step2').removeClass('hide');
-              var status = result.status == 'canceled' ? 'Cancelled' : result.status;
-              $('#status').text(status);
-              $('#nxtbilling').text(endDateMoment2);
-          
+              if (page == 'Settings') {
+                $('#cancelsubs').attr("sub-id", result.sub_id);
+                $('#subscription-name').text(result.name);
+                $('.subscription-step1').addClass('hide');
+                $('.subscription-step2').removeClass('hide');
+                var status = result.status == 'canceled' ? 'Cancelled' : result.status;
+                $('#status').text(status);
+                $('#nxtbilling').text(endDateMoment2);
+            
+              }
+            
+            }
+            else {
+  
+              $('.header.user-login .dropdown .seller-nav.dropdown-menu').hide()
+              if (page != 'Settings') {
+                console.warn('in else');
+            
+              urls = `${protocol}//${baseURL}/user/marketplace/seller-settings`;
+              window.location.href = urls;
+             }
+              
             }
             
-          } 
-
-
         }
-        else {
-  
-          $('.header.user-login .dropdown .seller-nav.dropdown-menu').hide()
-          if (page != 'Settings') {
-            console.warn('in else');
-        
-          urls = `${protocol}//${baseURL}/user/marketplace/seller-settings`;
-          window.location.href = urls;
-         }
-          
-        }
-        
+      
           
 			},
 			error: function(jqXHR, status, err) {
@@ -583,24 +589,35 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
   
   $(document).ready(function ()
   {
+ 
+    if (pathname.indexOf('/user/marketplace/customlogin') > -1) {
+      console.log('in log in ')
+    } else {
+      if (pathname.indexOf('/user/marketplace/dashboard') > -1
+      || pathname.indexOf('/user/item/list') > -1
+      || pathname.indexOf('/user/item/upload') > -1
+      || pathname.indexOf('/user/manage/orders') > -1
+      || pathname.indexOf('/user/marketplace/sales') > -1
+      || pathname.indexOf('/user/marketplace/custom-delivery-methods') > -1
+      || pathname.indexOf('/user/order/orderhistory') > -1
+      || pathname.indexOf('/user/order/cart') > -1
+      || pathname.indexOf('/user/chat/get-inbox') > -1
+     // || pathname.indexOf('/user') > -1
+      )
+        
+      
+      {
+      getPlanData('Pages');
+      // console.log(isSubscriptionValid);
+        // if (isSubscriptionValid != 1) {
+         
+        // // $('#subscriptionstab').click();
+        // }
+     
+     }
+    }
 
-    if (pathname.indexOf('/user/marketplace/dashboard') > -1
-    || pathname.indexOf('/user/item/list') > -1
-    || pathname.indexOf('/user/item/upload') > -1
-    || pathname.indexOf('/user/manage/orders') > -1
-    || pathname.indexOf('/user/marketplace/sales') > -1
-    || pathname.indexOf('/user/marketplace/custom-delivery-methods') > -1
-    || pathname.indexOf('/user/order/orderhistory') > -1
-    || pathname.indexOf('/user/order/cart') > -1
-    || pathname.indexOf('/user/chat/get-inbox') > -1) {
-    getPlanData('Pages');
-    // console.log(isSubscriptionValid);
-      // if (isSubscriptionValid != 1) {
-       
-      // // $('#subscriptionstab').click();
-      // }
-   
-   }
+  
 
     //home page upon logging in
     if ($('body').hasClass('page-home')) {
@@ -608,6 +625,12 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
 
       getPlanData('Homepage');
     }
+
+    // if (pathname.indexOf('/user/marketplace/customlogin') > -1) {
+    //   getPlanData('Login');
+    // }
+
+    // https://youhadmeathello.sandbox.arcadier.io/user/marketplace/customlogin
   
     if (pathname.indexOf('/user/marketplace/seller-settings') > -1 || pathname.indexOf('/user/marketplace/be-seller') > -1) {
      
