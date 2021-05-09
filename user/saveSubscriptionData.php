@@ -4,6 +4,8 @@ include 'admin_token.php';
 $contentBodyJson = file_get_contents('php://input');
 $content = json_decode($contentBodyJson, true);
 $status = $content['status'];
+
+error_log('status' . $status);
 $id = $content['id'];
 $start_date = $content['start_date'];
 $end_date = $content['end_date'];

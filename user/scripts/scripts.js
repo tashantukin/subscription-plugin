@@ -44,6 +44,10 @@
       success: function (result) {
         if (result) {
           callback(result.CustomFields);
+          console.log(`custom  ${result.CustomFields}`);
+        } else {
+          callback();
+          console.log(`custom  ${result.CustomFields}`);
         }
       },
     });
@@ -347,7 +351,6 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
             
         }
       
-          
 			},
 			error: function(jqXHR, status, err) {
 			//	toastr.error('Error!');
@@ -357,17 +360,17 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
     }
   function subscribe(card, stripe)
   {
-    var addressInfo = JSON.parse(localStorage.getItem("address"));
-    console.log((addressInfo['line1']));
+    var addressInfo = JSON.parse(localStorage.getItem("address")) != null ? JSON.parse(localStorage.getItem("address")) : null;
+   console.log((addressInfo));
     var apiUrl = packagePath + '/createMember.php';
       var data = {
         'full_name': `${$('#input-firstName').val()} ${$('#input-lastName').val()}`,
         'email': $('#notification-email').val(),
         'contact_number': $('#input-contactNumber').val(),
-        'line1': addressInfo['line1'],
-        'city': addressInfo['city'],
-        'country': addressInfo['country'],
-        'state': addressInfo['state'],
+        'line1': addressInfo != null ? addressInfo['line1'] : '',
+        'city':  addressInfo != null ? addressInfo['city'] : '' , 
+        'country': addressInfo != null ? addressInfo['country'] : '',
+        'state': addressInfo != null ? addressInfo['state'] : '',
         'postal_code': $('#postal-code').val()
         }
 		$.ajax({
@@ -392,6 +395,7 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
 
   function saveSubscriptionData(result)
   {
+    console.log(result);
     var apiUrl = packagePath + '/saveSubscriptionData.php';
     var data = {
       'id': result.id,
@@ -408,7 +412,7 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
               contentType: 'application/json',
             data: JSON.stringify(data),
         success: function(result) {
-          result = JSON.parse(result);
+          result = JSON.stringify(result);
           console.log(`cf ${result}`);
         
         },
@@ -491,7 +495,7 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
           console.log(result);
 
           if (result.result.status == 'canceled') {
-            saveSubscriptionData(result.result.id, result.result.status);
+            saveSubscriptionData(result.result);
 
           }
         },
@@ -899,7 +903,7 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
 
                 </div>  
 
-                <div class="text-center">
+                <div id="settings_save" class="next-tab-area">
 
                     <a class="my-btn btn-red" href="javascript:void(0)"  id="next-tab">
 
