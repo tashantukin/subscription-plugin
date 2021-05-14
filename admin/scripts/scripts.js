@@ -13,10 +13,7 @@
   const token = getCookie('webapitoken');
   const baseURL = window.location.hostname;
   var day, month, year;
-
   const url = window.location.href.toLowerCase();
-  //get coupon value to display in Admin transaction details page
-
   function getCookie(name){
   var value = '; ' + document.cookie;
   var parts = value.split('; ' + name + '=');
@@ -92,40 +89,34 @@
   }
   $(document).ready(function ()
   {
-    //   if (url.indexOf("/admin/usermanager/") >= 0) {
-
+    
     if ($('body').hasClass('user-page')) {
         
       var axiosCDN = `<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.js"></script>`;
       $('body').append(axiosCDN);
-      // document.head.appendChild(axiosCDN); 
- 
 
-          console.log('userpage')
+        waitForElement("#no-more-tables", function ()
+        {
+          getDateFormat();
+          //append the header
+          
+          var billing = `<th data-column="6" tabindex="0" scope="col" role="columnheader" aria-disabled="false" aria-controls="no-more-tables" unselectable="on" aria-sort="none" aria-label="User Type: No sort applied, activate to apply an ascending sort" style="user-select: none;"><div class="tablesorter-header-inner">Billing Cycle</div></th>`;
+          $('#no-more-tables thead tr th:nth-child(5)').after(billing);
+          $('#no-more-tables thead tr th:nth-child(7)').attr('data-column', '7');
+          $('#no-more-tables thead tr th:nth-child(8)').attr('data-column', '8');
+          $('#no-more-tables thead tr th:nth-child(9)').attr('data-column', '9');
 
-            waitForElement("#no-more-tables", function ()
-            {
-              getDateFormat();
-              //append the header
-              
-              var billing = `<th data-column="6" tabindex="0" scope="col" role="columnheader" aria-disabled="false" aria-controls="no-more-tables" unselectable="on" aria-sort="none" aria-label="User Type: No sort applied, activate to apply an ascending sort" style="user-select: none;"><div class="tablesorter-header-inner">Billing Cycle</div></th>`;
-              $('#no-more-tables thead tr th:nth-child(5)').after(billing);
-              $('#no-more-tables thead tr th:nth-child(7)').attr('data-column', '7');
-              $('#no-more-tables thead tr th:nth-child(8)').attr('data-column', '8');
-              $('#no-more-tables thead tr th:nth-child(9)').attr('data-column', '9');
-
-              $("tbody tr:not(.loaded)").each(function ()
-              {
-                  var userguid = $(this).attr('data-guid');
-                  var newTd = `<td><a class="btn-details" id="billingcycle"></a></td>`;
-                  $('td:nth-child(5)', $(this)).after(newTd);
-                  getUserCustomfields(userguid, $('#billingcycle', $(this)))
-                  $(this).addClass('loaded');
-              
-              });
-            })
-          }
-                  
-            
+          $("tbody tr:not(.loaded)").each(function ()
+          {
+              var userguid = $(this).attr('data-guid');
+              var newTd = `<td><a class="btn-details" id="billingcycle"></a></td>`;
+              $('td:nth-child(5)', $(this)).after(newTd);
+              getUserCustomfields(userguid, $('#billingcycle', $(this)))
+              $(this).addClass('loaded');
+          
+          });
+        })
+    }
+                         
   });
 })();
