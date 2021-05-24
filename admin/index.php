@@ -18,7 +18,9 @@ if ($stripe_secret_key) {
     \Stripe\Stripe::setApiKey($stripe_secret_key);
     $stripe = \Stripe\Product::all();
     $products =  $stripe->data;
-   
+    $product_id = $products[0]['id'];
+   // echo(json_encode($products));
+    error_log($product_id);
     //print_r($products);
     $key = array_search('Arcadier Subscription', array_column($products, 'name'));
     // echo gettype($key);
@@ -88,7 +90,7 @@ if ($stripe_secret_key) {
                             PUBLISHABLE
                             KEY</p>
                         <input type="text" id="live-publishable-key" name="live-publishable-key" value=""
-                            class="form-control required" placeholder="pk_test_51INpZ6Lpsmplepublishablekey">
+                            class="form-control required">
                             <p class="error"> </p>
                     </div>
                     <div class="tracking-id show-right-broder mt-20">
@@ -97,7 +99,7 @@ if ($stripe_secret_key) {
                         </p>
                        
                         <input type="text" id="live-secret-key" name="live-secret-key" value=""
-                            class="form-control required" placeholder="sk_test_51INpZ6LpiOi48zknrwesamplesecretkey">
+                            class="form-control required" >
                             <p class="errorSecret"> </p>
                     </div>
                     <div class="mt-20">
@@ -122,7 +124,7 @@ if ($stripe_secret_key) {
                     </div>
                     <div class="form-element">
                         <label for="price_per_month">Price per month</label>
-                        <input type="number" name="price_per_month" id="price_per_month" class="txt required" value= "<?php echo $price ?>" placeholder="0.00" >
+                        <input type="number" name="price_per_month" id="price_per_month" class="txt required" value= "<?php echo $price ?>" placeholder="0.00"  current-value = "<?php echo $price ?>" >
                     </div>
                     <div class="form-element">
                         <label for="subscription-details">Subscription details (e.g. what your merchant gets from
@@ -132,8 +134,8 @@ if ($stripe_secret_key) {
                     </div>
 
                     <div class="sync-data">
-                        <div class="btn-area" id="connect-save-btn"> <a href="javascript:void(0);"
-                                class="btn-blue" id="save" plan-type="<?php echo $plan_type; ?>" plan-id="<?php echo $plan_id ?>">Save</a></div>
+                        <div class="btn-area" id="connect-save-btn"> <a href="javascript:void(0);" 
+                                class="btn-blue" id="save" plan-type="<?php echo $plan_type; ?>" plan-id="<?php echo $plan_id ?>" product-id="<?php echo $product_id ?>">Save</a></div>
                         <div class="btn-area" id="connect-edit-btn" style="display: none;"> <a
                                 href="javascript:void(0);" class="btn-blue"
                                 onclick="SaveConnectSubscriptionConfirm()">Edit</a></div>

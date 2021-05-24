@@ -80,7 +80,7 @@ function validateSK(sKey, el)
        }
    });
 }
-function MakeConnectSubscriptionUnedit(plan_type, plan_id) {
+function MakeConnectSubscriptionUnedit(plan_type, plan_id, prod_id) {
 
   var e = false;
   jQuery("#connect-subscription-marketplace .required").each(function () {
@@ -93,6 +93,7 @@ function MakeConnectSubscriptionUnedit(plan_type, plan_id) {
       }
 
   });
+
   if ($('#package_name').val().length > 30)
   {
       e = true;
@@ -100,7 +101,12 @@ function MakeConnectSubscriptionUnedit(plan_type, plan_id) {
   }
   if (!e)
   {
-     savePackageDetails(plan_type,plan_id);
+    if ($("#price_per_month").val() == $("#price_per_month").attr('current-value')) {
+      savePackageDetails(plan_type, plan_id, prod_id,'update');
+    } else {
+      savePackageDetails(plan_type,plan_id, prod_id,'create');
+    }
+    
       jQuery("#package_name").prop("readonly", true);
       jQuery("#price_per_month").prop("readonly", true);
       jQuery("#subscription-details").prop("readonly", true);
@@ -188,9 +194,9 @@ function saveKeys() {
   });
 }
   
-  function savePackageDetails(plan_type, plan_id)
+  function savePackageDetails(plan_type, plan_id, product_id, action)
   {
-    var data = { 'package_name' : $('#package_name').val(), 'price': Math.round($('#price_per_month').val() * 100), 'details': $('#subscription-details').val(), 'timezone' : timezone_offset_minutes, 'plan_type': plan_type, 'plan_id' : plan_id };
+    var data = { 'package_name' : $('#package_name').val(), 'price': Math.round($('#price_per_month').val() * 100), 'details': $('#subscription-details').val(), 'timezone' : timezone_offset_minutes, 'plan_type': plan_type, 'plan_id' : plan_id,'action': action ,'product_id' : product_id};
     console.log(data);
     var apiUrl = packagePath + '/save_details.php';
    $.ajax({
@@ -226,18 +232,28 @@ function saveKeys() {
     });
 
 
-     // MakeUneditable()
-     jQuery("#live-secret-key").prop("readonly", true);
-     jQuery("#live-publishable-key").prop("readonly", true);
-     jQuery("#save-btn").hide();
-    jQuery("#edit-btn").show();
-    
-    jQuery("#package_name").prop("readonly", true);
-      jQuery("#price_per_month").prop("readonly", true);
-      jQuery("#subscription-details").prop("readonly", true);
+    setTimeout(function ()
+    {
+      if ($("#live-secret-key").val()) {
+        jQuery("#live-secret-key").prop("readonly", true);
+        jQuery("#live-publishable-key").prop("readonly", true);
+        jQuery("#save-btn").hide();
+        jQuery("#edit-btn").show();
+      
+        jQuery("#package_name").prop("readonly", true);
+        jQuery("#price_per_month").prop("readonly", true);
+        jQuery("#subscription-details").prop("readonly", true);
+  
+        jQuery("#connect-save-btn").hide();
+        jQuery("#connect-edit-btn").show();
+      }
 
-      jQuery("#connect-save-btn").hide();
-      jQuery("#connect-edit-btn").show();
+
+
+
+     }, 3000);// MakeUneditable()
+   
+     
 
      if (document.getElementById("price_per_month") != null)
      {
@@ -272,7 +288,7 @@ function saveKeys() {
       })
   });
 
-    saveURL();;
+    //saveURL();;
     jQuery('.login-list-item .tog').click(function () {
       jQuery(this).closest('.login-list-item').toggleClass("open");
   });
@@ -310,10 +326,10 @@ function saveKeys() {
 	// 	}
   });
     
-    $("#connect-save-btn").on("click", function ()
+    $("#save").on("click", function ()
     {
       
-      MakeConnectSubscriptionUnedit($(this).find('#save').attr('plan-type'), $(this).find('#save').attr('plan-id'))
+      MakeConnectSubscriptionUnedit($(this).attr('plan-type'), $(this).attr('plan-id'), $(this).attr('product-id'))
 		// var $apiKey = $("#live-secret-key").val();
 		
 		// if ($apiKey == ""){

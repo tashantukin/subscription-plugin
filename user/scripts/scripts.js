@@ -978,6 +978,7 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
     
                               // $("#payNowButton").removeAttr("disabled");
                               } else {
+                                $("#paynowPackage").prop("disabled", true);
                                   console.log(result.token.card);
                                   console.log(result.token.id)
                                   
