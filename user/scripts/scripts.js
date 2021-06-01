@@ -271,6 +271,13 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
       displayError.textContent = '';
     }
   }
+
+
+
+  function getSubscribedPlan(page)
+  {
+    
+  }
   function getPlanData(page){
       var apiUrl = packagePath + '/getPrices.php';
     console.log(page);
@@ -307,11 +314,6 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
         $('.package-price span').first().text(`USD $${parseFloat(result.price).toFixed(2)}`);
 
 
-
-
-
-       
-
           //verify if the user is merchant
 
           console.log($('.navigation .dropdown a').attr('href'));
@@ -327,7 +329,7 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
             console.log('merchant page')
               if (page == 'Settings') {
                 $('#cancelsubs').attr("sub-id", result.sub_id);
-                $('#subscription-name').text(result.name);
+                $('#subscription-name').text(result.current_plan);
                 $('.subscription-step1').addClass('hide');
                 $('.subscription-step2').removeClass('hide');
                 var status = result.status == 'canceled' ? 'Cancelled' : result.status;

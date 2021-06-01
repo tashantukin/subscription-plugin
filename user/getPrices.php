@@ -57,9 +57,13 @@ foreach ($marketplaceInfo['CustomFields'] as $cf) {
 
 if ($subs_id) {
     $subscription = \Stripe\Subscription::retrieve($subs_id);
+    error_log(json_encode($subscription));
+    error_log(json_encode($subscription->items->data[0]->price->nickname));
 
     $end_date = $subscription->current_period_end;
     $start_date = $subscription->current_period_start;
+    $subs_name = $subscription->items->data[0]->price->nickname;
+    $subs_amount = $subscription->items->data[0]->price->unit_amount /100;
 }
 
 if (!empty($plan_id)) {
@@ -73,7 +77,7 @@ if (!empty($plan_id)) {
      $details = json_encode($metadata);
      $details1 = implode(',', json_decode($details, true));
      
-    echo json_encode(['name' =>  $package_name, 'price' => $price, 'description' => $details1, 'id'=> $plan_id, 'status' => $subs_status, 'sub_id' => $subs_id, 'start_date'=> $start_date, 'end_date' => $end_date]);
+    echo json_encode(['name' =>  $package_name, 'price' => $price, 'description' => $details1, 'id'=> $plan_id, 'status' => $subs_status, 'sub_id' => $subs_id, 'start_date'=> $start_date, 'end_date' => $end_date ,'current_plan' =>  $subs_name, 'current_amount' => $subs_amount ] );
  }
 ?>
 

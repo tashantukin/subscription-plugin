@@ -248,13 +248,9 @@ function saveKeys() {
         jQuery("#connect-edit-btn").show();
       }
 
-
-
-
      }, 3000);// MakeUneditable()
    
      
-
      if (document.getElementById("price_per_month") != null)
      {
          document.getElementById("price_per_month").onkeypress = function (event) {

@@ -39,7 +39,10 @@ if ($stripe_secret_key) {
             $stripe = \Stripe\Price::retrieve($plan_id);
         //    echo $stripe;
             $package_name = $stripe->nickname;
-            $price = number_format((float)$stripe->unit_amount / 100, 2); 
+            $price = $stripe->unit_amount / 100; 
+            $parse_price = number_format($price, 2); 
+            error_log($price);
+            error_log($parse_price);
             $metadata= $stripe->metadata;
             $details = json_encode($metadata);
             $details1 = implode(',', json_decode($details, true));
@@ -124,7 +127,7 @@ if ($stripe_secret_key) {
                     </div>
                     <div class="form-element">
                         <label for="price_per_month">Price per month</label>
-                        <input type="number" name="price_per_month" id="price_per_month" class="txt required" value= "<?php echo $price ?>" placeholder="0.00"  current-value = "<?php echo $price ?>" >
+                        <input type="number" name="price_per_month" id="price_per_month" class="txt required" value= "<?php echo  $price ?>" placeholder="0.00"  current-value = "<?php echo $price ?>" >
                     </div>
                     <div class="form-element">
                         <label for="subscription-details">Subscription details (e.g. what your merchant gets from
