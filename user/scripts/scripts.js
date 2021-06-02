@@ -34,7 +34,6 @@
     var addressInfo1 = JSON.parse(localStorage.getItem("address"));
     console.log((addressInfo1['line1']));
   }
-
   function getMarketplaceCustomFields(callback) {
     var apiUrl = "/api/v2/marketplaces";
     $.ajax({
@@ -52,7 +51,6 @@
       },
     });
   }
-
   function waitForElement(elementPath, callBack) {
     window.setTimeout(function () {
       if ($(elementPath).length) {
@@ -62,8 +60,6 @@
       }
     }, 700);
   }
-
-  
   function appendScript() {
     var validationScript = `<script>
     
@@ -271,9 +267,6 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
       displayError.textContent = '';
     }
   }
-
-
-
   function getSubscribedPlan(page)
   {
     
@@ -328,6 +321,9 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
 
             console.log('merchant page')
               if (page == 'Settings') {
+                if (result.status == 'canceled') {
+                  $('#cancelsubs').hide();
+                }
                 $('#cancelsubs').attr("sub-id", result.sub_id);
                 $('#subscription-name').text(result.current_plan);
                 $('.subscription-step1').addClass('hide');
@@ -506,7 +502,6 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
         }
     });
   }
-
   function validateCoupon(id)
   {
     var apiUrl = packagePath + '/getCoupon.php';
@@ -551,7 +546,6 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
         }
     });
   }
-
   function delete_subscription(id){
       show_conformation_subscription(id);
   }
@@ -622,9 +616,6 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
      
      }
     }
-
-  
-
     //home page upon logging in
     if ($('body').hasClass('page-home')) {
 
