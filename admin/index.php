@@ -73,19 +73,18 @@ if ($stripe_secret_key) {
                 </div>
             </div>
         </div>
-        <div class="panel-box goo-panel-box">
+        <div class="panel-box subscription-form">
             <div class="page-content-top">
-                <div><i class="icon icon-pay_link1 icon-3x"></i></div>
-                <div>
-                    <p><span class="goo-translate-name">Link your Subscription account to your Marketplace</span></p>
-                    <p class="payment-stripe-info">If you change your live secret keys, all your merchants will have to
+               
+                    <h4>Link your Stripe account to your Marketplace</h4>
+                    <h5 class="payment-stripe-info">If you change your live secret keys, all your merchants will have to
                         <strong class="red-bold-strong">re-onboard</strong> to your <strong
                             class="red-bold-strong">new</strong> Subscription account before they can start selling
                         again!
-                    </p>
-                </div>
-                <div>&nbsp;</div>
+                    </h5>
             </div>
+
+
             <div class="page-content-btm">
                 <form name="live_secret_key" id="live_secret_key" action="#">
                     <div class="tracking-id show-right-broder">
