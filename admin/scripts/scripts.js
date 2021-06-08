@@ -36,6 +36,11 @@
   const formatter = new Intl.NumberFormat("en-US", {
     minimumFractionDigits: 2,
   });
+
+  function english_ordinal_suffix(dt)
+  {
+    return dt.getDate()+(dt.getDate() % 10 == 1 && dt.getDate() != 11 ? 'st' : (dt.getDate() % 10 == 2 && dt.getDate() != 12 ? 'nd' : (dt.getDate() % 10 == 3 && dt.getDate() != 13 ? 'rd' : 'th'))); 
+  }
     
     function getUserCustomfields(id, el)
     {
@@ -53,7 +58,25 @@
                 var dateDetails = result != null || result != "" ? JSON.parse(result) : null;
                 
                 var startdate = dateDetails.start == null ? "" : new Date(dateDetails.start * 1000).format(`${day}/${month}/${year}`);
+               if (dateDetails.start != null) {
+                  if (day == 'do') {
+                    var ordinal = english_ordinal_suffix(new Date(dateDetails.start * 1000));
+                    startdate = startdate.substring(startdate.indexOf("/") + 1);
+                    startdate = `${ordinal}/${startdate}`;
+                    console.log('here')
+                  }
+                }
+                  
                 var enddate = dateDetails.end == null ? "" : new Date(dateDetails.end * 1000).format(`${day}/${month}/${year}`);
+                if (dateDetails.end != null) {
+                  if (day == 'do') {
+                    var ordinal = english_ordinal_suffix(new Date(dateDetails.end * 1000));
+                    enddate = enddate.substring(enddate.indexOf("/") + 1);
+                    enddate = `${ordinal}/${enddate}`;
+                    console.log('here')
+                  }
+                }
+
                 var separator = dateDetails.start == null ? "" : '-';
                 el.text(`${startdate} ${separator} ${enddate}`);
               
@@ -133,6 +156,18 @@
         })
       
        })
+      
+      //enter key
+
+      $(document).on('keypress',function(e) {
+        if(e.which == 13) {
+          waitForElement("#no-more-tables", function ()
+        {
+          appendColumns();
+        })
+
+        }
+    });
       
       
       
