@@ -30,9 +30,9 @@
     }
     localStorage.setItem("address", JSON.stringify(addressData))
 
-    console.log(JSON.parse(localStorage.getItem("address")));
+   // console.log(JSON.parse(localStorage.getItem("address")));
     var addressInfo1 = JSON.parse(localStorage.getItem("address"));
-    console.log((addressInfo1['line1']));
+   // console.log((addressInfo1['line1']));
   }
   function getMarketplaceCustomFields(callback) {
     var apiUrl = "/api/v2/marketplaces";
@@ -43,10 +43,10 @@
       success: function (result) {
         if (result) {
           callback(result.CustomFields);
-          console.log(`custom  ${result.CustomFields}`);
+         // console.log(`custom  ${result.CustomFields}`);
         } else {
           callback();
-          console.log(`custom  ${result.CustomFields}`);
+         // console.log(`custom  ${result.CustomFields}`);
         }
       },
     });
@@ -283,7 +283,7 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
       {
         result = JSON.parse(result);
 
-        console.log(result);
+       // console.log(result);
      
         var startDate = new Date(result.start_date * 1000); 
         var currentDate = moment(new Date()).format('DD/MM/YYYY');
@@ -338,11 +338,15 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
             else {
   
               $('.header.user-login .dropdown .seller-nav.dropdown-menu').hide()
-              if (page != 'Settings') {
-                console.warn('in else');
+              if (page == 'Settings') {
+
+              } else if (page == 'Homepage') {
+                
+              } else {
+                console.log('in else');
             
-              urls = `${protocol}//${baseURL}/user/marketplace/seller-settings`;
-              window.location.href = urls;
+                urls = `${protocol}//${baseURL}/user/marketplace/seller-settings`;
+                window.location.href = urls;
              }
               
             }
@@ -359,7 +363,7 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
   function subscribe(card, stripe)
   {
     var addressInfo = JSON.parse(localStorage.getItem("address")) != null ? JSON.parse(localStorage.getItem("address")) : null;
-   console.log((addressInfo));
+   //console.log((addressInfo));
     var apiUrl = packagePath + '/createMember.php';
       var data = {
         'full_name': `${$('#input-firstName').val()} ${$('#input-lastName').val()}`,
@@ -411,7 +415,7 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
             data: JSON.stringify(data),
         success: function(result) {
           result = JSON.stringify(result);
-          console.log(`cf ${result}`);
+        //  console.log(`cf ${result}`);
         
         },
         error: function(jqXHR, status, err) {
@@ -425,7 +429,7 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
       
       // const customerId = customer_id;
       // Set up payment method for recurring usage
-      let billingName = 'Onoda Sakamichi';
+      let billingName = `${$('#input-firstName').val()} ${$('#input-lastName').val()}`;
     
       let priceId =  plan_id  //= document.getElementById('priceId').innerHTML.toUpperCase();
     
@@ -441,7 +445,7 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
           if (result.error) {
             displayError(result);
           } else {
-              console.log(result.paymentMethod.id);
+             // console.log(result.paymentMethod.id);
             createSubscription(
               customerId,result.paymentMethod.id);
           }
@@ -490,7 +494,7 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
         data: JSON.stringify(data),
         success: function(result) {
         result = JSON.parse(result);
-          console.log(result);
+         // console.log(result);
 
           if (result.result.status == 'canceled') {
             saveSubscriptionData(result.result);
@@ -513,26 +517,26 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
         data: JSON.stringify(data),
         success: function(result) {
         result = JSON.parse(result);
-          console.log(result);
+         // console.log(result);
           var discountAmount = 0;
           var isPercent = false;
           discountAmount = result.result.amount_off != null ? parseFloat(result.result.amount_off/100).toFixed(2) : isPercent = true;
           
-          console.log(`plan amount ${plan_amount}`);
-          console.log(`discount amount ${discountAmount}`);
+          //console.log(`plan amount ${plan_amount}`);
+          //console.log(`discount amount ${discountAmount}`);
 
-          console.log(isPercent);
+          //console.log(isPercent);
           if (isPercent) {
-            console.log('ispercent');
+           //console.log('ispercent');
             discountAmount = parseFloat((plan_amount * result.result.percent_off) / 100).toFixed(2);
           }
 
-          console.log(`plan amount ${plan_amount}`);
-          console.log(`discount amount ${discountAmount}`);
+         // console.log(`plan amount ${plan_amount}`);
+         // console.log(`discount amount ${discountAmount}`);
 
           $('#discountAmount').text(`USD $${discountAmount}`);
           var total = parseFloat(plan_amount - discountAmount).toFixed(2);
-          console.log(`total ${total}`);
+         // console.log(`total ${total}`);
 
           $('.package-price span').first().text(`USD $${total}`);
 
@@ -555,7 +559,7 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
       target.fadeOut();
       cover.fadeOut();
       jQuery(".my-btn.btn-saffron").attr('data-id','');
-      console.log("cancel remove item..");
+      //console.log("cancel remove item..");
   }
   function show_conformation_subscription(id)
   {
@@ -592,7 +596,7 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
  
     if (pathname.indexOf('/user/marketplace/customlogin') > -1) {
       console.log('in log in ')
-    } else {
+    }  else {
       if (pathname.indexOf('/user/marketplace/dashboard') > -1
       || pathname.indexOf('/user/item/list') > -1
       || pathname.indexOf('/user/item/upload') > -1

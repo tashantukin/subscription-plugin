@@ -76,7 +76,7 @@ if ($stripe_secret_key) {
         <div class="panel-box subscription-form">
             <div class="page-content-top">
                
-                    <h4>Link your Stripe account to your Marketplace</h4>
+                    <h4>Link your Stripe account to your Marketplace </h4> <a class="info-link" href="https://support.arcadier.com/hc/en-us/articles/115001376913-Setting-up-your-payment-gateway-Stripe-" target="_blank"><i class="icon blue-info-icon"></i>&nbsp;&nbsp;How do I Connect to Stripe?</a>
                     <h5 class="payment-stripe-info">If you change your live secret keys, all your merchants will have to
                         <strong class="red-bold-strong">re-onboard</strong> to your <strong
                             class="red-bold-strong">new</strong> Subscription account before they can start selling
@@ -125,7 +125,7 @@ if ($stripe_secret_key) {
                         <input type="text" name="package_name" id="package_name" maxlength="30" class="txt required" value= "<?php echo $package_name ?>" placeholder="Premium, Enterprise .." >
                     </div>
                     <div class="form-element">
-                        <label for="price_per_month">Price per month</label>
+                        <label for="price_per_month">Price per month (USD)</label>
                         <input type="number" name="price_per_month" id="price_per_month" class="txt required" value= "<?php echo  $price ?>" placeholder="0.00"  current-value = "<?php echo $price ?>" >
                     </div>
                     <div class="form-element">
