@@ -65,12 +65,18 @@ if ($stripe_secret_key) {
 <script src="https://js.stripe.com/v3/"></script>
 <div class="page-content" id="payments-content">
     <div class="gutter-wrapper">
+    <div class="page-topnav" style="height: 5px;">
+                    <div class="float">
+                        <a class="btn-info-plug-in" href="https://support.arcadier.com/hc/en-us/articles/900006649666-Subscriptions-Plugin" target="_blank" >How to use this Plug-In?</a>
+                    </div>
+    </div>
+
+
         <div class="panel-box">
             <div class="page-content-top">
                 <div class="subscription-title">
                     <h4>Setup a membership fee for your merchant</h4>
                     <p>The Membership & Subscriptions plug-in allows marketplace administrators to charge merchants a recurring membership subscription fee when they join your marketplace. </p>
-                    <p>Previously, the Arcadier Marketplace platform only allowed the marketplace administrator to charge a percentage commission on transactions - but with the Membership & Subscriptions plug-in, merchants pay a fixed membership fee on a recurring basis as well.</p>
                 </div>
             </div>
         </div>
