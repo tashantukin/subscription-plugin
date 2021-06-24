@@ -69,14 +69,16 @@ if ($stripe_secret_key) {
             <div class="page-content-top">
                 <div class="subscription-title">
                     <h4>Setup a membership fee for your merchant</h4>
-                    <h5>Membership &amp; Subscription</h5>
+                    <p>The Membership & Subscriptions plug-in allows marketplace administrators to charge merchants a recurring membership subscription fee when they join your marketplace. </p>
+                    <p>Previously, the Arcadier Marketplace platform only allowed the marketplace administrator to charge a percentage commission on transactions - but with the Membership & Subscriptions plug-in, merchants pay a fixed membership fee on a recurring basis as well.</p>
                 </div>
             </div>
         </div>
         <div class="panel-box subscription-form">
             <div class="page-content-top">
                
-                    <h4>Link your Stripe account to your Marketplace </h4> <a class="info-link" href="https://support.arcadier.com/hc/en-us/articles/115001376913-Setting-up-your-payment-gateway-Stripe-" target="_blank"><i class="icon blue-info-icon"></i>&nbsp;&nbsp;How do I Connect to Stripe?</a>
+                    <h4>Link your Stripe account to your Marketplace <a class="info-link" href="https://support.arcadier.com/hc/en-us/articles/115001376913-Setting-up-your-payment-gateway-Stripe-" target="_blank"><i class="icon blue-info-icon"></i>&nbsp;&nbsp;How do I Connect to Stripe?</a></h4>
+                     
                     <h5 class="payment-stripe-info">If you change your live secret keys, all your merchants will have to
                         <strong class="red-bold-strong">re-onboard</strong> to your <strong
                             class="red-bold-strong">new</strong> Subscription account before they can start selling

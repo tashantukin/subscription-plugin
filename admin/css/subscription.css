@@ -5,7 +5,7 @@
 .subscription-form .form-area .form-element textarea.txt{height: 80px;padding: 10px 10px;}
 .subscription-form .page-content-top{border: none;padding-bottom: 0px;}
 .subscription-form .form-area .form-element label{font-weight: 400;}
-.subscription-form .page-content-top h4{font-size: 14px;}
+.subscription-form .page-content-top h4{font-size: 14px; display: flex;}
 .icon.icon-subscription-plugin-in {background-image: url('../images/icons/subscription_plugin_in.svg');}
 
 textarea[disabled], textarea[readonly]{background-color: #eee !important;opacity: 1;}
@@ -66,4 +66,8 @@ textarea[disabled], textarea[readonly]{background-color: #eee !important;opacity
 .template-sidebar .section-links li.item-lng.active .sm-submenu.submenu-devapp { background: url('../images/white-dev-apps.svg')no-repeat;}
 .template-sidebar .section-links li.item-lng .sm-submenu.submenu-devapp { background: url('../images/black-dev-apps.svg')no-repeat;}
 /* End Delivery Option setting page*/
+
+.info-link{
+    margin-left: 5px !important;
+}
 
