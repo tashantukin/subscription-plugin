@@ -641,15 +641,19 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
         
         //skip delivery button 
         // delivery-btn-skip
-        var onclickAttrskipdel = $('.delivery-btn-skip').attr('onclick');
-        onclickAttrskipdel = onclickAttrskipdel.replace("Validate", "ValidateCustom");
-        $('.delivery-btn-skip').attr('onclick', onclickAttrskipdel);
 
-        //delivery button Save
-        $('#delivery_method #next-tab').text('NEXT');
-        var onclickAttrdel = $('#delivery_method .next-tab-area #next-tab').attr('onclick');
-        onclickAttrdel = onclickAttrdel.replace("Validate", "ValidateCustom");
-        $('#delivery_method  .next-tab-area #next-tab').attr('onclick', onclickAttrdel);
+        if ($('.delivery-btn-skip').length) {
+          var onclickAttrskipdel = $('.delivery-btn-skip').attr('onclick');
+          onclickAttrskipdel = onclickAttrskipdel.replace("Validate", "ValidateCustom");
+          $('.delivery-btn-skip').attr('onclick', onclickAttrskipdel);
+  
+          //delivery button Save
+          $('#delivery_method #next-tab').text('NEXT');
+          var onclickAttrdel = $('#delivery_method .next-tab-area #next-tab').attr('onclick');
+          onclickAttrdel = onclickAttrdel.replace("Validate", "ValidateCustom");
+          $('#delivery_method  .next-tab-area #next-tab').attr('onclick', onclickAttrdel);
+        }
+       
         
       }
       
