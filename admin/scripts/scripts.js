@@ -14,6 +14,9 @@
   const baseURL = window.location.hostname;
   var day, month, year;
   const url = window.location.href.toLowerCase();
+
+  var timezone_offset_minutes = new Date().getTimezoneOffset();
+      timezone_offset_minutes = timezone_offset_minutes == 0 ? 0 : -timezone_offset_minutes;
   function getCookie(name){
   var value = '; ' + document.cookie;
   var parts = value.split('; ' + name + '=');
@@ -172,6 +175,25 @@
       
       
     }
+
+  //setting the local timezone to local storage upon login
+    
+    if (pathname.indexOf('/admin/dashboard/index') > -1) {
+     
+      localStorage.setItem("timezone_offset", timezone_offset_minutes);
+
+
+      $.ajax({  
+        type: "POST",  
+        url:  packagePath + '/customers.php',  
+        data: { storageValue: localStorage.getItem("timezone_offset") }
+         });
+    
+      console.log('timezone set');
+
+    }
+
+
                          
   });
 })();

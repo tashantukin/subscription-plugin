@@ -1,0 +1,176 @@
+{
+    "result": {
+        "object": "list",
+        "data": [
+            {
+                "id": "in_1JDJ7tLpiOi48zknHZIzte8e",
+                "object": "invoice",
+                "account_country": "US",
+                "account_name": null,
+                "account_tax_ids": null,
+                "amount_due": 1000,
+                "amount_paid": 1000,
+                "amount_remaining": 0,
+                "application_fee_amount": null,
+                "attempt_count": 1,
+                "attempted": true,
+                "auto_advance": false,
+                "automatic_tax": {
+                    "enabled": false,
+                    "status": null
+                },
+                "billing_reason": "subscription_create",
+                "charge": "ch_1JDJ7uLpiOi48zknR1oNx5fV",
+                "collection_method": "charge_automatically",
+                "created": 1626311553,
+                "currency": "usd",
+                "custom_fields": null,
+                "customer": "cus_Jr1AuCHzvy0oV3",
+                "customer_address": {
+                    "city": "",
+                    "country": "",
+                    "line1": "",
+                    "line2": null,
+                    "postal_code": "",
+                    "state": ""
+                },
+                "customer_email": "natasha@arcadier.com",
+                "customer_name": "BD demo",
+                "customer_phone": "5157552",
+                "customer_shipping": null,
+                "customer_tax_exempt": "none",
+                "customer_tax_ids": [],
+                "default_payment_method": null,
+                "default_source": null,
+                "default_tax_rates": [],
+                "description": null,
+                "discount": null,
+                "discounts": [],
+                "due_date": null,
+                "ending_balance": 0,
+                "footer": null,
+                "hosted_invoice_url": "https:\/\/invoice.stripe.com\/i\/acct_1INpZ6LpiOi48zkn\/invst_Jr1AvzzomxXMk640LwUBOborfAWA3H9",
+                "invoice_pdf": "https:\/\/pay.stripe.com\/invoice\/acct_1INpZ6LpiOi48zkn\/invst_Jr1AvzzomxXMk640LwUBOborfAWA3H9\/pdf",
+                "last_finalization_error": null,
+                "lines": {
+                    "object": "list",
+                    "data": [
+                        {
+                            "id": "il_1JDJ7tLpiOi48zknrE65j7ab",
+                            "object": "line_item",
+                            "amount": 1000,
+                            "currency": "usd",
+                            "description": "1 \u00d7 Arcadier Subscription (at $10.00 \/ month)",
+                            "discount_amounts": [],
+                            "discountable": true,
+                            "discounts": [],
+                            "livemode": false,
+                            "metadata": [],
+                            "period": {
+                                "end": 1628989953,
+                                "start": 1626311553
+                            },
+                            "plan": {
+                                "id": "price_1JDJ6uLpiOi48zknD8ytEsJN",
+                                "object": "plan",
+                                "active": true,
+                                "aggregate_usage": null,
+                                "amount": 1000,
+                                "amount_decimal": "1000",
+                                "billing_scheme": "per_unit",
+                                "created": 1626311492,
+                                "currency": "usd",
+                                "interval": "month",
+                                "interval_count": 1,
+                                "livemode": false,
+                                "metadata": {
+                                    "desription": "Test subscription"
+                                },
+                                "nickname": "Entry Package",
+                                "product": "prod_Jr19F716zzIlmO",
+                                "tiers_mode": null,
+                                "transform_usage": null,
+                                "trial_period_days": null,
+                                "usage_type": "licensed"
+                            },
+                            "price": {
+                                "id": "price_1JDJ6uLpiOi48zknD8ytEsJN",
+                                "object": "price",
+                                "active": true,
+                                "billing_scheme": "per_unit",
+                                "created": 1626311492,
+                                "currency": "usd",
+                                "livemode": false,
+                                "lookup_key": null,
+                                "metadata": {
+                                    "desription": "Test subscription"
+                                },
+                                "nickname": "Entry Package",
+                                "product": "prod_Jr19F716zzIlmO",
+                                "recurring": {
+                                    "aggregate_usage": null,
+                                    "interval": "month",
+                                    "interval_count": 1,
+                                    "trial_period_days": null,
+                                    "usage_type": "licensed"
+                                },
+                                "tax_behavior": "unspecified",
+                                "tiers_mode": null,
+                                "transform_quantity": null,
+                                "type": "recurring",
+                                "unit_amount": 1000,
+                                "unit_amount_decimal": "1000"
+                            },
+                            "proration": false,
+                            "quantity": 1,
+                            "subscription": "sub_Jr1AeLS1VhXw81",
+                            "subscription_item": "si_Jr1A26Qj7pEw3b",
+                            "tax_amounts": [],
+                            "tax_rates": [],
+                            "type": "subscription"
+                        }
+                    ],
+                    "has_more": false,
+                    "total_count": 1,
+                    "url": "\/v1\/invoices\/in_1JDJ7tLpiOi48zknHZIzte8e\/lines"
+                },
+                "livemode": false,
+                "metadata": [],
+                "next_payment_attempt": null,
+                "number": "1DC7654E-0001",
+                "on_behalf_of": null,
+                "paid": true,
+                "payment_intent": "pi_1JDJ7tLpiOi48zkntA874Cip",
+                "payment_settings": {
+                    "payment_method_options": null,
+                    "payment_method_types": null
+                },
+                "period_end": 1626311553,
+                "period_start": 1626311553,
+                "post_payment_credit_notes_amount": 0,
+                "pre_payment_credit_notes_amount": 0,
+                "quote": null,
+                "receipt_number": null,
+                "starting_balance": 0,
+                "statement_descriptor": null,
+                "status": "paid",
+                "status_transitions": {
+                    "finalized_at": 1626311553,
+                    "marked_uncollectible_at": null,
+                    "paid_at": 1626311553,
+                    "voided_at": null
+                },
+                "subscription": "sub_Jr1AeLS1VhXw81",
+                "subtotal": 1000,
+                "tax": null,
+                "total": 1000,
+                "total_discount_amounts": [],
+                "total_tax_amounts": [],
+                "transfer_data": null,
+                "webhooks_delivered_at": 1626311553
+            }
+        ],
+        "has_more": false,
+        "url": "\/v1\/invoices"
+    }
+}
