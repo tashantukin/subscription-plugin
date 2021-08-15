@@ -95,3 +95,11 @@
 	color: black;
 	
 }
+
+
+.page-topnav {
+	margin-bottom: 15px !important;
+	font-family: 'Open Sans', sans-serif;
+	display: inline-block;
+	width: 100%;
+}

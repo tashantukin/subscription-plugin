@@ -71,3 +71,105 @@ textarea[disabled], textarea[readonly]{background-color: #eee !important;opacity
     margin-left: 5px !important;
 }
 
+.profile-bar .label-plugin-name {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 19px;
+    color: #4D4D4D;
+}
+
+.profile-meta .meta-label {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 19px;
+    color: #494949;
+}
+
+.profile-bar h5 {
+    color: #999999;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.view-user-details {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 16px;
+    color: #50C8FF;
+}
+
+.plugin-large-title {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 19px;
+    color: #FFFFFF;
+    height: 37px;
+    background: #4D4D4D;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.new-sub-container {
+    padding: 20px;
+}
+
+.sub-container-sub {
+    background: #FFFFFF;;
+    padding: 15px 0px;
+}
+
+.w-list-items li {
+    position: relative;
+}
+
+.cancel-buttons {
+    color: #4D4D4D;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 19px;
+    max-width: 155px;
+    border: 1px solid #4D4D4D;
+    padding: 8px 10px;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 0;
+    width: 100%;
+}
+
+.merchant-commission-table tbody tr {
+    border: 0px;
+}
+
+.custom-user-field-sec {
+    padding: 0px;
+    padding-bottom: 5px;
+}
+
+.box-change-password {
+    background: transparent;
+    padding: 20px 0px;
+}
+
+.box-change-password .mybtn {
+    display: inline-block;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 19px;
+    color: #FFFFFF;
+    background: #4D4D4D;
+    border: 1px solid #4D4D4D;
+    padding: 13px 20px;
+    max-width: 180px;
+    width: 100%;
+    height: auto;
+}
