@@ -1,0 +1,207 @@
+{
+    "id": "in_1JPgCLLpiOi48zknESep1Gqn",
+    "object": "invoice",
+    "account_country": "US",
+    "account_name": null,
+    "account_tax_ids": null,
+    "amount_due": 100000,
+    "amount_paid": 100000,
+    "amount_remaining": 0,
+    "application_fee_amount": null,
+    "attempt_count": 1,
+    "attempted": true,
+    "auto_advance": false,
+    "automatic_tax": {
+        "enabled": false,
+        "status": null
+    },
+    "billing_reason": "subscription_create",
+    "charge": "ch_3JPgCLLpiOi48zkn0lLYAqgY",
+    "collection_method": "charge_automatically",
+    "created": 1629260177,
+    "currency": "usd",
+    "custom_fields": null,
+    "customer": "cus_K3nnfmEEeZQurL",
+    "customer_address": {
+        "city": "",
+        "country": "",
+        "line1": "",
+        "line2": null,
+        "postal_code": "",
+        "state": ""
+    },
+    "customer_email": "ajinomoto@gmail.com",
+    "customer_name": "AJINOMOTO GINISAMIX",
+    "customer_phone": "5157552",
+    "customer_shipping": null,
+    "customer_tax_exempt": "none",
+    "customer_tax_ids": [],
+    "default_payment_method": null,
+    "default_source": null,
+    "default_tax_rates": [],
+    "description": null,
+    "discount": {
+        "id": "di_1JPgCLLpiOi48zknC0Kn5muf",
+        "object": "discount",
+        "checkout_session": null,
+        "coupon": {
+            "id": "eVZDLjJF",
+            "object": "coupon",
+            "amount_off": 200,
+            "created": 1618721054,
+            "currency": "usd",
+            "duration": "forever",
+            "duration_in_months": null,
+            "livemode": false,
+            "max_redemptions": null,
+            "metadata": [],
+            "name": "New subscription discount",
+            "percent_off": null,
+            "redeem_by": null,
+            "times_redeemed": 1,
+            "valid": true
+        },
+        "customer": "cus_K3nnfmEEeZQurL",
+        "end": null,
+        "invoice": null,
+        "invoice_item": null,
+        "promotion_code": null,
+        "start": 1629260177,
+        "subscription": "sub_K3nnHgFViOsbSW"
+    },
+    "discounts": [
+        "di_1JPgCLLpiOi48zknC0Kn5muf"
+    ],
+    "due_date": null,
+    "ending_balance": 0,
+    "footer": null,
+    "hosted_invoice_url": "https:\/\/invoice.stripe.com\/i\/acct_1INpZ6LpiOi48zkn\/invst_K3nnYWE64rOh2Obs0DoYnYsLPxx9VKC",
+    "invoice_pdf": "https:\/\/pay.stripe.com\/invoice\/acct_1INpZ6LpiOi48zkn\/invst_K3nnYWE64rOh2Obs0DoYnYsLPxx9VKC\/pdf",
+    "last_finalization_error": null,
+    "lines": {
+        "object": "list",
+        "data": [
+            {
+                "id": "il_1JPgCLLpiOi48zknPZC1iFoV",
+                "object": "line_item",
+                "amount": 100000,
+                "currency": "usd",
+                "description": "1 \u00d7 Arcadier Subscription (at $1,000.00 \/ month)",
+                "discount_amounts": [
+                    {
+                        "amount": 0,
+                        "discount": "di_1JPgCLLpiOi48zknC0Kn5muf"
+                    }
+                ],
+                "discountable": true,
+                "discounts": [],
+                "livemode": false,
+                "metadata": [],
+                "period": {
+                    "end": 1631938577,
+                    "start": 1629260177
+                },
+                "plan": {
+                    "id": "price_1JNXP5LpiOi48zkn65AX3OlZ",
+                    "object": "plan",
+                    "active": true,
+                    "aggregate_usage": null,
+                    "amount": 100000,
+                    "amount_decimal": "100000",
+                    "billing_scheme": "per_unit",
+                    "created": 1628749715,
+                    "currency": "usd",
+                    "interval": "month",
+                    "interval_count": 1,
+                    "livemode": false,
+                    "metadata": {
+                        "desription": "DEFINITELY NOT FOR FREE"
+                    },
+                    "nickname": "HELLO WORLD",
+                    "product": "prod_K1aatzAkEIiiho",
+                    "tiers_mode": null,
+                    "transform_usage": null,
+                    "trial_period_days": null,
+                    "usage_type": "licensed"
+                },
+                "price": {
+                    "id": "price_1JNXP5LpiOi48zkn65AX3OlZ",
+                    "object": "price",
+                    "active": true,
+                    "billing_scheme": "per_unit",
+                    "created": 1628749715,
+                    "currency": "usd",
+                    "livemode": false,
+                    "lookup_key": null,
+                    "metadata": {
+                        "desription": "DEFINITELY NOT FOR FREE"
+                    },
+                    "nickname": "HELLO WORLD",
+                    "product": "prod_K1aatzAkEIiiho",
+                    "recurring": {
+                        "aggregate_usage": null,
+                        "interval": "month",
+                        "interval_count": 1,
+                        "trial_period_days": null,
+                        "usage_type": "licensed"
+                    },
+                    "tax_behavior": "unspecified",
+                    "tiers_mode": null,
+                    "transform_quantity": null,
+                    "type": "recurring",
+                    "unit_amount": 100000,
+                    "unit_amount_decimal": "100000"
+                },
+                "proration": false,
+                "quantity": 1,
+                "subscription": "sub_K3nnHgFViOsbSW",
+                "subscription_item": "si_K3nn11WyXu0evO",
+                "tax_amounts": [],
+                "tax_rates": [],
+                "type": "subscription"
+            }
+        ],
+        "has_more": false,
+        "total_count": 1,
+        "url": "\/v1\/invoices\/in_1JPgCLLpiOi48zknESep1Gqn\/lines"
+    },
+    "livemode": false,
+    "metadata": [],
+    "next_payment_attempt": null,
+    "number": "8F4BE897-0001",
+    "on_behalf_of": null,
+    "paid": true,
+    "payment_intent": "pi_3JPgCLLpiOi48zkn0fVt9nbV",
+    "payment_settings": {
+        "payment_method_options": null,
+        "payment_method_types": null
+    },
+    "period_end": 1629260177,
+    "period_start": 1629260177,
+    "post_payment_credit_notes_amount": 0,
+    "pre_payment_credit_notes_amount": 0,
+    "quote": null,
+    "receipt_number": null,
+    "starting_balance": 0,
+    "statement_descriptor": null,
+    "status": "paid",
+    "status_transitions": {
+        "finalized_at": 1629260177,
+        "marked_uncollectible_at": null,
+        "paid_at": 1629260177,
+        "voided_at": null
+    },
+    "subscription": "sub_K3nnHgFViOsbSW",
+    "subtotal": 100000,
+    "tax": null,
+    "total": 100000,
+    "total_discount_amounts": [
+        {
+            "amount": 0,
+            "discount": "di_1JPgCLLpiOi48zknC0Kn5muf"
+        }
+    ],
+    "total_tax_amounts": [],
+    "transfer_data": null,
+    "webhooks_delivered_at": 1629260177
+}

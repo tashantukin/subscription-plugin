@@ -173,3 +173,54 @@ textarea[disabled], textarea[readonly]{background-color: #eee !important;opacity
     width: 100%;
     height: auto;
 }
+
+
+
+
+
+
+
+
+
+
+.sub-detail-top-left,
+.sub-detail-top-right,
+.sub-detail-top-payment-id {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 19px;
+    color: #4D4D4D;
+}
+
+.sub-detail-top-left span,
+.sub-detail-top-right span,
+.sub-detail-top-payment-id span {
+    font-weight: normal;
+}
+
+.subplan-label {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 19px;
+    color: #4D4D4D;
+}
+
+.subplan-value {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 19px;
+    color: #494949;
+}
+
+.sub-detail-row .pull-right {
+    padding-right: 14%;
+}
+
+.sub-detail-row {
+    border-top: 1px solid #C0C0C0;
+    margin-top: 20px;
+    padding-top: 20px;
+}

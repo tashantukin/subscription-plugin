@@ -69,7 +69,8 @@ $invoice_total = count((array)$invoices->data);
 
                 <div class="navigation-bar page-topnav">
 
-                    <a href="index.php" class="mybtn btn-back"><img src="images/back.svg" alt="Back">Back</a>
+                    <!-- <a href="index.php" class="mybtn btn-back"><img src="images/back.svg" alt="Back">Back</a> -->
+                   <a class="btn-back" href="index.php"><i class="icon icon-arrowleft"></i> Back</a> 
 
                 </div>
 
@@ -241,18 +242,20 @@ $invoice_total = count((array)$invoices->data);
                                      foreach($invoices['data'] as $invoice) {
                                         $collection_method = $invoice['billing_reason'] == 'subscription_create' ? 'First Payment' : 'Charge automatically';
                                         $currency = strtoupper($invoice['lines']['data'][0]['plan']['currency']);
+                                        // $sub_total
                                         $amount = $invoice['lines']['data'][0]['plan']['amount'] / 100;
+                                        $amount = number_format((float)$amount,2);
                                         echo "<tr class='border-hover'>";
-                                            echo  "<td data-th='Timestamp'>" . date('d/m/Y H:i', $invoice['created']) .  "</td>";
+                                            echo  "<td data-th='Timestamp' class='clickable-row' style='cursor: pointer; cursor: hand;' data-href='invoice_details.php?invoiceId=". $invoice['id'] .  "&userguid=" . $user_guid  . "&customerId=". $customer_id . "&status= ". ucfirst($status)  . "&subsId=". $subs_id . "'>"  . date('d/m/Y H:i', $invoice['created']) .  "</td>";
                                             echo   "<td data-th='Invoice ID'>" . $invoice['number'] . "</td>";
                                             echo   "<td data-th='Package'>" . $invoice['lines']['data'][0]['plan']['nickname'] . "</td>";
-                                            echo  "<td data-th='Amount'>" . $currency .' ' . $amount  . "</td>";
+                                            echo  "<td data-th='Amount'>" . $currency .' ' .'$'  . $amount  . "</td>";
                                             echo   "<td data-th='Collection Method'>" . $collection_method . "</td>";
                                             echo  "<td data-th='Status'>" . ucfirst($invoice['status']) ."</td>";
                                         echo "</tr>";                                       
                                      }
                                 ?>
-                                    
+                                  
                                 </tbody>
                             </table>
                         </div>
@@ -270,7 +273,17 @@ $invoice_total = count((array)$invoices->data);
 <!-- begin footer -->
 <script type="text/javascript" src="scripts/package.js"></script>
 
+<script>
 
+
+jQuery(document).ready(function($) {
+    $(".clickable-row").click(function() {
+        window.location = $(this).data("href");
+    });
+});
+</script>
+
+<!-- end footer -->
 
 
 
