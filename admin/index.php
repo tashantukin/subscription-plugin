@@ -31,7 +31,19 @@ $result = callAPI("GET", $userToken, $url, false);
 <link rel="stylesheet" href="css/settings.css">
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/subscription.css">
+ <!-- Pagination js -->
+ 
+ <script type="text/javascript" src="https://bootstrap.arcadier.com/adminportal/js/pagination.min.js"></script>
 <script src="https://js.stripe.com/v3/"></script>
+
+ <!-- bootstrap style -->
+
+<!-- Pagination style -->
+<!-- <link href="https://bootstrap.arcadier.com/adminportal_pre/css/bootstrap.min.css" rel="stylesheet" type="text/css"> -->
+<link href="https://bootstrap.arcadier.com/adminportal/css/pagination.css" rel="stylesheet" type="text/css">
+
+
+
 <div class="page-content">
                 <div class="gutter-wrapper">
 
@@ -200,7 +212,26 @@ $result = callAPI("GET", $userToken, $url, false);
                                     </tbody>
                                 </table>
                             </div>
+
                         </div>
+
+                        <nav class="text-center" id="pagination-userslist" aria-label="Page navigation">
+                            <div class="paginationjs">
+                                <div class="paginationjs-pages">
+                                    <ul>
+                                        <li class="paginationjs-prev disabled"><a>«</a></li>
+                                        <li class="paginationjs-page J-paginationjs-page active" data-num="1"><a>1</a></li>
+                                        <li class="paginationjs-page J-paginationjs-page" data-num="2"><a href="">2</a></li>
+                                        <li class="paginationjs-page J-paginationjs-page" data-num="3"><a href="">3</a></li>
+                                        <li class="paginationjs-page J-paginationjs-page" data-num="4"><a href="">4</a></li>
+                                        <li class="paginationjs-page J-paginationjs-page" data-num="5"><a href="">5</a></li>
+                                        <li class="paginationjs-ellipsis disabled"><a>...</a></li>
+                                        <li class="paginationjs-page paginationjs-last J-paginationjs-page" data-num="11"><a href="">11</a></li>
+                                        <li class="paginationjs-next J-paginationjs-next" data-num="2" title="Next page"><a href="">»</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </nav>
 
                 </div>
             </div>

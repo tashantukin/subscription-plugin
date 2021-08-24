@@ -305,11 +305,11 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
         $('#subs-desc').text(result.description)
         $('#package-name').text(result.name);
         $('.package-price span').first().text(`USD $${parseFloat(result.price).toFixed(2)}`);
-
+        $('#plan-amount').text(`USD $${parseFloat(result.price).toFixed(2)}`);
 
           //verify if the user is merchant
 
-          console.log($('.navigation .dropdown a').attr('href'));
+          // console.log($('.navigation .dropdown a').attr('href'));
 
           if ( $('.navigation .dropdown a').attr('href') != '/user/marketplace/be-seller')
           {
@@ -319,7 +319,7 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
               isSubscriptionValid = 1;
 
 
-            console.log('merchant page')
+            // console.log('merchant page')
               if (page == 'Settings') {
                 if (result.status == 'canceled') {
                   $('#cancelsubs').hide();
@@ -331,7 +331,8 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
                 var status = result.status == 'canceled' ? 'Cancelled' : result.status;
                 $('#status').text(status);
                 $('#nxtbilling').text(endDateMoment2);
-            
+                $('#subscription-amount').text(`USD $${parseFloat(result.price).toFixed(2)}`);
+                $('#plan-amount').text(`USD $${parseFloat(result.price).toFixed(2)}`);
               }
             
             }
@@ -343,7 +344,7 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
               } else if (page == 'Homepage') {
                 
               } else {
-                console.log('in else');
+                // console.log('in else');
             
                 urls = `${protocol}//${baseURL}/user/marketplace/seller-settings`;
                 window.location.href = urls;
@@ -397,7 +398,7 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
 
   function saveSubscriptionData(result)
   {
-    console.log(result);
+    // console.log(result);
     var apiUrl = packagePath + '/saveSubscriptionData.php';
     var data = {
       'id': result.id,
@@ -465,14 +466,14 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
         success: function(result) {
           result = JSON.parse(result);
           saveSubscriptionData(result.result);
-          // console.log(result.result.plan.nickname);
-          // console.log(result.result.plan['nickname']);
+         var amount = result.result.items.data[0]['plan']['amount'] / 100;
+        
           $('#cancelsubs').attr("sub-id", result.result.id);
           $('#status').text(result.result.status);
           $('#subscription-name').text(result.result.plan.nickname);
           $('#nxtbilling').text(new Date(result.result.current_period_end * 1000).format("dd/mm/yyyy"))
-          
-          //console.log(result.result);
+         $('#subscription-amount').text(`USD $${parseFloat(amount).toFixed(2)}`);
+         
           $('.subscription-step1').addClass('hide');
           $('.subscription-step2').removeClass('hide');
 
@@ -595,7 +596,7 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
   {
  
     if (pathname.indexOf('/user/marketplace/customlogin') > -1) {
-      console.log('in log in ')
+      // console.log('in log in ')
     }  else {
       if (pathname.indexOf('/user/marketplace/dashboard') > -1
       || pathname.indexOf('/user/item/list') > -1
@@ -781,6 +782,8 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
 
                                     <a href="javacrtipt:void(0);" id="package-name">{Package Name} </a>
 
+                                    <div class="pull-right"><span id="plan-amount">USD $10.00</span> <span>/month</span></div>
+
                                     <p class="grey-colot-txt">Billing starts on: <span class="subsc-darkgrey-colot-txt" id="billingstart">DD/MM/YYYY</span> reoccurs monthly</p>
 
                                 </div>
@@ -855,7 +858,7 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
 
                             <div class="text-center">
 
-                                <a class="my-btn btn-red" id="paynowPackage" href="javascript:void(0);">PAY NOW</a>
+                                <a class="my-btn btn-red btn-loader loader-radius-bespoke" id="paynowPackage" href="javacrtipt:void(0);">PAY NOW</a>
 
                             </div>
 
@@ -868,7 +871,6 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
                 </div>
 
               
-
               <div class="subscription-step2 hide">
 
                 <div class="seller-setting-p"><b>Subscription Package</b></div>
@@ -877,11 +879,13 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
 
                     <div class="col-md-3">Package name</div>
 
+                    <div class="col-md-2">Paid</div>
+
                     <div class="col-md-3">Next Billing cycle</div>
 
-                    <div class="col-md-2">Status</div>
+                    <div class="col-md-1">Status</div>
 
-                    <div class="col-md-4"></div>
+                    <div class="col-md-3"></div>
 
                     <div class="clearfix"></div>
 
@@ -889,13 +893,16 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
 
                 <div class="subscription-list-body">
                     <div class="subscription-row" data-key="item" data-id="2">
+                    
                         <div class="col-md-3" id="subscription-name">{Package name here}</div>
+
+                        <div class="col-md-2" id="subscription-amount"></div>
 
                         <div class="col-md-3" id="nxtbilling">{DD/MM/YYYY}</div>
 
-                        <div class="col-md-2" id="status">Active</div>
+                        <div class="col-md-1" id="status">Active</div>
 
-                        <div class="col-md-4"><span class="cmn-clr-theme"><a href="javascript:void(0)" id="cancelsubs" sub-id="">Cancel subscription</a></span></div>
+                        <div class="col-md-3"><span class="cmn-clr-theme"><a href="javascript:void(0)" id="cancelsubs" sub-id="">Cancel subscription</a></span></div>
 
                         <div class="clearfix"></div>
                     </div>
@@ -980,8 +987,7 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
                               // $("#payNowButton").removeAttr("disabled");
                               } else {
                                 $("#paynowPackage").prop("disabled", true);
-                                  console.log(result.token.card);
-                                  console.log(result.token.id)
+                                 
                                   
                                   subscribe(card, stripe)
                                   
@@ -1049,7 +1055,7 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
 
      $("#apply").click(function ()
      {
-       console.log('apply clicked')
+      //  console.log('apply clicked')
      
       if ($('#couponcode').val() != '') {
 
@@ -1060,6 +1066,29 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
 
     
     };
+
+
+
+     // subscription pay now button
+
+ jQuery("#paynowPackage").click(function(){
+
+  var $that = $(this);
+
+  $that.addClass("btn-loading");
+
+  setTimeout(function() {
+  $that.removeClass('btn-loading');
+      $('.subscription-step1').addClass('hide');
+      $('.subscription-step2').removeClass('hide');
+}, 5000);
+
+ 
+
+});
+
+// end subscription pay now button   
+
   
   });
 

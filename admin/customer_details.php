@@ -64,6 +64,8 @@ $invoice_total = count((array)$invoices->data);
 <link rel="stylesheet" href="css/settings.css">
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/subscription.css">
+<script type="text/javascript" src="https://bootstrap.arcadier.com/adminportal/js/pagination.min.js"></script>
+<link href="https://bootstrap.arcadier.com/adminportal/css/pagination.css" rel="stylesheet" type="text/css">
 <script src="https://js.stripe.com/v3/"></script>
 <div class="page-content">
 
@@ -171,7 +173,7 @@ $invoice_total = count((array)$invoices->data);
         
                                             <p><?php echo date('d/m/Y', $end_date)  ?></p>
 
-                                            <a href="#" class="cancel-buttons">Pause Subscription</a>
+                                            <a href="javascript:void(0)" onclick="subcriptionControl()" id="subscriptions-control" class="cancel-buttons">Pause Subscription</a>
         
                                         </li>
         
@@ -260,12 +262,76 @@ $invoice_total = count((array)$invoices->data);
                             </table>
                         </div>
                     </div>
+                    <nav class="text-center" id="pagination-userslist" aria-label="Page navigation">
+                            <div class="paginationjs">
+                                <div class="paginationjs-pages">
+                                    <ul>
+                                        <li class="paginationjs-prev disabled"><a>«</a></li>
+                                        <li class="paginationjs-page J-paginationjs-page active" data-num="1"><a>1</a></li>
+                                        <li class="paginationjs-page J-paginationjs-page" data-num="2"><a href="">2</a></li>
+                                        <li class="paginationjs-page J-paginationjs-page" data-num="3"><a href="">3</a></li>
+                                        <li class="paginationjs-page J-paginationjs-page" data-num="4"><a href="">4</a></li>
+                                        <li class="paginationjs-page J-paginationjs-page" data-num="5"><a href="">5</a></li>
+                                        <li class="paginationjs-ellipsis disabled"><a>...</a></li>
+                                        <li class="paginationjs-page paginationjs-last J-paginationjs-page" data-num="11"><a href="">11</a></li>
+                                        <li class="paginationjs-next J-paginationjs-next" data-num="2" title="Next page"><a href="">»</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </nav>
+                </div>
+
+                <div id="subcriptionControl" class="popup modal-change-pwd">
+                    <div class="popup-wrapper">
+                            <div class="modal-header">
+                                <div class="text-center">
+                                    <h5></h5>
+                                </div>
+                                <div class="pull-right">
+                                    <a href="javascript:void(0)" class="close-popup" onclick="popup_close(this)" data-dismiss="modal"><i class="icon icon-close"></i></a>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="popup-content text-center">
+                                <div class="form-group">
+                                <p>Are you sure you want to pause the subscription?</p>
+                                </div>
+                            </div>
+                            <div class="popup-footer text-center">
+                                <button type="button" onclick="popup_close(this)" class="mybtn btn-grey">Cancel</button>
+                                <button type="button" onclick="subscriptionPlay(this)" class="mybtn btn-blue">Okay</button>
+                            </div>
+                    </div>
+                </div>
+
+                <div id="cancelSubscription" class="popup modal-change-pwd">
+                    <div class="popup-wrapper">
+                            <div class="modal-header">
+                                <div class="text-center">
+                                    <h5></h5>
+                                </div>
+                                <div class="pull-right">
+                                    <a href="javascript:void(0)" class="close-popup" onclick="popup_close(this)" data-dismiss="modal"><i class="icon icon-close"></i></a>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="popup-content text-center">
+                                <div class="form-group">
+                                <p>Are you sure you want to cancel the subscription?</p>
+                                </div>
+                            </div>
+                            <div class="popup-footer text-center">
+                                <button type="button" onclick="popup_close(this)" class="mybtn btn-blue">Yes</button>
+                                <button type="button" onclick="popup_close(this)" class="mybtn btn-grey">No</button>
+                                
+                            </div>
+                    </div>
                 </div>
                 <!-- End custom user field-->
 
                 <div class="box-change-password">
 
-                    <a href="javascript:void(0)" class="mybtn btn-default">Cancel Subscription</a>
+                    <a href="javascript:void(0)" onclick="cancelSubscription()" class="mybtn btn-default">Cancel Subscription</a>
 
                 </div>
 
@@ -281,6 +347,60 @@ jQuery(document).ready(function($) {
         window.location = $(this).data("href");
     });
 });
+
+
+function subcriptionControl()
+    {
+        var $modal = $("#subcriptionControl");
+        $("#cover").show();
+        $modal.fadeIn();
+    }
+
+    function cancelSubscription()
+    {
+        var $modal = $("#cancelSubscription");
+        $("#cover").show();
+        $modal.fadeIn();
+    }
+
+
+    function subscriptionPlay(ele) {
+
+
+
+        var that = jQuery(ele);
+
+
+
+        that.parents('.popup').fadeOut();
+
+
+
+        jQuery("#cover").fadeOut();
+
+
+        if($("#subscriptions-control").hasClass("resume")){
+            $("#subscriptions-control").text("Pause Subscription");
+            $("#subscriptions-control").removeClass("resume");
+            $("#subcriptionControl").find(".popup-content .form-group").text("Are you sure you want to pause the subscription?");
+        }else {
+            $("#subscriptions-control").text("Resume Subscription")
+            $("#subscriptions-control").addClass("resume");
+            $("#subcriptionControl").find(".popup-content .form-group").text("Are you sure you want to resume the subscription?");
+        }
+    }
+
+    function popup_close(ele) {
+
+        var that = $(ele);
+
+        that.parents('.popup').fadeOut();
+
+        $("#cover").fadeOut();
+
+    }
+
+
 </script>
 
 <!-- end footer -->
