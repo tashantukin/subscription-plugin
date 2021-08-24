@@ -214,7 +214,65 @@ function saveKeys() {
        }
    });
   }
-  
+
+  function cancelSubscription(id, userguid)
+  {
+    var apiUrl = packagePath + '/cancel_subs.php';
+      var data = { id, userguid }
+      $.ajax({
+          url: apiUrl,
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(data),
+        success: function(result) {
+        result = JSON.parse(result);
+         console.log(result);
+
+          if (result.result.status == 'canceled') {
+            //saveSubscriptionData(result.result);
+            console.log('cancelled');
+
+          }
+        },
+        error: function(jqXHR, status, err) {
+        //	toastr.error('Error!');
+        }
+    });
+  }
+
+  function toggleSubscription(id, userguid, action)
+  {
+    var apiUrl = packagePath + '/pause_subs.php';
+      var data = { id, userguid, action }
+      $.ajax({
+          url: apiUrl,
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(data),
+        success: function (result)
+        {
+          if (action == 'pause') {
+           // $('#pause-subs').val('Resume Subscription'); 
+            $("#subcriptionControl").find(".popup-content .form-group").text("Are you sure you want to resume the subscription?");
+           $('#pause-subs').attr('status', 'resume');
+          } else {
+           // $('#pause-subs').val('Pause Subscription');
+            $('#pause-subs').attr('status', 'pause');
+            $("#subcriptionControl").find(".popup-content .form-group").text("Are you sure you want to pause the subscription?");
+          }
+         
+
+        result = JSON.parse(result);
+         console.log(result);
+
+          
+        },
+        error: function(jqXHR, status, err) {
+        //	toastr.error('Error!');
+        }
+    });
+  }
+
   $(document).ready(function (){
     //validiate PK
     $('#live-publishable-key').on('keyup', function ()
@@ -339,7 +397,25 @@ function saveKeys() {
     
 		//toastr.success('No. of Trial Days Successfully Saved', 'Success!');
 		// }
-  })  
+    })
+    
+
+
+    //cancel the subscription
+
+    $("#cancel-subs").on("click", function ()
+    {
+      cancelSubscription($(this).attr('subs-id'), $(this).attr('user-guid'));
+
+    })
+
+    //pause subs
+    $("#pause-subs").on("click", function ()
+    {
+
+      toggleSubscription($(this).attr('subs-id'), $(this).attr('user-guid'),$(this).attr('status') );
+
+    })
     
     
     

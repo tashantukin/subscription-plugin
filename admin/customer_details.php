@@ -25,11 +25,29 @@ require_once('stripe-php/init.php');
 \Stripe\Stripe::setApiKey($stripe_secret_key);
 
 $url = $baseUrl . '/api/v2/users/'. $user_guid; 
-$result = callAPI("GET", $userToken, $url, false);
+$result = callAPI("GET", $admin_token['access_token'], $url, false);
 
 $user_email = $result['Email'];
 $user_display_name = $result['DisplayName'];
 $user_avatar = $result['Media'][0]['MediaUrl'];
+
+
+
+//get the status customf field values of iscancelled, ispaused etc
+
+foreach($result['CustomFields'] as $cf) 
+{ 
+    
+if ($cf['Name'] == 'isCancelled' && substr($cf['Code'], 0, strlen($customFieldPrefix)) == $customFieldPrefix) {
+    $is_cancelled = $cf['Values'][0];
+     
+ }
+ if ($cf['Name'] == 'isPaused' && substr($cf['Code'], 0, strlen($customFieldPrefix)) == $customFieldPrefix) {
+    $is_paused = $cf['Values'][0];
+     
+ }
+
+}
 
 
 //subscription details
@@ -173,7 +191,7 @@ $invoice_total = count((array)$invoices->data);
         
                                             <p><?php echo date('d/m/Y', $end_date)  ?></p>
 
-                                            <a href="javascript:void(0)" onclick="subcriptionControl()" id="subscriptions-control" class="cancel-buttons">Pause Subscription</a>
+                                            <a href="javascript:void(0)" onclick="<?php echo $is_cancelled == "true" ? "" : "subcriptionControl()" ?>" id="subscriptions-control" class="cancel-buttons <?php echo $is_paused == "true" ? "resume" : "pause" ?>"><?php echo $is_paused == 'true' ? 'Resume Subscription' : 'Pause Subscription' ?></a>
         
                                         </li>
         
@@ -294,12 +312,12 @@ $invoice_total = count((array)$invoices->data);
                             </div>
                             <div class="popup-content text-center">
                                 <div class="form-group">
-                                <p>Are you sure you want to pause the subscription?</p>
+                                <p>Are you sure you want to <?php echo $is_paused == "true" ? "resume" : "pause" ?> the subscription?</p>
                                 </div>
                             </div>
                             <div class="popup-footer text-center">
                                 <button type="button" onclick="popup_close(this)" class="mybtn btn-grey">Cancel</button>
-                                <button type="button" onclick="subscriptionPlay(this)" class="mybtn btn-blue">Okay</button>
+                                <button type="button"  id="pause-subs" onclick="subscriptionPlay(this)" class="mybtn btn-blue" subs-id="<?php echo $subs_id; ?>" user-guid ="<?php echo $user_guid; ?>" status="<?php echo $is_paused == "true" ? "resume" : "pause" ?>">Okay</button>
                             </div>
                     </div>
                 </div>
@@ -321,7 +339,7 @@ $invoice_total = count((array)$invoices->data);
                                 </div>
                             </div>
                             <div class="popup-footer text-center">
-                                <button type="button" onclick="popup_close(this)" class="mybtn btn-blue">Yes</button>
+                                <button type="button" id="cancel-subs" onclick="popup_close(this)" class="mybtn btn-blue" subs-id="<?php echo $subs_id;  ?>" user-guid ="<?php echo $user_guid; ?>">Yes</button>
                                 <button type="button" onclick="popup_close(this)" class="mybtn btn-grey">No</button>
                                 
                             </div>
@@ -331,7 +349,7 @@ $invoice_total = count((array)$invoices->data);
 
                 <div class="box-change-password">
 
-                    <a href="javascript:void(0)" onclick="cancelSubscription()" class="mybtn btn-default">Cancel Subscription</a>
+                    <a href="javascript:void(0)" onclick="<?php echo $is_cancelled == "true" ? "" : "cancelSubscription()" ?>"  class="mybtn btn-default"><?php echo $is_cancelled == "true" ? 'Cancelled' : 'Cancel Subscription' ?></a>
 
                 </div>
 
@@ -382,11 +400,11 @@ function subcriptionControl()
         if($("#subscriptions-control").hasClass("resume")){
             $("#subscriptions-control").text("Pause Subscription");
             $("#subscriptions-control").removeClass("resume");
-            $("#subcriptionControl").find(".popup-content .form-group").text("Are you sure you want to pause the subscription?");
+           // $("#subcriptionControl").find(".popup-content .form-group").text("Are you sure you want to pause the subscription?");
         }else {
             $("#subscriptions-control").text("Resume Subscription")
             $("#subscriptions-control").addClass("resume");
-            $("#subcriptionControl").find(".popup-content .form-group").text("Are you sure you want to resume the subscription?");
+           // $("#subcriptionControl").find(".popup-content .form-group").text("Are you sure you want to resume the subscription?");
         }
     }
 
