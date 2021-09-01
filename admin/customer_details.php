@@ -66,6 +66,15 @@ $subs_amount = $subscription->items->data[0]->price->unit_amount /100;
 error_log($subs_amount);
 
 $joined_date = $subscription->created;
+$status = $subscription->status;
+
+if ($status == 'canceled') {
+    $status  = 'cancelled';
+}
+
+if ($subscription->pause_collection != null) {
+    $status = 'paused';
+}
 
 // $retrieve =  $stripe->invoices->all(['customer' => 'cus_JIvgAmFgcxpxIm']); 
 
@@ -81,9 +90,10 @@ $invoice_total = count((array)$invoices->data);
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="css/settings.css">
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/pagination.css">
 <link rel="stylesheet" href="css/subscription.css">
-<script type="text/javascript" src="https://bootstrap.arcadier.com/adminportal/js/pagination.min.js"></script>
-<link href="https://bootstrap.arcadier.com/adminportal/css/pagination.css" rel="stylesheet" type="text/css">
+<!-- <script type="text/javascript" src="https://bootstrap.arcadier.com/adminportal/js/pagination.min.js"></script> -->
+<!-- <link href="https://bootstrap.arcadier.com/adminportal/css/pagination.css" rel="stylesheet" type="text/css"> -->
 <script src="https://js.stripe.com/v3/"></script>
 <div class="page-content">
 
@@ -113,7 +123,7 @@ $invoice_total = count((array)$invoices->data);
     
                                 <span class="meta-label"><?php echo $user_email ?></span>
     
-                                <a href="#" class="view-user-details">View user details</a>
+                                <a href="/admin/usermanager/userdetail?userid=0&userguid=<?php echo $user_guid;?>" class="view-user-details">View user details</a>
     
                                 <!-- <span class="profile-title">WaterSoda</span> -->
     
@@ -139,7 +149,7 @@ $invoice_total = count((array)$invoices->data);
 
                                     <label>Status</label>
 
-                                    <p><?php echo $status ?></p>
+                                    <p id="subs-status"><?php  echo $is_paused == 'true' ? 'Paused' : ucfirst($status) ?></p>
 
                                 </li>
 
@@ -235,7 +245,6 @@ $invoice_total = count((array)$invoices->data);
                         </div>
 
                         
-    
                         
                     </div>
                     
@@ -244,8 +253,11 @@ $invoice_total = count((array)$invoices->data);
                 <!-- custom user field-->
                 <div class="wrap-panel">
                     <div class="custom-user-field-sec">
+
+                    <div class="plugin-large-title">Invoices</div>
+
                         <div class="merchant-commission-table scheduler-tbl">
-                            <table class="table">
+                            <table class="table" id="invoices">
                                 <thead>
                                
                                     <tr>
@@ -280,7 +292,7 @@ $invoice_total = count((array)$invoices->data);
                             </table>
                         </div>
                     </div>
-                    <nav class="text-center" id="pagination-userslist" aria-label="Page navigation">
+                    <!-- <nav class="text-center" id="pagination-userslist" aria-label="Page navigation">
                             <div class="paginationjs">
                                 <div class="paginationjs-pages">
                                     <ul>
@@ -296,7 +308,13 @@ $invoice_total = count((array)$invoices->data);
                                     </ul>
                                 </div>
                             </div>
-                        </nav>
+                        </nav> -->
+
+                        <nav class="text-center" aria-label="Page navigation">
+                         <ul class="pagination">
+                             <li class="previous-page"> <a href="javascript:void(0)" aria-label=Previous><span aria-hidden=true>&laquo;</span></a></li>
+                          </ul>
+                         </nav>
                 </div>
 
                 <div id="subcriptionControl" class="popup modal-change-pwd">
@@ -356,6 +374,8 @@ $invoice_total = count((array)$invoices->data);
             </div>
 <!-- begin footer -->
 <script type="text/javascript" src="scripts/package.js"></script>
+<!-- <script type="text/javascript" src="scripts/pagination.js"></script> -->
+<script type="text/javascript" src="scripts/jquery.dataTables.js"></script>
 
 <script>
 
@@ -364,6 +384,35 @@ jQuery(document).ready(function($) {
     $(".clickable-row").click(function() {
         window.location = $(this).data("href");
     });
+
+    // $('#invoices').DataTable(
+    //     {
+    //     // "paging":   false,
+    //     // "order": [[ 1, "desc" ]],
+    //     "lengthMenu": [[20], [20]],
+    //     "ordering": false,
+    //     "info":     false,
+    //     "searching" :false,
+    //     "pagingType": "simple_numbers"
+    //     // "columnDefs": [{ orderable: false, targets: [5] }]
+    //     }
+    // );
+
+    waitForElement('#invoices_wrapper',function(){
+        var pagediv =  "<div class ='paging' id = 'pagination-insert'> </div>";
+        $('#invoices_paginate').appendTo($('#pagination-insert'));
+        $('#invoices_wrapper').append(pagediv);
+    });
+    waitForElement('#invoices_paginate',function(){
+       
+        $('#invoices_paginate').appendTo($('#pagination-userslist .paginationjs-pages'));
+        $('#pagination-userslist .paginationjs-pages ul').remove();
+    });
+
+    waitForElement('#invoices_length',function(){
+         $('#invoices_length').css({ display: "none" });
+    });
+
 });
 
 
@@ -418,8 +467,110 @@ function subcriptionControl()
 
     }
 
+    function waitForElement(elementPath, callBack){
+	window.setTimeout(function(){
+	if($(elementPath).length){
+			callBack(elementPath, $(elementPath));
+	}else{
+			waitForElement(elementPath, callBack);
+	}
+	},10)
+}
+
 
 </script>
+
+<script>
+var numRows = $("#invoices tbody tr").length;
+//  alert(numRows);
+var limitperpage = 20;
+$("#invoices tbody tr:gt(" + (limitperpage - 1) + ")").hide();
+var totalpages = Math.ceil(numRows / limitperpage);
+//  alert(totalpages);
+$(".pagination").append("<li class ='current-page active'><a href='javascript:void(0)'>" + 1 + "</a></li>");
+
+for (var i = 2; i <= totalpages; i++) {
+    $(".pagination").append("<li class='current-page'> <a href='javascript:void(0)'>" + i + "</a></li>");
+}
+$(".pagination").append("<li id='next-page'><a href='javascript:void(0)' aria-label=Next><span aria-hidden=true>&raquo;</span></a></li>");
+
+// Function that displays new items based on page number that was clicked
+$(".pagination li.current-page").on("click", function() {
+    // Check if page number that was clicked on is the current page that is being displayed
+    if ($(this).hasClass('active')) {
+        return false; // Return false (i.e., nothing to do, since user clicked on the page number that is already being displayed)
+    } else {
+        var currentPage = $(this).index(); // Get the current page number
+        $(".pagination li").removeClass('active'); // Remove the 'active' class status from the page that is currently being displayed
+        $(this).addClass('active'); // Add the 'active' class status to the page that was clicked on
+        $("#invoices tbody tr").hide(); // Hide all items in loop, this case, all the list groups
+        var grandTotal = limitperpage * currentPage; // Get the total number of items up to the page number that was clicked on
+
+        // Loop through total items, selecting a new set of items based on page number
+        for (var i = grandTotal - limitperpage; i < grandTotal; i++) {
+            $("#invoices tbody tr:eq(" + i + ")").show(); // Show items from the new page that was selected
+        }
+    }
+});
+
+// Function to navigate to the next page when users click on the next-page id (next page button)
+$("#next-page").on("click", function() {
+    var currentPage = $(".pagination li.active").index(); // Identify the current active page
+    // Check to make sure that navigating to the next page will not exceed the total number of pages
+    if (currentPage === totalpages) {
+        return false; // Return false (i.e., cannot navigate any further, since it would exceed the maximum number of pages)
+    } else {
+        currentPage++; // Increment the page by one
+        $(".pagination li").removeClass('active'); // Remove the 'active' class status from the current page
+        $("#invoices tbody tr").hide(); // Hide all items in the pagination loop
+        var grandTotal = limitperpage * currentPage; // Get the total number of items up to the page that was selected
+
+        // Loop through total items, selecting a new set of items based on page number
+        for (var i = grandTotal - limitperpage; i < grandTotal; i++) {
+            $("#invoices tbody tr:eq(" + i + ")").show(); // Show items from the new page that was selected
+        }
+
+        $(".pagination li.current-page:eq(" + (currentPage - 1) + ")").addClass('active'); // Make new page number the 'active' page
+    }
+});
+
+// Function to navigate to the previous page when users click on the previous-page id (previous page button)
+$("#previous-page").on("click", function() {
+    var currentPage = $(".pagination li.active").index(); // Identify the current active page
+    // Check to make sure that users is not on page 1 and attempting to navigating to a previous page
+    if (currentPage === 1) {
+        return false; // Return false (i.e., cannot navigate to a previous page because the current page is page 1)
+    } else {
+        currentPage--; // Decrement page by one
+        $(".pagination li").removeClass('active'); // Remove the 'activate' status class from the previous active page number
+        $("#invoices tbody tr").hide(); // Hide all items in the pagination loop
+        var grandTotal = limitperpage * currentPage; // Get the total number of items up to the page that was selected
+
+        // Loop through total items, selecting a new set of items based on page number
+        for (var i = grandTotal - limitperpage; i < grandTotal; i++) {
+            $("#invoices tbody tr:eq(" + i + ")").show(); // Show items from the new page that was selected
+        }
+
+        $(".pagination li.current-page:eq(" + (currentPage - 1) + ")").addClass('active'); // Make new page number the 'active' page
+    }
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <!-- end footer -->
 

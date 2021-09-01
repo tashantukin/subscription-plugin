@@ -254,11 +254,14 @@ function saveKeys() {
           if (action == 'pause') {
            // $('#pause-subs').val('Resume Subscription'); 
             $("#subcriptionControl").find(".popup-content .form-group").text("Are you sure you want to resume the subscription?");
-           $('#pause-subs').attr('status', 'resume');
+            $('#pause-subs').attr('status', 'resume');
+            $('#subs-status').text('Paused');
           } else {
-           // $('#pause-subs').val('Pause Subscription');
+           // $('#pause-subs').val('Pause Subscription');s
             $('#pause-subs').attr('status', 'pause');
             $("#subcriptionControl").find(".popup-content .form-group").text("Are you sure you want to pause the subscription?");
+        
+            $('#subs-status').text('Active');
           }
          
 

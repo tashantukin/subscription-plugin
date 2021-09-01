@@ -16,7 +16,6 @@ $cancel_subscription = $stripe->subscriptions->cancel($id, []);
 echo json_encode(['result' =>  $cancel_subscription]);
 
 
-
 //update the custom field of the user
 $baseUrl = getMarketplaceBaseUrl();
 $admin_token = getAdminToken();
@@ -60,9 +59,5 @@ $data = [
 $url = $baseUrl . '/api/v2/users/' . $userguid;
 $result = callAPI("PUT", $admin_token['access_token'], $url, $data);
 // echo json_encode(['data' =>  $result ]);
-
-
-
-
 
 ?>

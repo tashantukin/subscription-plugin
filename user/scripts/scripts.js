@@ -314,7 +314,7 @@ function ValidateCustom(target, targetTabIndex, isNext, optionalSkipDelivery, is
           if ( $('.navigation .dropdown a').attr('href') != '/user/marketplace/be-seller')
           {
 
-            if (result.status == 'active' || (result.status == 'canceled' && moment(startDateMoment).isSameOrBefore(endDate, 'day'))) {
+            if (result.status == 'active' || (result.status == 'canceled' && moment(startDateMoment).isSameOrBefore(endDate, 'day')) || result.pause_collection != null) {
 
               isSubscriptionValid = 1;
 

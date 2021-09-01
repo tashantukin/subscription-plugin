@@ -34,7 +34,6 @@ if ($action == 'pause') {
 }
 
 
-
 //update the custom field of the user
 $baseUrl = getMarketplaceBaseUrl();
 $admin_token = getAdminToken();

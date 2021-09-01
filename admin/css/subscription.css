@@ -331,6 +331,9 @@ textarea[disabled], textarea[readonly]{background-color: #eee !important;opacity
     height: auto;
 }
 
-
+    .group-search .sassy-search input {
+        width: 330px;
+        max-width: 100%;
+    }
 
 

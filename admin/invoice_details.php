@@ -125,7 +125,7 @@ $discount_code = $invoice_details['discount'] != null ? strtoupper($invoice_deta
                                     </div>
                                     <div class="col-md-4">
                                         <div class="subplan-label">Billing Period End</div>
-                                        <div class="subplan-value"><?php echo date('d/m/Y', $invoice_details['period_end']) ?>)</div>
+                                        <div class="subplan-value"><?php echo date('d/m/Y', $invoice_details['period_end']) ?></div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="subplan-label">Status</div>

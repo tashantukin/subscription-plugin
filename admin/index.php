@@ -33,14 +33,14 @@ $result = callAPI("GET", $userToken, $url, false);
 <link rel="stylesheet" href="css/subscription.css">
  <!-- Pagination js -->
  
- <script type="text/javascript" src="https://bootstrap.arcadier.com/adminportal/js/pagination.min.js"></script>
+ <!-- <script type="text/javascript" src="https://bootstrap.arcadier.com/adminportal/js/pagination.min.js"></script> -->
 <script src="https://js.stripe.com/v3/"></script>
 
  <!-- bootstrap style -->
 
 <!-- Pagination style -->
 <!-- <link href="https://bootstrap.arcadier.com/adminportal_pre/css/bootstrap.min.css" rel="stylesheet" type="text/css"> -->
-<link href="https://bootstrap.arcadier.com/adminportal/css/pagination.css" rel="stylesheet" type="text/css">
+<!-- <link href="https://bootstrap.arcadier.com/adminportal/css/pagination.css" rel="stylesheet" type="text/css"> -->
 
 
 
@@ -95,7 +95,7 @@ $result = callAPI("GET", $userToken, $url, false);
                                                         <label for="" class="sassy-label">Filter by:</label> 
 
                                                         <span class="sassy-search">
-                                                           <input class="form-control" name="keywords" id="keywords" placeholder="Search">
+                                                           <input class="form-control" name="keywords" id="keywords" placeholder="Search by merchant name, status or package plan">
                                                         </span>
                                                     </div>
 
@@ -122,7 +122,7 @@ $result = callAPI("GET", $userToken, $url, false);
 
                     <div class="panel-box">
                     	<div class="merchant-commission-table scheduler-tbl">
-                                <table class="table">
+                                <table class="table" id="invoices">
                                     <thead>
                                         <tr>
                                             <th>Merchant Name</th>
@@ -136,7 +136,6 @@ $result = callAPI("GET", $userToken, $url, false);
                                     </thead>
                                     <tbody>
                                         
-
                                         <?php
 
                                             foreach($result['Records'] as $user ) {
@@ -172,6 +171,15 @@ $result = callAPI("GET", $userToken, $url, false);
                                                             error_log($subs_amount);
 
                                                             $status = $subscription->status;
+                                                            if ($status == 'canceled'){
+                                                                $status = 'cancelled';
+                                                            }
+
+                                                            if ($subscription->pause_collection != null) {
+                                                                $status = 'paused';
+                                                            }
+
+                                                           
                                                             $joined_date = $subscription->created;
                                                             $customer_id = $subscription->customer;
                                                             error_log($status);
@@ -197,17 +205,6 @@ $result = callAPI("GET", $userToken, $url, false);
 
 
                                      ?>  
-
-
-
-                                            <!-- <td data-th="Merchant Name">Seller 1</td>
-                                            <td data-th="Merchant Email">mail@mail.com</td>
-                                            <td data-th="Status">Active</td>
-                                            <td data-th="Date Joined">25/07/2021</td>
-                                            <td data-th="Package Plan">Premium</td>
-                                            <td data-th="Billing Cycle">25/07/2021 - 25/08/2021</td> -->
-                                                                            
-                                                                       
                                         
                                     </tbody>
                                 </table>
@@ -215,28 +212,17 @@ $result = callAPI("GET", $userToken, $url, false);
 
                         </div>
 
-                        <nav class="text-center" id="pagination-userslist" aria-label="Page navigation">
-                            <div class="paginationjs">
-                                <div class="paginationjs-pages">
-                                    <ul>
-                                        <li class="paginationjs-prev disabled"><a>«</a></li>
-                                        <li class="paginationjs-page J-paginationjs-page active" data-num="1"><a>1</a></li>
-                                        <li class="paginationjs-page J-paginationjs-page" data-num="2"><a href="">2</a></li>
-                                        <li class="paginationjs-page J-paginationjs-page" data-num="3"><a href="">3</a></li>
-                                        <li class="paginationjs-page J-paginationjs-page" data-num="4"><a href="">4</a></li>
-                                        <li class="paginationjs-page J-paginationjs-page" data-num="5"><a href="">5</a></li>
-                                        <li class="paginationjs-ellipsis disabled"><a>...</a></li>
-                                        <li class="paginationjs-page paginationjs-last J-paginationjs-page" data-num="11"><a href="">11</a></li>
-                                        <li class="paginationjs-next J-paginationjs-next" data-num="2" title="Next page"><a href="">»</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </nav>
+                        <nav class="text-center" aria-label="Page navigation">
+                <ul class="pagination">
+                    <li class="previous-page"> <a href="javascript:void(0)" aria-label=Previous><span aria-hidden=true>&laquo;</span></a></li>
+                </ul>
+            </nav>
 
                 </div>
             </div>
 <!-- begin footer -->
 <script type="text/javascript" src="scripts/package.js"></script>
+<script type="text/javascript" src="scripts/jquery.dataTables.js"></script>
 
 <script>
 
@@ -245,8 +231,134 @@ jQuery(document).ready(function($) {
     $(".clickable-row").click(function() {
         window.location = $(this).data("href");
     });
+
+    $('#invoices').DataTable(
+        {
+        // "paging":   false,
+        // "order": [[ 1, "desc" ]],
+       "lengthMenu": [[20], [20]],
+       "ordering": false,
+        "info":     false,
+        "searching" :true,
+        // "pagingType": "simple_numbers"
+        // "columnDefs": [{ orderable: false, targets: [5] }]
+        }
+    );
+
+    waitForElement('#invoices_filter',function(){
+        $('#invoices_filter input').addClass('form-control');
+        $('#invoices_filter input').attr('placeholder', 'Search by merchant name, status or package plan');
+        $('#invoices_filter input').appendTo($('.group-search-flex span'));
+        
+        $('#keywords').hide();
+        $('#invoices_filter label').hide();
+
+      
+    });
+
+    waitForElement('#invoices_length',function(){
+         $('#invoices_length').css({ display: "none" });
+    });
+
+
+    waitForElement('#invoices_paginate',function(){
+         $('#invoices_paginate').css({ display: "none" });
+    });
+
+
+
+    
+
+});
+
+
+function waitForElement(elementPath, callBack){
+	window.setTimeout(function(){
+	if($(elementPath).length){
+			callBack(elementPath, $(elementPath));
+	}else{
+			waitForElement(elementPath, callBack);
+	}
+	},10)
+}
+</script>
+
+<script>
+var numRows = $("#invoices tbody tr").length;
+//  alert(numRows);
+var limitperpage = 20;
+$("#invoices tbody tr:gt(" + (limitperpage - 1) + ")").hide();
+var totalpages = Math.ceil(numRows / limitperpage);
+//  alert(totalpages);
+$(".pagination").append("<li class ='current-page active'><a href='javascript:void(0)'>" + 1 + "</a></li>");
+
+for (var i = 2; i <= totalpages; i++) {
+    $(".pagination").append("<li class='current-page'> <a href='javascript:void(0)'>" + i + "</a></li>");
+}
+$(".pagination").append("<li id='next-page'><a href='javascript:void(0)' aria-label=Next><span aria-hidden=true>&raquo;</span></a></li>");
+
+// Function that displays new items based on page number that was clicked
+$(".pagination li.current-page").on("click", function() {
+    // Check if page number that was clicked on is the current page that is being displayed
+    if ($(this).hasClass('active')) {
+        return false; // Return false (i.e., nothing to do, since user clicked on the page number that is already being displayed)
+    } else {
+        var currentPage = $(this).index(); // Get the current page number
+        $(".pagination li").removeClass('active'); // Remove the 'active' class status from the page that is currently being displayed
+        $(this).addClass('active'); // Add the 'active' class status to the page that was clicked on
+        $("#invoices tbody tr").hide(); // Hide all items in loop, this case, all the list groups
+        var grandTotal = limitperpage * currentPage; // Get the total number of items up to the page number that was clicked on
+
+        // Loop through total items, selecting a new set of items based on page number
+        for (var i = grandTotal - limitperpage; i < grandTotal; i++) {
+            $("#invoices tbody tr:eq(" + i + ")").show(); // Show items from the new page that was selected
+        }
+    }
+});
+
+// Function to navigate to the next page when users click on the next-page id (next page button)
+$("#next-page").on("click", function() {
+    var currentPage = $(".pagination li.active").index(); // Identify the current active page
+    // Check to make sure that navigating to the next page will not exceed the total number of pages
+    if (currentPage === totalpages) {
+        return false; // Return false (i.e., cannot navigate any further, since it would exceed the maximum number of pages)
+    } else {
+        currentPage++; // Increment the page by one
+        $(".pagination li").removeClass('active'); // Remove the 'active' class status from the current page
+        $("#invoices tbody tr").hide(); // Hide all items in the pagination loop
+        var grandTotal = limitperpage * currentPage; // Get the total number of items up to the page that was selected
+
+        // Loop through total items, selecting a new set of items based on page number
+        for (var i = grandTotal - limitperpage; i < grandTotal; i++) {
+            $("#invoices tbody tr:eq(" + i + ")").show(); // Show items from the new page that was selected
+        }
+
+        $(".pagination li.current-page:eq(" + (currentPage - 1) + ")").addClass('active'); // Make new page number the 'active' page
+    }
+});
+
+// Function to navigate to the previous page when users click on the previous-page id (previous page button)
+$("#previous-page").on("click", function() {
+    var currentPage = $(".pagination li.active").index(); // Identify the current active page
+    // Check to make sure that users is not on page 1 and attempting to navigating to a previous page
+    if (currentPage === 1) {
+        return false; // Return false (i.e., cannot navigate to a previous page because the current page is page 1)
+    } else {
+        currentPage--; // Decrement page by one
+        $(".pagination li").removeClass('active'); // Remove the 'activate' status class from the previous active page number
+        $("#invoices tbody tr").hide(); // Hide all items in the pagination loop
+        var grandTotal = limitperpage * currentPage; // Get the total number of items up to the page that was selected
+
+        // Loop through total items, selecting a new set of items based on page number
+        for (var i = grandTotal - limitperpage; i < grandTotal; i++) {
+            $("#invoices tbody tr:eq(" + i + ")").show(); // Show items from the new page that was selected
+        }
+
+        $(".pagination li.current-page:eq(" + (currentPage - 1) + ")").addClass('active'); // Make new page number the 'active' page
+    }
 });
 </script>
+
 
 <!-- end footer -->
 
