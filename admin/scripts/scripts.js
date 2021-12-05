@@ -146,7 +146,7 @@
 
         waitForElement("#no-more-tables", function ()
         {
-          appendColumns();
+        //  appendColumns();
         })
       
       
@@ -155,7 +155,7 @@
        {
         waitForElement("#no-more-tables", function ()
         {
-          appendColumns();
+         // appendColumns();
         })
       
        })
@@ -166,7 +166,7 @@
         if(e.which == 13) {
           waitForElement("#no-more-tables", function ()
         {
-          appendColumns();
+          //appendColumns();
         })
 
         }

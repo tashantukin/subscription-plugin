@@ -113,7 +113,7 @@ $discount_code = $invoice_details['discount'] != null ? strtoupper($invoice_deta
                                         <div class="subplan-value"><?php echo date('d/m/Y', $invoice_details['period_start'])  ?></div>
                                     </div>
                                     <div class="col-md-4">
-                                        <div class="subplan-label">Payment ID</div>
+                                        <div class="subplan-label">Payment Method</div>
                                         <div class="subplan-value">Visa</div>
                                     </div>
                                     <div class="clearfix"></div>
@@ -142,8 +142,9 @@ $discount_code = $invoice_details['discount'] != null ? strtoupper($invoice_deta
                                 </div>
                             </div>
                             <div class="sub-detail-row">
+                            <sup style="color:red">*Discount from Admin's Stripe account</sup>
                                 <div class="subplan-info-box">
-                                    <div class="pull-left subplan-value"><span class="subplan-label">Discount Code: </span><?php echo $discount_code ?></div>
+                                    <div class="pull-left subplan-value"><span class="subplan-label">Discount Code: </span><?php echo $discount_code != '' ? $discount_code : '-' ?></div>
                                     <div class="pull-right subplan-value">-USD $<?php echo $discount_amount ?></div>
                                     <div class="clearfix"></div>
                                 </div>
